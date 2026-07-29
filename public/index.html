@@ -739,6 +739,7 @@ let currentProType = 'gongpei';
 let currentChapterId = null;
 let currentLiveId = null;
 let currentPaperYear = null;
+let currentPaperCat = 'all'; // 'all' | '供配电' | '发输变电'
 let currentPaperId = null;
 let currentCategory = 'all';
 let currentLevel = 'all';
@@ -1109,68 +1110,114 @@ function openLiveDetail(id){
     </div>`;
 }
 
-// ============ 历年真题课件 ============
+// ============ 历年真题课件（供配电/发输变电分开显示） ============
 function renderPastPapers(){
   const app=document.getElementById('app');
-  let list=pastPapersData;
-  if(currentPaperYear) list=pastPapersData.filter(y=>y.year===currentPaperYear);
-  if(searchKw) list=list.filter(y=>y.papers.some(p=>(p.title||'').toLowerCase().includes(searchKw)||(p.desc||'').toLowerCase().includes(searchKw)||(p.type||'').toLowerCase().includes(searchKw)));
-
+  const totalYears = pastPapersData.length;
   const totalPapers = pastPapersData.reduce((s,y)=>s+y.papers.length,0);
   const gpPapers = pastPapersData.reduce((s,y)=>s+y.papers.filter(p=>p.category==='供配电').length,0);
   const fsPapers = pastPapersData.reduce((s,y)=>s+y.papers.filter(p=>p.category==='发输变电').length,0);
+  const gpDone = pastPapersData.reduce((s,y)=>s+y.papers.filter(p=>p.category==='供配电' && (progressMap['paper:'+p.id]==='done')).length,0);
+  const fsDone = pastPapersData.reduce((s,y)=>s+y.papers.filter(p=>p.category==='发输变电' && (progressMap['paper:'+p.id]==='done')).length,0);
   const years = pastPapersData.map(y=>y.year);
 
-  let body = list.map(y=>`
-    <div class="mb-6">
-      <div class="flex items-center gap-2 mb-3">
-        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-white font-bold text-sm">${y.year}</div>
-        <div>
-          <div class="font-bold text-slate-800">${y.year}年真题</div>
-          <div class="text-xs text-slate-400">${y.papers.length} 份试卷</div>
+  // 生成渲染：按类别分组
+  function buildSection(cat, catLabel, catColor, catBg, catIcon, catPaperCount, catDoneCount){
+    // 过滤类别（如果当前筛选了单个类别，则该部分按条件展示）
+    let sectionList = pastPapersData.map(y=> ({year:y.year, papers:y.papers.filter(p=>p.category===cat)}))
+      .filter(y=>y.papers.length>0);
+    if(currentPaperYear) sectionList = sectionList.filter(y=>y.year===currentPaperYear);
+    if(searchKw) sectionList = sectionList.filter(y=>y.papers.some(p=>(p.type||'').toLowerCase().includes(searchKw)||(p.desc||'').toLowerCase().includes(searchKw)||(p.videoTeacher||'').toLowerCase().includes(searchKw)));
+
+    const sectionBody = sectionList.map(y=>`
+      <div class="mb-4">
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br ${catBg} flex items-center justify-center text-white font-bold text-xs">${y.year}</div>
+          <div class="text-xs text-slate-500">${y.papers.length} 份试卷</div>
         </div>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-        ${y.papers.map(p=>paperCard(p)).join('')}
-      </div>
-    </div>`).join('');
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+          ${y.papers.map(p=>paperCard(p)).join('')}
+        </div>
+      </div>`).join('');
+
+    return `
+      <section class="mb-10">
+        <div class="flex items-center gap-3 mb-4 pb-3 border-b-2 ${catColor.replace('bg-','border-')} border-opacity-40">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br ${catBg} flex items-center justify-center text-2xl shadow-lg shadow-slate-200">${catIcon}</div>
+          <div class="flex-1">
+            <h3 class="text-lg font-bold text-slate-800">${catLabel} · 历年真题</h3>
+            <div class="text-xs text-slate-500">${sectionList.length} 个年份 · ${catPaperCount} 份试卷</div>
+          </div>
+          <div class="text-right">
+            <div class="text-2xl font-bold ${catColor.replace('bg-','text-')}">${catDoneCount}<span class="text-sm font-normal text-slate-400"> / ${catPaperCount}</span></div>
+            <div class="text-[10px] text-slate-400">已学完</div>
+          </div>
+        </div>
+        ${sectionBody || '<div class="text-center py-10 text-slate-400 text-sm border border-dashed border-slate-200 rounded-xl">暂无符合条件的试卷</div>'}
+      </section>`;
+  }
+
+  const showGp = currentPaperCat==='all' || currentPaperCat==='供配电';
+  const showFs = currentPaperCat==='all' || currentPaperCat==='发输变电';
 
   app.innerHTML=`
     <div class="fade-in">
-      <div class="bg-gradient-to-br from-amber-500 via-orange-500 to-rose-500 rounded-2xl p-6 text-white mb-5">
+      <!-- 统计头 -->
+      <div class="bg-gradient-to-br from-amber-500 via-orange-500 to-rose-500 rounded-2xl p-6 text-white mb-5 shadow-lg shadow-orange-100">
         <div class="flex items-center justify-between flex-wrap gap-3">
           <div>
             <h2 class="text-2xl font-bold mb-1">📚 历年真题课件</h2>
-            <p class="text-white/80 text-sm">2011-2024年 · 供配电/发输变电 双专业 · 含视频讲解+PDF下载</p>
+            <p class="text-white/80 text-sm">2011-2025年 · 供配电/发输变电 双专业分开展示 · 含视频讲解</p>
           </div>
-          <div class="grid grid-cols-3 gap-3 text-center">
-            <div class="bg-white/15 rounded-xl px-4 py-2">
-              <div class="text-xl font-bold">${pastPapersData.length}</div>
+          <div class="grid grid-cols-4 gap-3 text-center">
+            <div class="bg-white/15 rounded-xl px-4 py-2 backdrop-blur-sm">
+              <div class="text-xl font-bold">${totalYears}</div>
               <div class="text-xs text-white/70">年份覆盖</div>
             </div>
-            <div class="bg-white/15 rounded-xl px-4 py-2">
+            <div class="bg-white/15 rounded-xl px-4 py-2 backdrop-blur-sm">
               <div class="text-xl font-bold">${gpPapers}</div>
               <div class="text-xs text-white/70">供配电真题</div>
             </div>
-            <div class="bg-white/15 rounded-xl px-4 py-2">
+            <div class="bg-white/15 rounded-xl px-4 py-2 backdrop-blur-sm">
               <div class="text-xl font-bold">${fsPapers}</div>
               <div class="text-xs text-white/70">发输变电真题</div>
+            </div>
+            <div class="bg-white/15 rounded-xl px-4 py-2 backdrop-blur-sm">
+              <div class="text-xl font-bold">${gpDone+fsDone}<span class="text-xs opacity-70">/${totalPapers}</span></div>
+              <div class="text-xs text-white/70">已学完</div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="flex gap-2 flex-wrap text-xs mb-4 items-center">
-        <span class="text-slate-500">快速筛选：</span>
-        <button onclick="setPaperYear(null)" class="px-3 py-1.5 rounded-lg border ${!currentPaperYear?'bg-amber-500 text-white border-amber-500':'border-slate-200 hover:bg-slate-50'}">全部年份</button>
-        ${years.map(y=>`<button onclick="setPaperYear(${y})" class="px-3 py-1.5 rounded-lg border ${currentPaperYear===y?'bg-amber-500 text-white border-amber-500':'border-slate-200 hover:bg-slate-50'}">${y}</button>`).join('')}
-        ${currentPaperYear?`<button onclick="setPaperYear(null)" class="ml-2 px-3 py-1.5 rounded-lg border border-rose-200 text-rose-500 hover:bg-rose-50">✕ 清除筛选</button>`:''}
+      <!-- 筛选：专业 + 年份 -->
+      <div class="bg-white rounded-xl border border-slate-100 p-4 mb-5">
+        <div class="flex gap-2 flex-wrap text-xs mb-2 items-center">
+          <span class="text-slate-500 font-medium">📂 专业筛选：</span>
+          ${(['all','供配电','发输变电']).map(c=>{
+            const labels={all:'全部专业','供配电':'🏢 供配电（'+gpPapers+'份）','发输变电':'⚡ 发输变电（'+fsPapers+'份）'};
+            const active = currentPaperCat===c;
+            const cls = active ? (c==='供配电'?'bg-blue-500 text-white border-blue-500':(c==='发输变电'?'bg-indigo-500 text-white border-indigo-500':'bg-amber-500 text-white border-amber-500')) : 'border-slate-200 hover:bg-slate-50 text-slate-600';
+            return `<button onclick="setPaperCat('${c}')" class="px-3 py-1.5 rounded-lg border ${cls} font-medium transition-colors">${labels[c]}</button>`;
+          }).join('')}
+        </div>
+        <div class="flex gap-2 flex-wrap text-xs items-center">
+          <span class="text-slate-500 font-medium">📅 年份筛选：</span>
+          <button onclick="setPaperYear(null)" class="px-3 py-1.5 rounded-lg border ${!currentPaperYear?'bg-amber-500 text-white border-amber-500':'border-slate-200 hover:bg-slate-50'} font-medium">全部年份</button>
+          ${years.map(y=>`<button onclick="setPaperYear(${y})" class="px-3 py-1.5 rounded-lg border ${currentPaperYear===y?'bg-amber-500 text-white border-amber-500':'border-slate-200 hover:bg-slate-50'}">${y}</button>`).join('')}
+          ${(currentPaperYear||currentPaperCat!=='all'||searchKw)?`<button onclick="clearPaperFilter()" class="ml-2 px-3 py-1.5 rounded-lg border border-rose-200 text-rose-500 hover:bg-rose-50 font-medium">✕ 清除全部筛选</button>`:''}
+        </div>
       </div>
 
-      ${body || '<div class="text-center py-16 text-slate-400">暂无符合条件的真题</div>'}
+      ${showGp?buildSection('供配电','🏢 注册电气工程师（供配电）','bg-blue-500','from-blue-500 to-cyan-500','🏢',gpPapers,gpDone):''}
+      ${showFs?buildSection('发输变电','⚡ 注册电气工程师（发输变电）','bg-indigo-500','from-indigo-500 to-violet-500','⚡',fsPapers,fsDone):''}
+
+      ${(!showGp&&!showFs)?'<div class="text-center py-16 text-slate-400">暂无符合条件的真题</div>':''}
     </div>`;
 }
-function setPaperYear(y){currentPaperYear=y; searchKw=''; const s=document.getElementById('search'); if(s)s.value=''; renderPastPapers();}
+function setPaperYear(y){currentPaperYear=y; renderPastPapers();}
+function setPaperCat(c){currentPaperCat=c; renderPastPapers();}
+function clearPaperFilter(){currentPaperYear=null; currentPaperCat='all'; searchKw=''; const s=document.getElementById('search'); if(s)s.value=''; renderPastPapers();}
 function paperCard(p){
   const catColor = p.category==='供配电'?'bg-blue-500':'bg-indigo-500';
   const status = progressMap['paper:'+p.id]||'';
