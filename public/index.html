@@ -1231,36 +1231,23 @@ function openPaperDetail(id){
             </a>
           </div>
 
-          <!-- PDF真题对照 -->
-          <div class="bg-white rounded-xl border border-slate-100 overflow-hidden" id="pdfCard-${paper.id}">
-            <div class="p-3 border-b border-slate-100 bg-slate-50">
-              <h3 class="font-bold text-sm">📄 ${getPaperYear(id)}年${paper.category}${paper.time}${paper.type} · PDF对照</h3>
-            </div>
-            <div id="pdfWrap-${paper.id}" class="w-full" style="height:650px;">
-              <iframe id="pdfFrame-${paper.id}" src="${paper.pdfUrl}#toolbar=1&view=FitH" class="w-full h-full border-0"></iframe>
-            </div>
-          </div>
-
+          <!-- 学习笔记 -->
           <div class="bg-white rounded-xl border border-slate-100 p-4">
-            <h3 class="font-bold text-sm mb-3">试卷信息</h3>
-            <div class="grid grid-cols-2 gap-3 text-sm">
-              <div><span class="text-slate-400 text-xs">考试类别：</span><span>${escapeHtml(paper.category)}</span></div>
-              <div><span class="text-slate-400 text-xs">时段：</span><span>${escapeHtml(paper.time)}</span></div>
-              <div><span class="text-slate-400 text-xs">题型：</span><span>${escapeHtml(paper.type)}</span></div>
-              <div><span class="text-slate-400 text-xs">题量：</span><span>${escapeHtml(paper.questions)}</span></div>
-              <div><span class="text-slate-400 text-xs">视频讲师：</span><span>${escapeHtml(paper.videoTeacher)}</span></div>
-              <div><span class="text-slate-400 text-xs">时长：</span><span>${paper.duration} 分钟</span></div>
+            <div class="flex items-center justify-between mb-3">
+              <h3 class="font-bold text-sm">📝 ${getPaperYear(id)}年${paper.category}${paper.time}${paper.type} · 学习笔记</h3>
+              <div class="flex gap-2">
+                ${['planned','learning','done'].map(st=>{
+                  const labels={planned:'📋 计划',learning:'📖 学习中',done:'✅ 已学完'};
+                  const colors={planned:'border-slate-300 text-slate-600 hover:bg-slate-50',learning:'border-blue-500 text-blue-600 bg-blue-50',done:'border-emerald-500 text-emerald-600 bg-emerald-50'};
+                  const cur=status===st;
+                  return `<button onclick="setStatus('paper:${paper.id}','${st}')" class="text-xs px-2.5 py-1 rounded-lg border ${colors[st]} ${cur?'font-bold':''}">${labels[st]}</button>`;
+                }).join('')}
+              </div>
             </div>
-          </div>
-          <div class="bg-white rounded-xl border border-slate-100 p-4">
-            <h3 class="font-bold text-sm mb-3">学习状态</h3>
-            <div class="flex gap-2 flex-wrap">
-              ${['planned','learning','done'].map(st=>{
-                const labels={planned:'📋 计划学习',learning:'📖 学习中',done:'✅ 已学完'};
-                const colors={planned:'border-slate-300 text-slate-600 hover:bg-slate-50',learning:'border-blue-500 text-blue-600 bg-blue-50',done:'border-emerald-500 text-emerald-600 bg-emerald-50'};
-                const cur=status===st;
-                return `<button onclick="setStatus('paper:${paper.id}','${st}')" class="text-sm px-4 py-2 rounded-lg border ${colors[st]} ${cur?'font-bold':''}">${labels[st]}</button>`;
-              }).join('')}
+            <textarea id="noteArea" oninput="onNoteInput('paper:${paper.id}')" rows="16" placeholder="边听视频边记笔记：&#10;1. 记录解题思路和关键公式&#10;2. 标注易错点和规范依据&#10;3. 总结同类题的通用解法&#10;自动保存到本地浏览器。" class="w-full text-sm p-3 rounded-lg border border-slate-200 focus:border-blue-400 outline-none resize-y">${escapeHtml(notes)}</textarea>
+            <div class="text-[10px] text-slate-400 mt-1 flex justify-between">
+              <span id="noteStatus-paper:${paper.id}"></span>
+              <span>${notes.length} 字</span>
             </div>
           </div>
         </div>
@@ -1280,22 +1267,55 @@ function openPaperDetail(id){
               `).join('')}
             </div>
           </div>
-          <!-- 学习笔记 -->
+          <!-- 报考查询 -->
           <div class="bg-white rounded-xl border border-slate-100 p-4 sticky top-32">
-            <div class="flex items-center justify-between mb-2">
-              <h3 class="font-bold text-sm">📝 学习笔记</h3>
-            </div>
-            <textarea id="noteArea" oninput="onNoteInput('paper:${paper.id}')" rows="12" placeholder="记录真题解题思路、公式推导、易错点…&#10;自动保存到本地。" class="w-full text-sm p-3 rounded-lg border border-slate-200 focus:border-blue-400 outline-none resize-y">${escapeHtml(notes)}</textarea>
-            <div class="text-[10px] text-slate-400 mt-1 flex justify-between">
-              <span id="noteStatus-paper:${paper.id}"></span>
-              <span>${notes.length} 字</span>
-            </div>
-            <div class="mt-3 pt-3 border-t border-slate-100">
-              <div class="text-xs text-slate-500 mb-2">💡 备考建议</div>
-              <p class="text-xs text-slate-500 leading-relaxed">建议按年份从新到旧练习，先做当年真题检验水平，再对照视频讲解查漏补缺。重点关注最近3年的命题趋势。</p>
+            <h3 class="font-bold text-sm mb-3">📋 报考查询</h3>
+            <div class="space-y-2.5 text-sm">
+              <a href="http://www.cpta.com.cn" target="_blank" rel="noopener" class="flex items-center gap-2 p-2.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 transition-colors">
+                <span class="text-lg">🌐</span>
+                <div>
+                  <div class="font-medium">中国人事考试网</div>
+                  <div class="text-xs text-blue-500">报名入口 / 成绩查询</div>
+                </div>
+              </a>
+              <a href="https://www.mohurd.gov.cn" target="_blank" rel="noopener" class="flex items-center gap-2 p-2.5 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-700 transition-colors">
+                <span class="text-lg">🏛️</span>
+                <div>
+                  <div class="font-medium">住建部执业资格中心</div>
+                  <div class="text-xs text-slate-500">考试政策 / 注册管理</div>
+                </div>
+              </a>
+              <div class="p-2.5 rounded-lg bg-amber-50 text-amber-800">
+                <div class="font-medium text-xs mb-1">⏰ 2025年考试时间</div>
+                <div class="text-xs">预计 10月中旬（以官方通知为准）</div>
+              </div>
             </div>
           </div>
-        </div>
+          <!-- 考试指南 -->
+          <div class="bg-white rounded-xl border border-slate-100 p-4 sticky top-[28rem]">
+            <h3 class="font-bold text-sm mb-3">📖 考试指南</h3>
+            <div class="space-y-2 text-xs text-slate-600">
+              <div class="flex items-start gap-2">
+                <span class="text-amber-500 mt-0.5">•</span>
+                <span><b>考试分制：</b>上下午各3小时，满分200分，合格线约120分</span>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="text-amber-500 mt-0.5">•</span>
+                <span><b>专业知识：</b>单选题40道，考规范条文和基础概念</span>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="text-amber-500 mt-0.5">•</span>
+                <span><b>专业案例：</b>案例题25道选做，需写出计算过程</span>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="text-amber-500 mt-0.5">•</span>
+                <span><b>作答技巧：</b>案例题先选熟悉的章节，控制每题时间</span>
+              </div>
+              <div class="pt-2 border-t border-slate-100 mt-2">
+                <div class="text-xs text-slate-400">📌 建议携带：规范手册、计算器、手表</div>
+              </div>
+            </div>
+          </div>
       </div>
     </div>`;
 }
