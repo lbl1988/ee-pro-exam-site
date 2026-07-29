@@ -1234,21 +1234,20 @@ function openPaperDetail(id){
           <!-- PDF真题对照 -->
           <div class="bg-white rounded-xl border border-slate-100 overflow-hidden" id="pdfCard-${paper.id}">
             <div class="flex items-center justify-between p-3 border-b border-slate-100 bg-slate-50 flex-wrap gap-2">
-              <h3 class="font-bold text-sm">📄 PDF真题对照</h3>
+              <h3 class="font-bold text-sm">📄 ${getPaperYear(id)}年${paper.category}${paper.time}${paper.type} · PDF对照</h3>
               <div class="flex gap-2">
-                <button onclick="switchPdfViewer('${paper.id}','direct','${paper.pdfUrl}')" id="btn-direct-${paper.id}" class="text-xs px-2 py-1 rounded bg-white border border-slate-200 hover:bg-slate-50 font-medium">直接预览</button>
-                <button onclick="switchPdfViewer('${paper.id}','google','${paper.pdfUrl}')" id="btn-google-${paper.id}" class="text-xs px-2 py-1 rounded bg-white border border-slate-200 hover:bg-slate-50">Google预览</button>
-                <a href="${paper.pdfUrl}" target="_blank" rel="noopener" class="text-xs px-2 py-1 rounded bg-blue-50 text-blue-600 border border-blue-200 hover:bg-blue-100">新标签页打开</a>
+                <button onclick="switchPdfViewer('${paper.id}','google','${paper.pdfUrl}')" id="btn-google-${paper.id}" class="text-xs px-2 py-1 rounded bg-blue-50 border border-blue-300 font-medium">Google预览</button>
+                <button onclick="switchPdfViewer('${paper.id}','direct','${paper.pdfUrl}')" id="btn-direct-${paper.id}" class="text-xs px-2 py-1 rounded bg-white border border-slate-200 hover:bg-slate-50">直接预览</button>
               </div>
             </div>
-            <div id="pdfWrap-${paper.id}" class="w-full" style="height:520px;">
-              <iframe id="pdfFrame-${paper.id}" src="${paper.pdfUrl}" class="w-full h-full border-0" onerror="onPdfError('${paper.id}')"></iframe>
+            <div id="pdfWrap-${paper.id}" class="w-full" style="height:600px;">
+              <iframe id="pdfFrame-${paper.id}" src="https://docs.google.com/gview?embedded=1&url=${encodeURIComponent(paper.pdfUrl)}" class="w-full h-full border-0"></iframe>
             </div>
-            <div id="pdfFallback-${paper.id}" class="hidden p-6 text-center">
-              <div class="text-3xl mb-2">📄</div>
-              <p class="text-sm text-slate-600 mb-2">PDF 预览加载失败</p>
-              <p class="text-xs text-slate-400 mb-3">该网站可能禁止了 iframe 嵌入，请使用下方按钮打开</p>
-              <a href="${paper.pdfUrl}" target="_blank" rel="noopener" class="inline-flex items-center gap-1 px-4 py-2 rounded-lg bg-rose-600 text-white text-sm hover:bg-rose-700">📥 下载PDF真题</a>
+            <div id="pdfFallback-${paper.id}" class="hidden p-8 text-center">
+              <div class="text-4xl mb-3">📄</div>
+              <p class="text-sm text-slate-600 mb-2">PDF 预览暂时无法加载</p>
+              <p class="text-xs text-slate-400 mb-4">正在尝试直接预览方式…</p>
+              <button onclick="switchPdfViewer('${paper.id}','direct','${paper.pdfUrl}')" class="px-4 py-2 rounded-lg bg-blue-600 text-white text-sm hover:bg-blue-700">切换到直接预览</button>
             </div>
           </div>
 
