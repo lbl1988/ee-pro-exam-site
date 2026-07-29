@@ -54,6 +54,7 @@
     <button onclick="go('home')" class="tab-btn px-3 py-2 border-b-2 border-blue-600 text-blue-700 font-medium whitespace-nowrap" data-tab="home">首页</button>
     <button onclick="go('chapters')" class="tab-btn px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-slate-700 whitespace-nowrap" data-tab="chapters">章节知识</button>
     <button onclick="go('live')" class="tab-btn px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-slate-700 whitespace-nowrap" data-tab="live">2025直播</button>
+    <button onclick="go('papers')" class="tab-btn px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-slate-700 whitespace-nowrap" data-tab="papers">历年真题</button>
     <button onclick="go('manuals')" class="tab-btn px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-slate-700 whitespace-nowrap" data-tab="manuals">考试手册</button>
     <button onclick="go('notes')" class="tab-btn px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-slate-700 whitespace-nowrap" data-tab="notes">学习笔记</button>
   </nav>
@@ -61,7 +62,7 @@
 
 <main id="app" class="max-w-7xl mx-auto px-4 py-6"></main>
 
-<footer class="text-center text-xs text-slate-400 py-6">注册电气工程师专业考试学习平台 · 供配电 & 发输变电 · 2025年课程</footer>
+<footer class="text-center text-xs text-slate-400 py-6">注册电气工程师专业考试学习平台 · 供配电 & 发输变电 · 2025课程 · 历年真题</footer>
 
 <script>
 // ============ 供配电专业章节（含详细内容） ============
@@ -606,6 +607,37 @@ const liveCourses = [
   { id: 'fs-18', title: '发输变电 · 照明规范解读与案例', level: 'basic', category: '发输变电', teacher: '张工教育', duration: 140, bvid: 'BV12ShozPE8N', page: 2, description: '照明规范：NB/T 35008-2023水力发电厂照明设计规范，利用系数法、LPD计算及限值、应急照明设计。', scheduled: '2025-09-01' },
   { id: 'fs-19', title: '发输变电 · 厂用电精讲1（负荷统计）', level: 'advanced', category: '发输变电', teacher: '张工教育', duration: 134, bvid: 'BV12ShozPE8N', page: 5, description: '发电厂厂用电：负荷计算及容量统计、电动机启动电压校验、厂电压调整、厂用电短路电流计算。', scheduled: '2025-09-20' },
   { id: 'fs-20', title: '发输变电 · 过电压绝缘配合提高拓展课', level: 'sprint', category: '发输变电', teacher: '张工教育', duration: 139, bvid: 'BV12ShozPE8N', page: 6, description: '过电压真题拓展：雷电侵入波保护、避雷器保护距离计算、MOA额定电压选择、绝缘配合海拔修正。', scheduled: '2025-10-01' },
+
+  // ==================== 供配电历年真题（12门） ====================
+  { id: 'gp-z1', title: '2024年供配电案例真题讲解（完整）', level: 'sprint', category: '供配电', teacher: '冯胤清', duration: 66, bvid: 'BV1gnDNYaEqj', page: 1, description: '2024年注册电气工程师供配电专业案例真题完整讲解（上午+下午），含短路电流、负荷计算、保护接地、防雷等全部题型。', scheduled: '2024-11-05' },
+  { id: 'gp-z2', title: '2024年供配电真题 · 导体电缆/短路电流/照明', level: 'sprint', category: '供配电', teacher: '张工教育', duration: 53, bvid: 'BV1MkSTYwEKK', page: 1, description: '2024年供配电案例真题精讲：导体电缆选型、短路电流计算、照明系统考点解析。', scheduled: '2024-11-20' },
+  { id: 'gp-z3', title: '2024年供配电真题 · 继电保护板块', level: 'sprint', category: '供配电', teacher: '张工教育', duration: 28, bvid: 'BV1AqmXYLEnj', page: 1, description: '2024年供配电专业案例真题：继电保护板块专题讲解，含保护配置、整定计算、灵敏度校验。', scheduled: '2024-12-01' },
+  { id: 'gp-z4', title: '2024年供配电真题 · 直流系统/建筑智能化', level: 'sprint', category: '供配电', teacher: '张工教育', duration: 54, bvid: 'BV1fFSMYUEt5', page: 1, description: '2024年供配电真题：直流系统、建筑智能化板块真题讲解，含蓄电池容量计算、火灾报警系统等。', scheduled: '2024-12-05' },
+  { id: 'gp-z5', title: '2024年供配电真题 · 负荷计算/安全/高压电器', level: 'sprint', category: '供配电', teacher: '张工教育', duration: 55, bvid: 'BV1JfSTYnE67', page: 1, description: '2024年供配电真题精讲：负荷计算、安全防护、高低压电器选择、电气布置综合解析。', scheduled: '2024-11-25' },
+  { id: 'gp-z6', title: '2023年供配电案例真题讲解', level: 'sprint', category: '供配电', teacher: '冯胤清', duration: 59, bvid: 'BV1gnDNYaEqj', page: 2, description: '2023年注册电气工程师供配电专业案例真题讲解（上午+下午），含主接线、短路、接地、防雷等。', scheduled: '2024-05-10' },
+  { id: 'gp-z7', title: '2022年（补考）供配电案例真题讲解', level: 'sprint', category: '供配电', teacher: '冯胤清', duration: 77, bvid: 'BV1gnDNYaEqj', page: 3, description: '2022年补考供配电专业案例真题讲解，事故停电分析、低压系统接地、短路电流计算。', scheduled: '2023-12-15' },
+  { id: 'gp-z8', title: '2022年供配电案例真题 · 上午', level: 'sprint', category: '供配电', teacher: '冯胤清', duration: 109, bvid: 'BV1gnDNYaEqj', page: 4, description: '2022年供配电案例真题上午场完整讲解，共25题，涵盖供配电系统设计核心考点。', scheduled: '2023-08-20' },
+  { id: 'gp-z9', title: '2021年注电供配电真题 · 上午+下午', level: 'sprint', category: '供配电', teacher: '冯胤清', duration: 135, bvid: 'BV1gnDNYaEqj', page: 5, description: '2021年供配电专业案例真题完整讲解（上午1h15min + 下午1h），含安全、短路、负荷、保护等。', scheduled: '2022-11-01' },
+  { id: 'gp-z10', title: '2020年注电供配电真题 · 上午+下午', level: 'sprint', category: '供配电', teacher: '冯胤清', duration: 68, bvid: 'BV1gnDNYaEqj', page: 6, description: '2020年供配电案例真题讲解（上午40min + 下午28min），含防雷、接地、电缆选型等。', scheduled: '2022-03-15' },
+  { id: 'gp-z11', title: '2019年注电供配电真题 · 上午+下午', level: 'sprint', category: '供配电', teacher: '冯胤清', duration: 99, bvid: 'BV1gnDNYaEqj', page: 7, description: '2019年供配电案例真题讲解（上午53min + 下午1h25min），涵盖所有核心考点。', scheduled: '2021-09-10' },
+  { id: 'gp-z12', title: '2018年注电供配电真题 · 上午+下午', level: 'sprint', category: '供配电', teacher: '冯胤清', duration: 170, bvid: 'BV1gnDNYaEqj', page: 8, description: '2018年供配电案例真题讲解（上午1h53min + 下午分两段共2h），含主接线、短路、保护、接地等。', scheduled: '2021-03-20' },
+
+  // ==================== 发输变电历年真题（12门） ====================
+  { id: 'fs-z1', title: '2024年发输变电案例真题 · 1-5题', level: 'sprint', category: '发输变电', teacher: 'Wasy电堂', duration: 49, bvid: 'BV1i2wJz6EX6', page: 1, description: '2024年发输变电专业案例真题上午1-5题讲解，涵盖主接线、设备选择等基础考点。', scheduled: '2025-03-10' },
+  { id: 'fs-z2', title: '2024年发输变电案例真题 · 6-8题', level: 'sprint', category: '发输变电', teacher: 'Wasy电堂', duration: 51, bvid: 'BV1qQcSzRExP', page: 1, description: '2024年发输变电案例真题6-8题讲解，含短路电流计算、继电保护配置。', scheduled: '2025-03-13' },
+  { id: 'fs-z3', title: '2024年发输变电案例真题 · 9-12题', level: 'sprint', category: '发输变电', teacher: 'Wasy电堂', duration: 14, bvid: 'BV1d2wJzzEHq', page: 1, description: '2024年发输变电案例真题9-12题讲解，含导体电缆、接地计算。', scheduled: '2025-03-14' },
+  { id: 'fs-z4', title: '2024年发输变电案例真题 · 13-16题', level: 'sprint', category: '发输变电', teacher: 'Wasy电堂', duration: 30, bvid: 'BV1EVwxz4Ejo', page: 1, description: '2024年发输变电案例真题13-16题讲解，含线路设计、防雷接地。', scheduled: '2025-03-15' },
+  { id: 'fs-z5', title: '2024年发输变电案例真题 · 17-20题', level: 'sprint', category: '发输变电', teacher: 'Wasy电堂', duration: 42, bvid: 'BV1d2wJzzEdP', page: 1, description: '2024年发输变电案例真题17-20题讲解，含厂用电、新能源发电。', scheduled: '2025-03-16' },
+  { id: 'fs-z6', title: '2024年发输变电案例真题 · 21-25题', level: 'sprint', category: '发输变电', teacher: 'Wasy电堂', duration: 27, bvid: 'BV1oQcSz9Eh9', page: 1, description: '2024年发输变电案例真题21-25题讲解，含综合案例分析。', scheduled: '2025-03-17' },
+  { id: 'fs-z7', title: '2024年发输变电案例真题 · 下午1-4题', level: 'sprint', category: '发输变电', teacher: 'Wasy电堂', duration: 25, bvid: 'BV1P3wuz9Eq2', page: 1, description: '2024年发输变电下午案例真题1-4题讲解。', scheduled: '2025-03-18' },
+  { id: 'fs-z8', title: '2024年发输变电案例真题 · 下午5-8题', level: 'sprint', category: '发输变电', teacher: 'Wasy电堂', duration: 35, bvid: 'BV1P3wuz9Eb8', page: 1, description: '2024年发输变电下午案例真题5-8题讲解。', scheduled: '2025-03-19' },
+  { id: 'fs-z9', title: '2024年发输变电案例真题 · 下午9-11题', level: 'sprint', category: '发输变电', teacher: 'Wasy电堂', duration: 42, bvid: 'BV1Stw2zqEmb', page: 1, description: '2024年发输变电下午案例真题9-11题讲解。', scheduled: '2025-03-20' },
+  { id: 'fs-z10', title: '2024年发输变电案例真题 · 下午12-15题', level: 'sprint', category: '发输变电', teacher: 'Wasy电堂', duration: 46, bvid: 'BV1Hyw2zdEEW', page: 1, description: '2024年发输变电下午案例真题12-15题讲解。', scheduled: '2025-03-21' },
+  { id: 'fs-z11', title: '2024年发输变电案例真题 · 下午16-19题', level: 'sprint', category: '发输变电', teacher: 'Wasy电堂', duration: 42, bvid: 'BV1JewBzhETY', page: 1, description: '2024年发输变电下午案例真题16-19题讲解。', scheduled: '2025-03-22' },
+  { id: 'fs-z12', title: '2024年发输变电案例真题 · 下午20-30题', level: 'sprint', category: '发输变电', teacher: 'Wasy电堂', duration: 84, bvid: 'BV1JewBzhEjR', page: 1, description: '2024年发输变电下午案例真题20-30题讲解。', scheduled: '2025-03-23' },
+  { id: 'fs-z13', title: '2024年发输变电案例真题 · 下午31-40题', level: 'sprint', category: '发输变电', teacher: 'Wasy电堂', duration: 87, bvid: 'BV1LAX5BAEqx', page: 1, description: '2024年发输变电下午案例真题31-40题讲解（压轴题）。', scheduled: '2025-03-24' },
+  { id: 'fs-z14', title: '2024年发输变电真题讲解 · 导体电缆/无功补偿', level: 'sprint', category: '发输变电', teacher: '张工教育', duration: 27, bvid: 'BV1gbmoYTErT', page: 1, description: '2024年发输变电专业案例真题：导体电缆选型、无功补偿、短路电流计算、照明考点。', scheduled: '2024-11-15' },
+  { id: 'fs-z15', title: '2023年发输变电案例解析 · 上午', level: 'sprint', category: '发输变电', teacher: '清风注电', duration: 90, bvid: 'BV1NNsmzQEc7', page: 50, description: '2023年发输变电专业案例解析（上）：光伏发电站设计、主接线、短路计算、设备选型等。', scheduled: '2024-06-15' },
 ];
 
 // ============ 考试手册 ============
@@ -636,13 +668,80 @@ const standardManuals = [
   { name: 'DL/T 5222-2021', title: '导体和电器选择设计规程', category: '发输变电' },
 ];
 
-// ============ 状态与工具 ============
+// ============ 历年真题课件（2013-2024） ============
+const pastPapersData = [
+  { year: 2024, papers: [
+    { id: 'p24-gp-am', category: '供配电', time: '上午', type: '专业知识', questions: '单选题 40题', duration: 180, videoBv: 'BV1gnDNYaEqj', videoPage: 1, videoTeacher: '冯胤清', pdfUrl: 'https://mjineng.hqqt.com/ziliao/class_dq/0/18048/', desc: '2024年供配电专业知识上午真题，含基础理论与工程应用' },
+    { id: 'p24-gp-pm', category: '供配电', time: '下午', type: '专业案例', questions: '案例 25题/选做', duration: 180, videoBv: 'BV1gnDNYaEqj', videoPage: 1, videoTeacher: '冯胤清', pdfUrl: 'https://mjineng.hqqt.com/ziliao/class_dq/0/18048/', desc: '2024年供配电专业案例下午真题，含短路、负荷、保护、接地等' },
+    { id: 'p24-fs-am', category: '发输变电', time: '上午', type: '专业知识', questions: '单选题 40题', duration: 180, videoBv: 'BV1i2wJz6EX6', videoPage: 1, videoTeacher: 'Wasy电堂', pdfUrl: 'https://mjineng.hqqt.com/ziliao/class_dq/0/18048/', desc: '2024年发输变电专业知识上午真题' },
+    { id: 'p24-fs-pm', category: '发输变电', time: '下午', type: '专业案例', questions: '案例 选做25题', duration: 180, videoBv: 'BV1P3wuz9Eq2', videoPage: 1, videoTeacher: 'Wasy电堂', pdfUrl: 'https://mjineng.hqqt.com/ziliao/class_dq/0/18048/', desc: '2024年发输变电专业案例下午真题' },
+  ]},
+  { year: 2023, papers: [
+    { id: 'p23-gp-am', category: '供配电', time: '上午', type: '专业知识', questions: '单选题 40题', duration: 180, videoBv: 'BV1gnDNYaEqj', videoPage: 2, videoTeacher: '冯胤清', pdfUrl: 'https://mjineng.hqqt.com/ziliao/dq/931101.html', desc: '2023年供配电专业知识上午真题' },
+    { id: 'p23-gp-pm', category: '供配电', time: '下午', type: '专业案例', questions: '案例 选做25题', duration: 180, videoBv: 'BV1gnDNYaEqj', videoPage: 2, videoTeacher: '冯胤清', pdfUrl: 'https://mjineng.hqqt.com/ziliao/dq/931101.html', desc: '2023年供配电案例下午真题' },
+    { id: 'p23-fs-am', category: '发输变电', time: '上午', type: '专业知识', questions: '单选题 40题', duration: 180, videoBv: 'BV1NNsmzQEc7', videoPage: 50, videoTeacher: '清风注电', pdfUrl: 'https://mjineng.hqqt.com/ziliao/dq/929145.html', desc: '2023年发输变电专业知识上午真题' },
+    { id: 'p23-fs-pm', category: '发输变电', time: '下午', type: '专业案例', questions: '案例 选做25题', duration: 180, videoBv: 'BV1NNsmzQEc7', videoPage: 50, videoTeacher: '清风注电', pdfUrl: 'https://mjineng.hqqt.com/ziliao/dq/929145.html', desc: '2023年发输变电案例下午真题（光伏发电站设计）' },
+  ]},
+  { year: 2022, papers: [
+    { id: 'p22-gp-am', category: '供配电', time: '上午', type: '专业知识', questions: '单选题 40题', duration: 180, videoBv: 'BV1gnDNYaEqj', videoPage: 4, videoTeacher: '冯胤清', pdfUrl: 'https://mjineng.hqqt.com/ziliao/class_dq/0/18048/', desc: '2022年供配电专业知识上午真题' },
+    { id: 'p22-gp-pm', category: '供配电', time: '下午', type: '专业案例', questions: '案例 选做25题', duration: 180, videoBv: 'BV1gnDNYaEqj', videoPage: 4, videoTeacher: '冯胤清', pdfUrl: 'https://mjineng.hqqt.com/ziliao/class_dq/0/18048/', desc: '2022年供配电案例下午真题' },
+    { id: 'p22b-gp', category: '供配电', time: '补考', type: '专业案例', questions: '案例 选做25题', duration: 180, videoBv: 'BV1gnDNYaEqj', videoPage: 3, videoTeacher: '冯胤清', pdfUrl: 'https://mjineng.hqqt.com/ziliao/class_dq/0/18048/', desc: '2022年补考供配电案例真题' },
+  ]},
+  { year: 2021, papers: [
+    { id: 'p21-gp-am', category: '供配电', time: '上午', type: '专业知识', questions: '单选题 40题', duration: 180, videoBv: 'BV1gnDNYaEqj', videoPage: 5, videoTeacher: '冯胤清', pdfUrl: 'https://mjineng.hqqt.com/ziliao/class_dq/0/18048/', desc: '2021年供配电专业知识上午真题' },
+    { id: 'p21-gp-pm', category: '供配电', time: '下午', type: '专业案例', questions: '案例 选做25题', duration: 180, videoBv: 'BV1gnDNYaEqj', videoPage: 5, videoTeacher: '冯胤清', pdfUrl: 'https://mjineng.hqqt.com/ziliao/class_dq/0/18048/', desc: '2021年供配电案例下午真题' },
+  ]},
+  { year: 2020, papers: [
+    { id: 'p20-gp-am', category: '供配电', time: '上午', type: '专业知识', questions: '单选题 40题', duration: 180, videoBv: 'BV1gnDNYaEqj', videoPage: 6, videoTeacher: '冯胤清', pdfUrl: 'https://mjineng.hqqt.com/ziliao/class_dq/0/18048/', desc: '2020年供配电专业知识上午真题' },
+    { id: 'p20-gp-pm', category: '供配电', time: '下午', type: '专业案例', questions: '案例 选做25题', duration: 180, videoBv: 'BV1gnDNYaEqj', videoPage: 6, videoTeacher: '冯胤清', pdfUrl: 'https://mjineng.hqqt.com/ziliao/class_dq/0/18048/', desc: '2020年供配电案例下午真题' },
+  ]},
+  { year: 2019, papers: [
+    { id: 'p19-gp-am', category: '供配电', time: '上午', type: '专业知识', questions: '单选题 40题', duration: 180, videoBv: 'BV1gnDNYaEqj', videoPage: 7, videoTeacher: '冯胤清', pdfUrl: 'https://mjineng.hqqt.com/ziliao/class_dq/0/18048/', desc: '2019年供配电专业知识上午真题' },
+    { id: 'p19-gp-pm', category: '供配电', time: '下午', type: '专业案例', questions: '案例 选做25题', duration: 180, videoBv: 'BV1gnDNYaEqj', videoPage: 7, videoTeacher: '冯胤清', pdfUrl: 'https://mjineng.hqqt.com/ziliao/class_dq/0/18048/', desc: '2019年供配电案例下午真题' },
+  ]},
+  { year: 2018, papers: [
+    { id: 'p18-gp-am', category: '供配电', time: '上午', type: '专业知识', questions: '单选题 40题', duration: 180, videoBv: 'BV1gnDNYaEqj', videoPage: 8, videoTeacher: '冯胤清', pdfUrl: 'https://mjineng.hqqt.com/ziliao/class_dq/0/18048/', desc: '2018年供配电专业知识上午真题' },
+    { id: 'p18-gp-am2', category: '供配电', time: '上午', type: '勘误讲解', questions: '16题勘误', duration: 4, videoBv: 'BV1gnDNYaEqj', videoPage: 8, videoTeacher: '冯胤清', pdfUrl: 'https://mjineng.hqqt.com/ziliao/class_dq/0/18048/', desc: '2018年供配电上午真题勘误（16题答案修正）' },
+    { id: 'p18-gp-pm1', category: '供配电', time: '下午', type: '专业案例(1-25)', questions: '案例 1-25题', duration: 106, videoBv: 'BV1gnDNYaEqj', videoPage: 9, videoTeacher: '冯胤清', pdfUrl: 'https://mjineng.hqqt.com/ziliao/class_dq/0/18048/', desc: '2018年供配电案例下午1-25题' },
+    { id: 'p18-gp-pm2', category: '供配电', time: '下午', type: '专业案例(36-40)', questions: '案例 36-40题', duration: 84, videoBv: 'BV1gnDNYaEqj', videoPage: 10, videoTeacher: '冯胤清', pdfUrl: 'https://mjineng.hqqt.com/ziliao/class_dq/0/18048/', desc: '2018年供配电案例下午36-40题' },
+  ]},
+  { year: 2017, papers: [
+    { id: 'p17-gp-am', category: '供配电', time: '上午', type: '专业知识', questions: '单选题 40题', duration: 180, videoBv: 'BV1gnDNYaEqj', videoPage: 11, videoTeacher: '冯胤清', pdfUrl: 'https://mjineng.hqqt.com/ziliao/class_dq/0/18048/', desc: '2017年供配电专业知识上午真题（三次讲解精选）' },
+    { id: 'p17-gp-pm', category: '供配电', time: '下午', type: '专业案例', questions: '案例 选做25题', duration: 180, videoBv: 'BV1gnDNYaEqj', videoPage: 11, videoTeacher: '冯胤清', pdfUrl: 'https://mjineng.hqqt.com/ziliao/class_dq/0/18048/', desc: '2017年供配电案例下午真题' },
+  ]},
+  { year: 2016, papers: [
+    { id: 'p16-gp-am', category: '供配电', time: '上午', type: '专业知识', questions: '单选题 40题', duration: 180, videoBv: 'BV1gnDNYaEqj', videoPage: 12, videoTeacher: '冯胤清', pdfUrl: 'https://mjineng.hqqt.com/ziliao/class_dq/0/18048/', desc: '2016年供配电专业知识上午真题' },
+    { id: 'p16-gp-pm', category: '供配电', time: '下午', type: '专业案例', questions: '案例 选做25题', duration: 180, videoBv: 'BV1gnDNYaEqj', videoPage: 12, videoTeacher: '冯胤清', pdfUrl: 'https://mjineng.hqqt.com/ziliao/class_dq/0/18048/', desc: '2016年供配电案例下午真题' },
+  ]},
+  { year: 2014, papers: [
+    { id: 'p14-gp-am', category: '供配电', time: '上午', type: '专业知识', questions: '单选题 40题', duration: 180, videoBv: 'BV1gnDNYaEqj', videoPage: 13, videoTeacher: '冯胤清', pdfUrl: 'https://mjineng.hqqt.com/ziliao/class_dq/0/18048/', desc: '2014年供配电专业知识上午真题' },
+    { id: 'p14-gp-pm', category: '供配电', time: '下午', type: '专业案例', questions: '案例 选做25题', duration: 180, videoBv: 'BV1gnDNYaEqj', videoPage: 13, videoTeacher: '冯胤清', pdfUrl: 'https://mjineng.hqqt.com/ziliao/class_dq/0/18048/', desc: '2014年供配电案例下午真题' },
+  ]},
+  { year: 2013, papers: [
+    { id: 'p13-gp-am', category: '供配电', time: '上午', type: '专业知识', questions: '单选题 40题', duration: 180, videoBv: 'BV1gnDNYaEqj', videoPage: 14, videoTeacher: '冯胤清', pdfUrl: 'https://mjineng.hqqt.com/ziliao/class_dq/0/18048/', desc: '2013年供配电专业知识上午真题' },
+    { id: 'p13-gp-pm1', category: '供配电', time: '下午', type: '专业案例(第一次)', questions: '案例 选做25题', duration: 180, videoBv: 'BV1gnDNYaEqj', videoPage: 14, videoTeacher: '冯胤清', pdfUrl: 'https://mjineng.hqqt.com/ziliao/class_dq/0/18048/', desc: '2013年供配电案例下午真题（第一次讲解）' },
+    { id: 'p13-gp-pm2', category: '供配电', time: '下午', type: '专业案例(第二次)', questions: '案例 选做25题', duration: 180, videoBv: 'BV1gnDNYaEqj', videoPage: 15, videoTeacher: '冯胤清', pdfUrl: 'https://mjineng.hqqt.com/ziliao/class_dq/0/18048/', desc: '2013年供配电案例下午真题（第二次讲解，补充部分题）' },
+  ]},
+  { year: 2012, papers: [
+    { id: 'p12-gp-am', category: '供配电', time: '上午', type: '专业知识', questions: '单选题 40题', duration: 180, videoBv: 'BV1gnDNYaEqj', videoPage: 16, videoTeacher: '冯胤清', pdfUrl: 'https://mjineng.hqqt.com/ziliao/class_dq/0/18048/', desc: '2012年供配电专业知识上午真题' },
+    { id: 'p12-gp-pm', category: '供配电', time: '下午', type: '专业案例', questions: '案例 选做25题', duration: 180, videoBv: 'BV1gnDNYaEqj', videoPage: 16, videoTeacher: '冯胤清', pdfUrl: 'https://mjineng.hqqt.com/ziliao/class_dq/0/18048/', desc: '2012年供配电案例下午真题' },
+  ]},
+  { year: 2011, papers: [
+    { id: 'p11-gp-am', category: '供配电', time: '上午', type: '专业知识', questions: '单选题 40题', duration: 180, videoBv: 'BV1gnDNYaEqj', videoPage: 17, videoTeacher: '冯胤清', pdfUrl: 'https://mjineng.hqqt.com/ziliao/class_dq/0/18048/', desc: '2011年供配电专业知识上午真题' },
+    { id: 'p11-gp-pm', category: '供配电', time: '下午', type: '专业案例', questions: '案例 选做25题', duration: 180, videoBv: 'BV1gnDNYaEqj', videoPage: 17, videoTeacher: '冯胤清', pdfUrl: 'https://mjineng.hqqt.com/ziliao/class_dq/0/18048/', desc: '2011年供配电案例下午真题' },
+  ]},
+];
+
+// ============ 考试手册 ============
 let currentView = 'home';
 let currentProType = 'gongpei';
 let currentChapterId = null;
 let currentLiveId = null;
+let currentPaperYear = null;
+let currentPaperId = null;
 let currentCategory = 'all';
 let currentLevel = 'all';
+let currentZhenti = false;
 let searchKw = '';
 let myNotes = {};
 let progressMap = {};
@@ -677,6 +776,7 @@ function go(view){
   if(view==='home') renderHome();
   else if(view==='chapters') renderChapters();
   else if(view==='live') renderLive();
+  else if(view==='papers') renderPastPapers();
   else if(view==='manuals') renderManuals();
   else if(view==='notes') renderNotes();
 }
@@ -693,15 +793,17 @@ function renderHome(){
         <p class="text-blue-100 text-sm mb-4">2025年课程 · 供配电 & 发输变电 · 权威机构直播 · 全程陪跑</p>
         <div class="flex gap-3 flex-wrap">
           <button onclick="go('live')" class="px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg text-sm font-medium">📺 观看直播</button>
-          <button onclick="go('chapters')" class="px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg text-sm font-medium">📚 章节知识</button>
-          <button onclick="go('manuals')" class="px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg text-sm font-medium">📖 考试手册</button>
+          <button onclick="go('papers')" class="px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg text-sm font-medium">📚 历年真题</button>
+          <button onclick="go('chapters')" class="px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg text-sm font-medium">📖 章节知识</button>
+          <button onclick="go('manuals')" class="px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg text-sm font-medium">📋 考试手册</button>
         </div>
       </div>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
         <div class="bg-white rounded-xl p-4 border border-slate-100"><div class="text-2xl font-bold text-blue-600">${gongpeiChapters.length}</div><div class="text-xs text-slate-500">供配电章节</div></div>
         <div class="bg-white rounded-xl p-4 border border-slate-100"><div class="text-2xl font-bold text-indigo-600">${fasongChapters.length}</div><div class="text-xs text-slate-500">发输变电章节</div></div>
         <div class="bg-white rounded-xl p-4 border border-slate-100"><div class="text-2xl font-bold text-emerald-600">${liveCourses.length}</div><div class="text-xs text-slate-500">直播课程</div></div>
-        <div class="bg-white rounded-xl p-4 border border-slate-100"><div class="text-2xl font-bold text-amber-600">${doneCount}</div><div class="text-xs text-slate-500">已学完</div></div>
+        <div class="bg-white rounded-xl p-4 border border-slate-100"><div class="text-2xl font-bold text-amber-600">${pastPapersData.length}</div><div class="text-xs text-slate-500">真题年份</div></div>
+        <div class="bg-white rounded-xl p-4 border border-slate-100"><div class="text-2xl font-bold text-rose-600">${doneCount}</div><div class="text-xs text-slate-500">已学完</div></div>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div onclick="go('chapters')" class="card-hover bg-white rounded-2xl border border-slate-100 p-5 cursor-pointer">
@@ -717,6 +819,13 @@ function renderHome(){
             <div><div class="font-bold text-slate-800">2025直播课程</div><div class="text-xs text-slate-400">基础班/精讲班/冲刺班 · B站直接播放</div></div>
           </div>
           <p class="text-xs text-slate-500">张工教育、珞研、仟帆、纳米教育等权威机构课程，嵌入B站播放器直接观看</p>
+        </div>
+        <div onclick="go('papers')" class="card-hover bg-white rounded-2xl border border-slate-100 p-5 cursor-pointer">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500 to-rose-500 flex items-center justify-center text-white text-2xl">📚</div>
+            <div><div class="font-bold text-slate-800">历年真题</div><div class="text-xs text-slate-400">2011-2024年 · 视频讲解+PDF下载</div></div>
+          </div>
+          <p class="text-xs text-slate-500">冯胤清、Wasy电堂、张工教育、清风注电等真题讲解，覆盖供配电/发输变电双专业</p>
         </div>
         <div onclick="go('manuals')" class="card-hover bg-white rounded-2xl border border-slate-100 p-5 cursor-pointer">
           <div class="flex items-center gap-3 mb-3">
@@ -805,15 +914,20 @@ function renderLive(){
   const levelColors={basic:'level-basic',advanced:'level-advanced',sprint:'level-sprint'};
   const gpList=liveCourses.filter(c=>c.category==='供配电');
   const fsList=liveCourses.filter(c=>c.category==='发输变电');
+  const zhentiList=liveCourses.filter(c=>c.id.startsWith('gp-z')||c.id.startsWith('fs-z'));
   let filtered=liveCourses;
   if(currentCategory!=='all') filtered=filtered.filter(c=>c.category===currentCategory);
   if(currentLevel!=='all') filtered=filtered.filter(c=>c.level===currentLevel);
+  if(currentZhenti) filtered=filtered.filter(c=>c.id.startsWith('gp-z')||c.id.startsWith('fs-z'));
   if(searchKw) filtered=filtered.filter(c=>c.title.toLowerCase().includes(searchKw)||c.teacher.toLowerCase().includes(searchKw));
   const gpDone=gpList.filter(c=>progressMap['live:'+c.id]==='done').length;
   const fsDone=fsList.filter(c=>progressMap['live:'+c.id]==='done').length;
 
   function sectionHeader(title, subtitle, tagCount, tagDone, accent, catVal){
-    const active = currentCategory===catVal;
+    const active = catVal && currentCategory===catVal;
+    const filterBtn = catVal
+      ? `<button onclick="setFilter('category','${catVal}')" class="px-3 py-1 rounded-full border ${active?`${accent.replace('bg-','bg-').replace('500','600')} text-white border-transparent`:'border-slate-200 text-slate-500 hover:bg-slate-50'}">${active?'✓ 只看':'只看'}</button>`
+      : `<button onclick="setZhenti(true)" class="px-3 py-1 rounded-full border ${currentZhenti?`${accent.replace('bg-','bg-').replace('500','600')} text-white border-transparent`:'border-slate-200 text-slate-500 hover:bg-slate-50'}">${currentZhenti?'✓ 只看真题':'只看真题'}</button>`;
     return `
       <div class="flex items-center justify-between mb-3 mt-2 flex-wrap gap-2">
         <div class="flex items-center gap-2">
@@ -823,22 +937,30 @@ function renderLive(){
         </div>
         <div class="flex items-center gap-3 text-xs">
           <span class="text-slate-500">共 <b class="text-slate-800">${tagCount}</b> 门课，已学完 <b class="text-emerald-600">${tagDone}</b> 门</span>
-          <button onclick="setFilter('category','${catVal}')" class="px-3 py-1 rounded-full border ${active?`${accent.replace('bg-','bg-').replace('500','600')} text-white border-transparent`:'border-slate-200 text-slate-500 hover:bg-slate-50'}">${active?'✓ 只看':'只看'}</button>
+          ${filterBtn}
         </div>
       </div>`;
   }
 
   let body='';
-  if(currentCategory==='all' && currentLevel==='all' && !searchKw){
-    // 分两个专业区块展示
+  if(currentCategory==='all' && currentLevel==='all' && !currentZhenti && !searchKw){
+    const zhentiGp = zhentiList.filter(c=>c.category==='供配电');
+    const zhentiFs = zhentiList.filter(c=>c.category==='发输变电');
+    const zhentiGpDone = zhentiGp.filter(c=>progressMap['live:'+c.id]==='done').length;
+    const zhentiFsDone = zhentiFs.filter(c=>progressMap['live:'+c.id]==='done').length;
+    // 分三个区块展示
     body = `
       ${sectionHeader('供配电专业课程', '20门 · 基础班/精讲班/冲刺班 三级分层', gpList.length, gpDone, 'bg-blue-500', '供配电')}
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-        ${gpList.map(c=>liveCard(c,levels,levelColors)).join('')}
+        ${gpList.filter(c=>!c.id.startsWith('gp-z')).map(c=>liveCard(c,levels,levelColors)).join('')}
       </div>
       ${sectionHeader('发输变电专业课程', '20门 · 入门/真题/精讲全覆盖', fsList.length, fsDone, 'bg-indigo-500', '发输变电')}
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+        ${fsList.filter(c=>!c.id.startsWith('fs-z')).map(c=>liveCard(c,levels,levelColors)).join('')}
+      </div>
+      ${sectionHeader('📚 真题精讲合集', `${zhentiList.length}门 · 2018-2024年真题按年精讲 · 含上午/下午全套`, zhentiList.length, zhentiGpDone+zhentiFsDone, 'bg-amber-500', null)}
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        ${fsList.map(c=>liveCard(c,levels,levelColors)).join('')}
+        ${zhentiList.map(c=>liveCard(c,levels,levelColors)).join('')}
       </div>`;
   } else {
     body = filtered.length===0
@@ -852,9 +974,9 @@ function renderLive(){
         <div class="flex items-center justify-between flex-wrap gap-3">
           <div>
             <h2 class="text-2xl font-bold mb-1">📺 2025直播课程</h2>
-            <p class="text-white/80 text-sm">供配电 20 门 · 发输变电 20 门 · 张工教育 / 珞研 / 仟帆 / 工控圈 / 纳米 五大机构</p>
+            <p class="text-white/80 text-sm">供配电 ${gpList.length} 门 · 发输变电 ${fsList.length} 门 · 真题精讲 ${zhentiList.length} 门 · 六大机构联授</p>
           </div>
-          <div class="grid grid-cols-3 gap-3 text-center">
+          <div class="grid grid-cols-4 gap-3 text-center">
             <div class="bg-white/15 rounded-xl px-4 py-2">
               <div class="text-xl font-bold">${gpList.length}</div>
               <div class="text-xs text-white/70">供配电课程</div>
@@ -862,6 +984,10 @@ function renderLive(){
             <div class="bg-white/15 rounded-xl px-4 py-2">
               <div class="text-xl font-bold">${fsList.length}</div>
               <div class="text-xs text-white/70">发输变电课程</div>
+            </div>
+            <div class="bg-white/15 rounded-xl px-4 py-2">
+              <div class="text-xl font-bold">${zhentiList.length}</div>
+              <div class="text-xs text-white/70">真题精讲</div>
             </div>
             <div class="bg-white/15 rounded-xl px-4 py-2">
               <div class="text-xl font-bold">${gpDone+fsDone}</div>
@@ -875,22 +1001,26 @@ function renderLive(){
         <button onclick="setFilter('category','all')" class="px-3 py-1.5 rounded-lg border ${currentCategory==='all'?'bg-blue-600 text-white border-blue-600':'border-slate-200 hover:bg-slate-50'}">全部专业</button>
         <button onclick="setFilter('category','供配电')" class="px-3 py-1.5 rounded-lg border ${currentCategory==='供配电'?'bg-blue-600 text-white border-blue-600':'border-slate-200 hover:bg-slate-50'}">🔵 供配电（${gpList.length}门）</button>
         <button onclick="setFilter('category','发输变电')" class="px-3 py-1.5 rounded-lg border ${currentCategory==='发输变电'?'bg-indigo-600 text-white border-indigo-600':'border-slate-200 hover:bg-slate-50'}">🟣 发输变电（${fsList.length}门）</button>
+        <button onclick="setZhenti(!currentZhenti)" class="px-3 py-1.5 rounded-lg border ${currentZhenti?'bg-amber-500 text-white border-amber-500':'border-slate-200 hover:bg-slate-50'}">📚 只看真题（${zhentiList.length}门）</button>
         <button onclick="setFilter('level','all')" class="ml-2 px-3 py-1.5 rounded-lg border ${currentLevel==='all'?'bg-slate-700 text-white border-slate-700':'border-slate-200 hover:bg-slate-50'}">全部级别</button>
         <button onclick="setFilter('level','basic')" class="px-3 py-1.5 rounded-lg border ${currentLevel==='basic'?'bg-sky-600 text-white border-sky-600':'border-slate-200 hover:bg-slate-50'}">基础班</button>
         <button onclick="setFilter('level','advanced')" class="px-3 py-1.5 rounded-lg border ${currentLevel==='advanced'?'bg-purple-600 text-white border-purple-600':'border-slate-200 hover:bg-slate-50'}">精讲班</button>
         <button onclick="setFilter('level','sprint')" class="px-3 py-1.5 rounded-lg border ${currentLevel==='sprint'?'bg-amber-600 text-white border-amber-600':'border-slate-200 hover:bg-slate-50'}">冲刺班</button>
-        ${(currentCategory!=='all'||currentLevel!=='all'||searchKw)?`<button onclick="resetLiveFilters()" class="ml-2 px-3 py-1.5 rounded-lg border border-rose-200 text-rose-500 hover:bg-rose-50">✕ 清除筛选</button>`:''}
+        ${(currentCategory!=='all'||currentLevel!=='all'||currentZhenti||searchKw)?`<button onclick="resetLiveFilters()" class="ml-2 px-3 py-1.5 rounded-lg border border-rose-200 text-rose-500 hover:bg-rose-50">✕ 清除筛选</button>`:''}
       </div>
 
       ${body}
     </div>`;
 }
-function resetLiveFilters(){currentCategory='all';currentLevel='all';searchKw='';const s=document.getElementById('search');if(s)s.value='';renderLive();}
+function resetLiveFilters(){currentCategory='all';currentLevel='all';currentZhenti=false;searchKw='';const s=document.getElementById('search');if(s)s.value='';renderLive();}
 
+function setZhenti(v){currentZhenti=v; renderLive();}
 function setFilter(type,val){if(type==='category') currentCategory=val; else if(type==='level') currentLevel=val; renderLive();}
 function liveCard(c,levels,levelColors){
   const status=progressMap['live:'+c.id]||'';
   const statusBadge=status==='done'?'<span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-700">✓ 已学完</span>':status==='learning'?'<span class="text-[10px] px-1.5 py-0.5 rounded bg-blue-100 text-blue-700">● 学习中</span>':'';
+  const isZhenti=c.id.startsWith('gp-z')||c.id.startsWith('fs-z');
+  const zhentiBadge=isZhenti?'<span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-100 text-amber-700">📚 真题</span>':'';
   const duration=c.duration?`${Math.floor(c.duration/60)}分`:'';
   return `
     <div class="card-hover bg-white rounded-xl border border-slate-100 overflow-hidden cursor-pointer" onclick="openLiveDetail('${c.id}')">
@@ -900,13 +1030,14 @@ function liveCard(c,levels,levelColors){
           <div class="text-white/60 text-xs">${escapeHtml(c.teacher)}</div>
         </div>
         <div class="absolute bottom-2 right-2 text-white text-xs bg-black/60 px-2 py-0.5 rounded">${duration}</div>
-        <div class="absolute top-2 left-2 text-[10px] px-2 py-0.5 rounded ${levelColors[c.level]||'bg-slate-100 text-slate-600'}">${levels[c.level]||c.level}</div>
+        <div class="absolute top-2 left-2 text-[10px] px-2 py-0.5 rounded ${levelColors[c.level]||'bg-slate-100 text-slate-600'}">${isZhenti?'📚 真题':(levels[c.level]||c.level)}</div>
       </div>
       <div class="p-4">
         <div class="text-sm font-medium text-slate-800 line-clamp-2 mb-1">${escapeHtml(c.title)}</div>
         <div class="flex items-center gap-2 text-xs text-slate-500 mb-2 flex-wrap">
           <span>👨‍🏫 ${escapeHtml(c.teacher)}</span>
           <span class="px-1.5 py-0.5 bg-slate-100 rounded">${escapeHtml(c.category)}</span>
+          ${zhentiBadge}
           ${statusBadge}
         </div>
         <p class="text-xs text-slate-400 line-clamp-2">${escapeHtml(c.description)}</p>
@@ -977,6 +1108,175 @@ function openLiveDetail(id){
     </div>`;
 }
 
+// ============ 历年真题课件 ============
+function renderPastPapers(){
+  const app=document.getElementById('app');
+  let list=pastPapersData;
+  if(currentPaperYear) list=pastPapersData.filter(y=>y.year===currentPaperYear);
+  if(searchKw) list=list.filter(y=>y.papers.some(p=>(p.title||'').toLowerCase().includes(searchKw)||(p.desc||'').toLowerCase().includes(searchKw)||(p.type||'').toLowerCase().includes(searchKw)));
+
+  const totalPapers = pastPapersData.reduce((s,y)=>s+y.papers.length,0);
+  const gpPapers = pastPapersData.reduce((s,y)=>s+y.papers.filter(p=>p.category==='供配电').length,0);
+  const fsPapers = pastPapersData.reduce((s,y)=>s+y.papers.filter(p=>p.category==='发输变电').length,0);
+  const years = pastPapersData.map(y=>y.year);
+
+  let body = list.map(y=>`
+    <div class="mb-6">
+      <div class="flex items-center gap-2 mb-3">
+        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-white font-bold text-sm">${y.year}</div>
+        <div>
+          <div class="font-bold text-slate-800">${y.year}年真题</div>
+          <div class="text-xs text-slate-400">${y.papers.length} 份试卷</div>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+        ${y.papers.map(p=>paperCard(p)).join('')}
+      </div>
+    </div>`).join('');
+
+  app.innerHTML=`
+    <div class="fade-in">
+      <div class="bg-gradient-to-br from-amber-500 via-orange-500 to-rose-500 rounded-2xl p-6 text-white mb-5">
+        <div class="flex items-center justify-between flex-wrap gap-3">
+          <div>
+            <h2 class="text-2xl font-bold mb-1">📚 历年真题课件</h2>
+            <p class="text-white/80 text-sm">2011-2024年 · 供配电/发输变电 双专业 · 含视频讲解+PDF下载</p>
+          </div>
+          <div class="grid grid-cols-3 gap-3 text-center">
+            <div class="bg-white/15 rounded-xl px-4 py-2">
+              <div class="text-xl font-bold">${pastPapersData.length}</div>
+              <div class="text-xs text-white/70">年份覆盖</div>
+            </div>
+            <div class="bg-white/15 rounded-xl px-4 py-2">
+              <div class="text-xl font-bold">${gpPapers}</div>
+              <div class="text-xs text-white/70">供配电真题</div>
+            </div>
+            <div class="bg-white/15 rounded-xl px-4 py-2">
+              <div class="text-xl font-bold">${fsPapers}</div>
+              <div class="text-xs text-white/70">发输变电真题</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex gap-2 flex-wrap text-xs mb-4 items-center">
+        <span class="text-slate-500">快速筛选：</span>
+        <button onclick="setPaperYear(null)" class="px-3 py-1.5 rounded-lg border ${!currentPaperYear?'bg-amber-500 text-white border-amber-500':'border-slate-200 hover:bg-slate-50'}">全部年份</button>
+        ${years.map(y=>`<button onclick="setPaperYear(${y})" class="px-3 py-1.5 rounded-lg border ${currentPaperYear===y?'bg-amber-500 text-white border-amber-500':'border-slate-200 hover:bg-slate-50'}">${y}</button>`).join('')}
+        ${currentPaperYear?`<button onclick="setPaperYear(null)" class="ml-2 px-3 py-1.5 rounded-lg border border-rose-200 text-rose-500 hover:bg-rose-50">✕ 清除筛选</button>`:''}
+      </div>
+
+      ${body || '<div class="text-center py-16 text-slate-400">暂无符合条件的真题</div>'}
+    </div>`;
+}
+function setPaperYear(y){currentPaperYear=y; searchKw=''; const s=document.getElementById('search'); if(s)s.value=''; renderPastPapers();}
+function paperCard(p){
+  const catColor = p.category==='供配电'?'bg-blue-500':'bg-indigo-500';
+  const status = progressMap['paper:'+p.id]||'';
+  const statusBadge = status==='done'?'<span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-700">✓ 已学完</span>':'';
+  return `
+    <div class="card-hover bg-white rounded-xl border border-slate-100 p-4 cursor-pointer" onclick="openPaperDetail('${p.id}')">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="text-[10px] px-2 py-0.5 rounded ${catColor} text-white">${escapeHtml(p.category)}</span>
+        <span class="text-[10px] px-2 py-0.5 bg-slate-100 text-slate-600 rounded">${escapeHtml(p.time)}</span>
+        ${statusBadge}
+      </div>
+      <div class="text-sm font-medium text-slate-800 mb-1">${escapeHtml(p.type)}</div>
+      <div class="text-xs text-slate-500 mb-2">${escapeHtml(p.questions)}</div>
+      <div class="flex items-center justify-between text-xs text-slate-400">
+        <span>🎬 ${escapeHtml(p.videoTeacher)} · 讲解</span>
+        <span>${p.duration}分钟</span>
+      </div>
+    </div>`;
+}
+function openPaperDetail(id){
+  let paper=null;
+  for(const y of pastPapersData){
+    const found=y.papers.find(p=>p.id===id);
+    if(found){paper=found; break;}
+  }
+  if(!paper) return;
+  currentPaperId=id;
+  const app=document.getElementById('app');
+  const notes=myNotes['paper:'+paper.id]||'';
+  const status=progressMap['paper:'+paper.id]||'';
+  const embedUrl=biliEmbedUrl(paper.videoBv,paper.videoPage);
+  const pageUrl=biliPageUrl(paper.videoBv,paper.videoPage);
+  const catColor = paper.category==='供配电'?'bg-blue-500':'bg-indigo-500';
+  app.innerHTML=`
+    <div class="fade-in">
+      <button onclick="go('papers')" class="text-sm text-slate-500 hover:text-amber-600 mb-3">← 返回真题列表</button>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        <div class="lg:col-span-2 space-y-4">
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-xs px-2 py-0.5 rounded ${catColor} text-white">${escapeHtml(paper.category)}</span>
+              <span class="text-xs px-2 py-0.5 bg-slate-100 text-slate-600 rounded">${escapeHtml(paper.time)}</span>
+              <span class="text-xs px-2 py-0.5 bg-amber-100 text-amber-700 rounded">📅 ${getPaperYear(id)}年</span>
+            </div>
+            <h2 class="text-lg font-bold">${escapeHtml(paper.type)}</h2>
+            <div class="text-xs text-slate-500 mt-1">${escapeHtml(paper.desc)}</div>
+          </div>
+          <div class="bg-slate-900 rounded-xl overflow-hidden">
+            <div class="aspect-video w-full">
+              <iframe src="${embedUrl}" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="w-full h-full"></iframe>
+            </div>
+          </div>
+          <div class="flex gap-2 flex-wrap">
+            <a href="${pageUrl}" target="_blank" rel="noopener" class="inline-flex items-center gap-1 px-4 py-2 rounded-lg bg-blue-600 text-white text-sm hover:bg-blue-700">
+              <span>🔗</span> 前往B站观看（备用链接）
+            </a>
+            <a href="${paper.pdfUrl}" target="_blank" rel="noopener" class="inline-flex items-center gap-1 px-4 py-2 rounded-lg bg-rose-600 text-white text-sm hover:bg-rose-700">
+              <span>📥</span> 下载PDF真题
+            </a>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-100 p-4">
+            <h3 class="font-bold text-sm mb-3">试卷信息</h3>
+            <div class="grid grid-cols-2 gap-3 text-sm">
+              <div><span class="text-slate-400 text-xs">考试类别：</span><span>${escapeHtml(paper.category)}</span></div>
+              <div><span class="text-slate-400 text-xs">时段：</span><span>${escapeHtml(paper.time)}</span></div>
+              <div><span class="text-slate-400 text-xs">题型：</span><span>${escapeHtml(paper.type)}</span></div>
+              <div><span class="text-slate-400 text-xs">题量：</span><span>${escapeHtml(paper.questions)}</span></div>
+              <div><span class="text-slate-400 text-xs">视频讲师：</span><span>${escapeHtml(paper.videoTeacher)}</span></div>
+              <div><span class="text-slate-400 text-xs">时长：</span><span>${paper.duration} 分钟</span></div>
+            </div>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-100 p-4">
+            <h3 class="font-bold text-sm mb-3">学习状态</h3>
+            <div class="flex gap-2 flex-wrap">
+              ${['planned','learning','done'].map(st=>{
+                const labels={planned:'📋 计划学习',learning:'📖 学习中',done:'✅ 已学完'};
+                const colors={planned:'border-slate-300 text-slate-600 hover:bg-slate-50',learning:'border-blue-500 text-blue-600 bg-blue-50',done:'border-emerald-500 text-emerald-600 bg-emerald-50'};
+                const cur=status===st;
+                return `<button onclick="setStatus('paper:${paper.id}','${st}')" class="text-sm px-4 py-2 rounded-lg border ${colors[st]} ${cur?'font-bold':''}">${labels[st]}</button>`;
+              }).join('')}
+            </div>
+          </div>
+        </div>
+        <div class="lg:col-span-1">
+          <div class="bg-white rounded-xl border border-slate-100 p-4 sticky top-32">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="font-bold text-sm">📝 学习笔记</h3>
+            </div>
+            <textarea id="noteArea" oninput="onNoteInput('paper:${paper.id}')" rows="12" placeholder="记录真题解题思路、公式推导、易错点…&#10;自动保存到本地。" class="w-full text-sm p-3 rounded-lg border border-slate-200 focus:border-blue-400 outline-none resize-y">${escapeHtml(notes)}</textarea>
+            <div class="text-[10px] text-slate-400 mt-1 flex justify-between">
+              <span id="noteStatus-paper:${paper.id}"></span>
+              <span>${notes.length} 字</span>
+            </div>
+            <div class="mt-3 pt-3 border-t border-slate-100">
+              <div class="text-xs text-slate-500 mb-2">💡 备考建议</div>
+              <p class="text-xs text-slate-500 leading-relaxed">建议按年份从新到旧练习，先做当年真题检验水平，再对照视频讲解查漏补缺。重点关注最近3年的命题趋势。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+function getPaperYear(id){
+  const m=id.match(/^p(\d+)/);
+  return m?('20'+m[1]):'';
+}
+
 // ============ 考试手册 ============
 function renderManuals(){
   const app=document.getElementById('app');
@@ -1034,8 +1334,8 @@ function renderNotes(){
       <h2 class="text-xl font-bold mb-4">我的学习笔记 <span class="text-sm text-slate-400 font-normal">（${filtered.length} 条）</span></h2>
       ${filtered.length===0?`<div class="text-center py-16 text-slate-400">还没有笔记，去章节知识或直播课程中边学边记笔记吧</div>`:
         `<div class="space-y-2">${filtered.map(([k,v])=>{
-          const label=k.startsWith('chapter:')?'📚 章节':k.startsWith('live:')?'🎬 课程':'📝';
-          const title=k.replace('chapter:','').replace('live:','');
+          const label=k.startsWith('chapter:')?'📚 章节':k.startsWith('live:')?'🎬 课程':k.startsWith('paper:')?'📚 真题':'📝';
+          const title=k.replace('chapter:','').replace('live:','').replace('paper:','');
           return `<div class="bg-white rounded-xl border border-slate-100 p-4 cursor-pointer hover:border-blue-200" onclick="jumpToNote('${k}')">
             <div class="flex items-center gap-2 mb-1">
               <span class="text-xs">${label}</span>
@@ -1050,6 +1350,7 @@ function jumpToNote(key){
   const [type,id]=key.split(':');
   if(type==='chapter') openChapter(id);
   else if(type==='live') openLiveDetail(id);
+  else if(type==='paper') openPaperDetail(id);
 }
 
 // ============ 笔记自动保存 ============
@@ -1071,6 +1372,7 @@ function setStatus(key,status){
   toast('学习状态已更新：'+({planned:'计划学习',learning:'学习中',done:'已学完'}[status]),'success');
   if(currentView==='chapters') renderChapterDetail();
   else if(currentView==='live'){if(currentLiveId) openLiveDetail(currentLiveId); else renderLive();}
+  else if(currentView==='papers'){if(currentPaperId) openPaperDetail(currentPaperId); else renderPastPapers();}
 }
 
 // ============ 启动 ============
