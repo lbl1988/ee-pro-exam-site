@@ -561,23 +561,51 @@ content: `<h3>一、电力系统规划</h3>
 },
 ];
 
-// ============ 直播课程 ============
+// ============ 直播课程（供配电 20 门 + 发输变电 20 门） ============
 const liveCourses = [
-  { id: 'lc-1', title: '2025供配电专业精讲班 · 全套', level: 'basic', category: '供配电', teacher: '纳米教育', duration: 3150, bvid: 'BV1wgwKeEE5P', page: 1, description: '2025年注册电气工程师供配电专业精讲班，涵盖所有章节知识点，系统讲解配四、50217、50054等核心规范。', scheduled: '2025-01-01' },
-  { id: 'lc-2', title: '2025供配电专业精讲班 · XZ', level: 'basic', category: '供配电', teacher: 'XZ教育', duration: 5100, bvid: 'BV1w6w3eAEdh', page: 1, description: '供配电专业精讲班，含电气布置讲解、智能化、短路电流计算、照明等核心章节。', scheduled: '2025-01-16' },
-  { id: 'lc-3', title: '供配电专业精讲课 · 短路电流计算', level: 'advanced', category: '供配电', teacher: '张工教育', duration: 120, bvid: 'BV1xedbYBECE', page: 1, description: '供配电专业短路电流计算：短路电流基本概念、峰值电流计算、直流分量分析，实用计算方法。', scheduled: '2025-09-01' },
-  { id: 'lc-4', title: '供配电专业精讲课 · 传动基础', level: 'advanced', category: '供配电', teacher: '张工教育', duration: 150, bvid: 'BV1hm41zwEtu', page: 1, description: '电气传动基础：直流电机调速原理、变流电路、整流变压器、晶闸管变流器直流调速系统。', scheduled: '2025-10-13' },
-  { id: 'lc-5', title: '供配电专业精讲课 · 电动机选择', level: 'advanced', category: '供配电', teacher: '张工教育', duration: 180, bvid: 'BV13uxTzDEcH', page: 1, description: '传动知识点：电动机类型、机械特性、电机选择及容量校验、常用机械公式。', scheduled: '2025-10-05' },
-  { id: 'lc-6', title: '供配电专业 · 安全精讲课', level: 'basic', category: '供配电', teacher: '珞研教育', duration: 120, bvid: 'BV1WBo5YYEmq', page: 1, description: '安全章节精讲：接触电压分析、50054低压配电设计规范、13870安全标准等。', scheduled: '2025-04-14' },
-  { id: 'lc-7', title: '供配电专业 · 过电压入门', level: 'basic', category: '供配电', teacher: '珞研教育', duration: 100, bvid: 'BV1VaCBYmEZY', page: 1, description: '过电压入门班：雷电过电压、操作过电压、工频过电压、谐振过电压基本概念。', scheduled: '2024-12-24' },
-  { id: 'lc-8', title: '供配电专业 · 建筑智能化精讲', level: 'advanced', category: '供配电', teacher: '珞研教育', duration: 125, bvid: 'BV1Hd5hzjEXC', page: 1, description: '建筑智能化精讲：火灾报警系统、综合布线、安防监控、建筑设备监控等。', scheduled: '2025-03-18' },
-  { id: 'lc-9', title: '供配电专业 · 电缆GB50217精讲', level: 'advanced', category: '供配电', teacher: '仟帆教育', duration: 120, bvid: 'BV1mtdLYNEVN', page: 1, description: '电缆设计选择：GB50217-2018电力工程电缆设计标准详解，载流量计算、防火阻燃。', scheduled: '2025-06-01' },
-  { id: 'lc-10', title: '供配电专业 · 传动精讲', level: 'advanced', category: '供配电', teacher: '仟帆教育', duration: 150, bvid: 'BV1mtdLYNEVN', page: 2, description: '电气传动系统：交直流电动机起动、调速、制动方式及计算，PLC应用。', scheduled: '2025-06-15' },
-  { id: 'lc-11', title: '发输变电专业精讲班 · 全套', level: 'basic', category: '发输变电', teacher: '西伯利亚土豆酱', duration: 4800, bvid: 'BV1NNsmzQEc7', page: 1, description: '发输变电专业全套精讲课：主接线、配电装置、短路电流、线路、接地、继电保护、设备选择、厂用电等。', scheduled: '2025-11-09' },
-  { id: 'lc-12', title: '发输变电专业 · 电气参数计算', level: 'advanced', category: '发输变电', teacher: '西伯利亚土豆酱', duration: 140, bvid: 'BV1WGuCziE43', page: 1, description: '输电线路电气参数计算：电阻、电抗、电纳、电导计算方法，正序负序零序参数。', scheduled: '2025-07-15' },
-  { id: 'lc-13', title: '发输变电专业 · 新能源发电', level: 'sprint', category: '发输变电', teacher: '张工教育', duration: 120, bvid: 'BV12ShozPE8N', page: 1, description: '新能源发电：风力发电、光伏发电原理与电气系统设计，2025年新增考点。', scheduled: '2025-08-30' },
-  { id: 'lc-14', title: '发输变电专业 · 导体电缆精讲', level: 'advanced', category: '发输变电', teacher: '张工教育', duration: 145, bvid: 'BV1sUt1zsE4r', page: 1, description: '导体与电缆：经济电流密度、载流量校验、电缆选择、架空线设计。', scheduled: '2025-08-09' },
-  { id: 'lc-15', title: '发输变电专业 · 照明规范解读', level: 'basic', category: '发输变电', teacher: '张工教育', duration: 140, bvid: 'BV12ShozPE8N', page: 2, description: '照明设计规范：NB/T 35008-2023水力发电厂照明设计规范，照度计算、LPD计算。', scheduled: '2025-09-01' },
+  // ==================== 供配电专业（20门） ====================
+  { id: 'gp-1', title: '2025供配电专业精讲班 · 全套', level: 'basic', category: '供配电', teacher: '纳米教育', duration: 3150, bvid: 'BV1wgwKeEE5P', page: 1, description: '2025年注册电气工程师供配电专业精讲班，涵盖所有章节知识点，系统讲解配四、50217、50054等核心规范。', scheduled: '2025-01-01' },
+  { id: 'gp-2', title: '2025供配电专业精讲班 · XZ', level: 'basic', category: '供配电', teacher: 'XZ教育', duration: 5100, bvid: 'BV1w6w3eAEdh', page: 1, description: '供配电专业精讲班，含电气布置讲解、智能化、短路电流计算、照明等核心章节。', scheduled: '2025-01-16' },
+  { id: 'gp-3', title: '供配电 · 安全精讲课（珞研25版）', level: 'basic', category: '供配电', teacher: '珞研教育', duration: 120, bvid: 'BV1WBo5YYEmq', page: 1, description: '安全章节精讲：接触电压分析、GB50054低压配电设计规范、GB/T 13870.1安全标准、电击防护措施。', scheduled: '2025-04-14' },
+  { id: 'gp-4', title: '供配电 · 短路电流基本概念', level: 'basic', category: '供配电', teacher: '张工教育', duration: 165, bvid: 'BV1YURqYTEsC', page: 1, description: '短路电流入门：短路电流涉及的主要规范和手册、实用短路电流计算知识框架、三相三绕组变压器标幺值计算。', scheduled: '2025-03-20' },
+  { id: 'gp-5', title: '供配电 · 短路电流计算高压系统', level: 'advanced', category: '供配电', teacher: '张工教育', duration: 148, bvid: 'BV13rRkY7EJ7', page: 1, description: '高压系统短路电流计算：标幺值法、有名值法、元器件阻抗计算、系统及变压器标幺值换算。', scheduled: '2025-04-01' },
+  { id: 'gp-6', title: '供配电 · 短路电流峰值电流计算', level: 'advanced', category: '供配电', teacher: '张工教育', duration: 120, bvid: 'BV1xedbYBECE', page: 1, description: '短路电流峰值电流、短路电流的直流分量、三相短路电流峰值，考试重点公式与案例。', scheduled: '2025-09-01' },
+  { id: 'gp-7', title: '供配电 · 负荷计算知识点精讲', level: 'advanced', category: '供配电', teacher: '张工教育', duration: 136, bvid: 'BV1AZ421J7XT', page: 1, description: '负荷计算精讲：需要系数法、利用系数法、单相负荷换算、无功补偿容量计算、同时系数。', scheduled: '2025-05-10' },
+  { id: 'gp-8', title: '供配电 · 供配电系统与电力负荷', level: 'basic', category: '供配电', teacher: '张工教育', duration: 118, bvid: 'BV1T4oyYpE4F', page: 1, description: '电力负荷分级、负荷分类、民用建筑负荷特点、消防用电负荷等级判定、一级二级负荷供电要求。', scheduled: '2025-02-20' },
+  { id: 'gp-9', title: '供配电 · 直流系统精讲', level: 'advanced', category: '供配电', teacher: '张工教育', duration: 130, bvid: 'BV1T4oyYpE4F', page: 2, description: '直流系统：网络接线方式、蓄电池容量计算、充电装置额定电流及模块配置N+1冗余。', scheduled: '2025-03-24' },
+  { id: 'gp-10', title: '供配电 · 防雷过电压精讲课（分类与措施）', level: 'advanced', category: '供配电', teacher: '张工教育', duration: 132, bvid: 'BV1uqtezPEyn', page: 1, description: '防雷分类、防雷措施、防雷装置、建筑物防雷、安全距离、独立接闪杆、分流系数、引下线。', scheduled: '2025-08-11' },
+  { id: 'gp-11', title: '供配电 · 过电压入门班', level: 'basic', category: '供配电', teacher: '珞研教育', duration: 100, bvid: 'BV1VaCBYmEZY', page: 1, description: '过电压入门班：雷电过电压、操作过电压、工频过电压、谐振过电压基本概念与防护原则。', scheduled: '2024-12-24' },
+  { id: 'gp-12', title: '供配电 · 建筑智能化精讲', level: 'advanced', category: '供配电', teacher: '珞研教育', duration: 125, bvid: 'BV1Hd5hzjEXC', page: 1, description: '建筑智能化精讲：火灾自动报警系统、综合布线、安防监控、建筑设备监控系统（BAS）。', scheduled: '2025-03-18' },
+  { id: 'gp-13', title: '供配电 · 电缆GB50217精讲', level: 'advanced', category: '供配电', teacher: '仟帆教育', duration: 120, bvid: 'BV1mtdLYNEVN', page: 1, description: '电缆设计选择：GB50217-2018电力工程电缆设计标准详解，载流量计算、防火阻燃措施、敷设方式。', scheduled: '2025-06-01' },
+  { id: 'gp-14', title: '供配电 · 传动精讲（交直流电机）', level: 'advanced', category: '供配电', teacher: '仟帆教育', duration: 150, bvid: 'BV1mtdLYNEVN', page: 2, description: '电气传动系统：交直流电动机起动、调速、制动方式及计算，PLC选型与应用案例。', scheduled: '2025-06-15' },
+  { id: 'gp-15', title: '供配电 · 传动基础（直流电机调速）', level: 'advanced', category: '供配电', teacher: '张工教育', duration: 150, bvid: 'BV1hm41zwEtu', page: 1, description: '电气传动基础：直流电机的调速原理、变流电路的电量关系、整流变压器、晶闸管变流器直流调速系统。', scheduled: '2025-10-13' },
+  { id: 'gp-16', title: '供配电 · 电动机选择与容量校验', level: 'advanced', category: '供配电', teacher: '张工教育', duration: 180, bvid: 'BV13uxTzDEcH', page: 1, description: '传动知识点：电动机类型、机械特性、电机选择及容量校验、常用机械公式、负载率计算。', scheduled: '2025-10-05' },
+  { id: 'gp-17', title: '供配电 · 低压电器精讲（仟帆）', level: 'advanced', category: '供配电', teacher: '仟帆教育', duration: 136, bvid: 'BV1WsQ8YfEUg', page: 1, description: '低压电器精讲：断路器选型与整定、熔断器特性、接触器与热继电器配合、电动机保护回路设计。', scheduled: '2025-04-18' },
+  { id: 'gp-18', title: '供配电 · 接地电阻与SPD选型', level: 'advanced', category: '供配电', teacher: '注册电气工程师课程', duration: 19, bvid: 'BV1ZVq2BSEV1', page: 1, description: '防雷接地系统：接地电阻要求（独立避雷针、防静电、屏蔽、智能化）、电涌保护器分级选型原则。', scheduled: '2025-12-21' },
+  { id: 'gp-19', title: '供配电 · 电能质量与谐波', level: 'advanced', category: '供配电', teacher: '张工教育', duration: 113, bvid: 'BV1T4oyYpE4F', page: 3, description: '电能质量：电压偏差、电压波动与闪变、公用电网谐波、谐波畸变率、谐波电流允许值与抑制措施。', scheduled: '2025-05-25' },
+  { id: 'gp-20', title: '供配电 · 24年案例真题讲解（防雷/传动/继电保护）', level: 'sprint', category: '供配电', teacher: '张工教育', duration: 58, bvid: 'BV1uqtezPEyn', page: 2, description: '2024年供配电专业案例真题讲解：继电保护板块、防雷过电压、传动板块真题，含解题技巧。', scheduled: '2025-09-15' },
+
+  // ==================== 发输变电专业（20门） ====================
+  { id: 'fs-1', title: '发输变电专业精讲班 · 全套102讲', level: 'basic', category: '发输变电', teacher: '工控圈', duration: 14400, bvid: 'BV1NNsmzQEc7', page: 1, description: '工控圈发输变电专业全套精讲课（102集）：入门课+真题课+精讲课，含主接线、配电装置、线路、短路电流、继电保护、接地、设备选择、厂用电等所有章节。', scheduled: '2025-11-09' },
+  { id: 'fs-2', title: '发输变电 · 变电站电气设计精讲65讲', level: 'basic', category: '发输变电', teacher: '工控圈', duration: 9750, bvid: 'BV1tjxXzkE7Z', page: 1, description: '变电站电气设计65讲全套：主接线设计、设备选型、导体电缆计算、站用电、照明设计、高压配电装置、防雷接地、二次线。', scheduled: '2025-10-22' },
+  { id: 'fs-3', title: '发输变电 · 主接线讲解（入门精讲课）', level: 'basic', category: '发输变电', teacher: '工控圈', duration: 127, bvid: 'BV1NNsmzQEc7', page: 33, description: '主接线入门精讲：单母线/单母线分段/双母线/3/2断路器/角形接线，接线型式特点对比与适用范围。', scheduled: '2025-11-10' },
+  { id: 'fs-4', title: '发输变电 · 配电装置基础讲解1', level: 'basic', category: '发输变电', teacher: '工控圈', duration: 151, bvid: 'BV1NNsmzQEc7', page: 34, description: '配电装置基础：中型/半高型/高型/GIS布置型式对比、安全净距A/B/C值含义、配电装置设计原则。', scheduled: '2025-11-11' },
+  { id: 'fs-5', title: '发输变电 · 配电装置基础讲解2', level: 'advanced', category: '发输变电', teacher: '工控圈', duration: 178, bvid: 'BV1NNsmzQEc7', page: 35, description: '配电装置进阶：220kV中型布置实例、间隔断面设计、安全净距校验海拔修正、屋外配电装置防火间距。', scheduled: '2025-11-12' },
+  { id: 'fs-6', title: '发输变电 · 线路电气参数计算', level: 'advanced', category: '发输变电', teacher: '西伯利亚土豆酱', duration: 140, bvid: 'BV1WGuCziE43', page: 1, description: '输电线路电气参数计算：电阻、电抗、电纳、电导计算方法，正序负序零序参数，几何均距Dm。', scheduled: '2025-07-15' },
+  { id: 'fs-7', title: '发输变电 · 线路精讲课（珞研25版）', level: 'advanced', category: '发输变电', teacher: '珞研教育', duration: 135, bvid: 'BV1Ho5hz1EGK', page: 1, description: '珞研发输变线路精讲课：导线型号选择、气象条件三要素、比载计算、应力弧垂、状态方程应用。', scheduled: '2025-02-18' },
+  { id: 'fs-8', title: '发输变电 · 短路电流计算实用法1', level: 'advanced', category: '发输变电', teacher: '工控圈', duration: 161, bvid: 'BV1NNsmzQEc7', page: 41, description: '短路电流实用计算法1：运算曲线法步骤、基准容量选取、各元件标幺值计算、网络化简合并电源。', scheduled: '2025-11-15' },
+  { id: 'fs-9', title: '发输变电 · 短路电流计算实用法2', level: 'advanced', category: '发输变电', teacher: '工控圈', duration: 174, bvid: 'BV1NNsmzQEc7', page: 42, description: '短路电流实用计算法2：起始次暂态电流、冲击电流、短路电流最大有效值、热效应计算、周期与非周期分量。', scheduled: '2025-11-16' },
+  { id: 'fs-10', title: '发输变电 · 短路电流提高拓展课（张工）', level: 'sprint', category: '发输变电', teacher: '张工教育', duration: 138, bvid: 'BV12ShozPE8N', page: 3, description: '短路电流真题提高：运行方式分析、高压开关设备选择、无穷大/有限源系统计算、断路器开断能力校验。', scheduled: '2025-08-20' },
+  { id: 'fs-11', title: '发输变电 · 继电保护思维导图入门', level: 'basic', category: '发输变电', teacher: '工控圈', duration: 184, bvid: 'BV1NNsmzQEc7', page: 9, description: '继电保护入门：线路保护（纵联/距离/零序）、母线保护、主设备保护（发电机/变压器）配置原则与整定。', scheduled: '2025-11-05' },
+  { id: 'fs-12', title: '发输变电 · 继电保护真题案例分析', level: 'sprint', category: '发输变电', teacher: '工控圈', duration: 152, bvid: 'BV1NNsmzQEc7', page: 28, description: '继电保护真题：距离保护三段整定、灵敏度校验、纵联保护原理、母线大差小差、自动重合闸与保护配合。', scheduled: '2025-12-01' },
+  { id: 'fs-13', title: '发输变电 · 导体电缆经济电流密度', level: 'advanced', category: '发输变电', teacher: '张工教育', duration: 6, bvid: 'BV12ShozPE8N', page: 4, description: '导体电缆模拟题讲解：经济电流密度选择截面、载流量温度校正、并列敷设修正系数、Tmax曲线查表。', scheduled: '2025-09-05' },
+  { id: 'fs-14', title: '发输变电 · 导体与电缆精讲班', level: 'advanced', category: '发输变电', teacher: '张工教育', duration: 145, bvid: 'BV1sUt1zsE4r', page: 1, description: '导体与电缆：经济电流密度、载流量校验、电缆选择、架空线设计、电晕与无线电干扰校验。', scheduled: '2025-08-09' },
+  { id: 'fs-15', title: '发输变电 · 导体电缆真题提高拓展课', level: 'sprint', category: '发输变电', teacher: '张工教育', duration: 143, bvid: 'BV1aUnhzCE2H', page: 1, description: '导体电缆真题拓展：经济电流密度计算、导体载流量温度校正、电缆长期允许载流量多因素综合校正。', scheduled: '2025-09-25' },
+  { id: 'fs-16', title: '发输变电 · 线路风荷载与导地线风偏', level: 'advanced', category: '发输变电', teacher: '张工教育', duration: 21, bvid: 'BV1bC1tY7EXi', page: 1, description: '线路模拟题：风荷载Wx计算、角度θ的理解、导地线风偏设计、风荷载折减系数、临界档距。', scheduled: '2025-09-10' },
+  { id: 'fs-17', title: '发输变电 · 新能源发电（风电/光伏）', level: 'sprint', category: '发输变电', teacher: '张工教育', duration: 120, bvid: 'BV12ShozPE8N', page: 1, description: '新能源发电：风力发电机组型式、光伏发电系统设计、并网点电压控制、功率因数调节，2025年新增重要考点。', scheduled: '2025-08-30' },
+  { id: 'fs-18', title: '发输变电 · 照明规范解读与案例', level: 'basic', category: '发输变电', teacher: '张工教育', duration: 140, bvid: 'BV12ShozPE8N', page: 2, description: '照明规范：NB/T 35008-2023水力发电厂照明设计规范，利用系数法、LPD计算及限值、应急照明设计。', scheduled: '2025-09-01' },
+  { id: 'fs-19', title: '发输变电 · 厂用电精讲1（负荷统计）', level: 'advanced', category: '发输变电', teacher: '张工教育', duration: 134, bvid: 'BV12ShozPE8N', page: 5, description: '发电厂厂用电：负荷计算及容量统计、电动机启动电压校验、厂电压调整、厂用电短路电流计算。', scheduled: '2025-09-20' },
+  { id: 'fs-20', title: '发输变电 · 过电压绝缘配合提高拓展课', level: 'sprint', category: '发输变电', teacher: '张工教育', duration: 139, bvid: 'BV12ShozPE8N', page: 6, description: '过电压真题拓展：雷电侵入波保护、避雷器保护距离计算、MOA额定电压选择、绝缘配合海拔修正。', scheduled: '2025-10-01' },
 ];
 
 // ============ 考试手册 ============
@@ -775,29 +803,90 @@ function renderLive(){
   const app=document.getElementById('app');
   const levels={basic:'基础班',advanced:'精讲班',sprint:'冲刺班'};
   const levelColors={basic:'level-basic',advanced:'level-advanced',sprint:'level-sprint'};
-  let list=liveCourses;
-  if(currentCategory!=='all') list=list.filter(c=>c.category===currentCategory);
-  if(currentLevel!=='all') list=list.filter(c=>c.level===currentLevel);
-  if(searchKw) list=list.filter(c=>c.title.toLowerCase().includes(searchKw)||c.teacher.toLowerCase().includes(searchKw));
+  const gpList=liveCourses.filter(c=>c.category==='供配电');
+  const fsList=liveCourses.filter(c=>c.category==='发输变电');
+  let filtered=liveCourses;
+  if(currentCategory!=='all') filtered=filtered.filter(c=>c.category===currentCategory);
+  if(currentLevel!=='all') filtered=filtered.filter(c=>c.level===currentLevel);
+  if(searchKw) filtered=filtered.filter(c=>c.title.toLowerCase().includes(searchKw)||c.teacher.toLowerCase().includes(searchKw));
+  const gpDone=gpList.filter(c=>progressMap['live:'+c.id]==='done').length;
+  const fsDone=fsList.filter(c=>progressMap['live:'+c.id]==='done').length;
+
+  function sectionHeader(title, subtitle, tagCount, tagDone, accent, catVal){
+    const active = currentCategory===catVal;
+    return `
+      <div class="flex items-center justify-between mb-3 mt-2 flex-wrap gap-2">
+        <div class="flex items-center gap-2">
+          <div class="w-1 h-6 rounded-full ${accent}"></div>
+          <h3 class="font-bold text-base text-slate-800">${title}</h3>
+          <span class="text-xs text-slate-400">${subtitle}</span>
+        </div>
+        <div class="flex items-center gap-3 text-xs">
+          <span class="text-slate-500">共 <b class="text-slate-800">${tagCount}</b> 门课，已学完 <b class="text-emerald-600">${tagDone}</b> 门</span>
+          <button onclick="setFilter('category','${catVal}')" class="px-3 py-1 rounded-full border ${active?`${accent.replace('bg-','bg-').replace('500','600')} text-white border-transparent`:'border-slate-200 text-slate-500 hover:bg-slate-50'}">${active?'✓ 只看':'只看'}</button>
+        </div>
+      </div>`;
+  }
+
+  let body='';
+  if(currentCategory==='all' && currentLevel==='all' && !searchKw){
+    // 分两个专业区块展示
+    body = `
+      ${sectionHeader('供配电专业课程', '20门 · 基础班/精讲班/冲刺班 三级分层', gpList.length, gpDone, 'bg-blue-500', '供配电')}
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+        ${gpList.map(c=>liveCard(c,levels,levelColors)).join('')}
+      </div>
+      ${sectionHeader('发输变电专业课程', '20门 · 入门/真题/精讲全覆盖', fsList.length, fsDone, 'bg-indigo-500', '发输变电')}
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        ${fsList.map(c=>liveCard(c,levels,levelColors)).join('')}
+      </div>`;
+  } else {
+    body = filtered.length===0
+      ? `<div class="text-center py-16 text-slate-400">暂无符合条件的课程</div>`
+      : `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">${filtered.map(c=>liveCard(c,levels,levelColors)).join('')}</div>`;
+  }
+
   app.innerHTML=`
     <div class="fade-in">
-      <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
-        <h2 class="text-xl font-bold">2025直播课程</h2>
-        <div class="flex gap-2 flex-wrap text-xs">
-          <button onclick="setFilter('category','all')" class="px-3 py-1.5 rounded-lg border ${currentCategory==='all'?'bg-blue-600 text-white border-blue-600':'border-slate-200 hover:bg-slate-50'}">全部</button>
-          <button onclick="setFilter('category','供配电')" class="px-3 py-1.5 rounded-lg border ${currentCategory==='供配电'?'bg-blue-600 text-white border-blue-600':'border-slate-200 hover:bg-slate-50'}">供配电</button>
-          <button onclick="setFilter('category','发输变电')" class="px-3 py-1.5 rounded-lg border ${currentCategory==='发输变电'?'bg-blue-600 text-white border-blue-600':'border-slate-200 hover:bg-slate-50'}">发输变电</button>
+      <div class="bg-gradient-to-br from-indigo-600 via-blue-600 to-purple-600 rounded-2xl p-6 text-white mb-5">
+        <div class="flex items-center justify-between flex-wrap gap-3">
+          <div>
+            <h2 class="text-2xl font-bold mb-1">📺 2025直播课程</h2>
+            <p class="text-white/80 text-sm">供配电 20 门 · 发输变电 20 门 · 张工教育 / 珞研 / 仟帆 / 工控圈 / 纳米 五大机构</p>
+          </div>
+          <div class="grid grid-cols-3 gap-3 text-center">
+            <div class="bg-white/15 rounded-xl px-4 py-2">
+              <div class="text-xl font-bold">${gpList.length}</div>
+              <div class="text-xs text-white/70">供配电课程</div>
+            </div>
+            <div class="bg-white/15 rounded-xl px-4 py-2">
+              <div class="text-xl font-bold">${fsList.length}</div>
+              <div class="text-xs text-white/70">发输变电课程</div>
+            </div>
+            <div class="bg-white/15 rounded-xl px-4 py-2">
+              <div class="text-xl font-bold">${gpDone+fsDone}</div>
+              <div class="text-xs text-white/70">已学完</div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="flex gap-2 flex-wrap text-xs mb-4">
-        <button onclick="setFilter('level','all')" class="px-3 py-1.5 rounded-lg border ${currentLevel==='all'?'bg-slate-700 text-white border-slate-700':'border-slate-200 hover:bg-slate-50'}">全部级别</button>
-        <button onclick="setFilter('level','basic')" class="px-3 py-1.5 rounded-lg border ${currentLevel==='basic'?'bg-blue-600 text-white border-blue-600':'border-slate-200 hover:bg-slate-50'}">基础班</button>
+
+      <div class="flex gap-2 flex-wrap text-xs mb-3">
+        <button onclick="setFilter('category','all')" class="px-3 py-1.5 rounded-lg border ${currentCategory==='all'?'bg-blue-600 text-white border-blue-600':'border-slate-200 hover:bg-slate-50'}">全部专业</button>
+        <button onclick="setFilter('category','供配电')" class="px-3 py-1.5 rounded-lg border ${currentCategory==='供配电'?'bg-blue-600 text-white border-blue-600':'border-slate-200 hover:bg-slate-50'}">🔵 供配电（${gpList.length}门）</button>
+        <button onclick="setFilter('category','发输变电')" class="px-3 py-1.5 rounded-lg border ${currentCategory==='发输变电'?'bg-indigo-600 text-white border-indigo-600':'border-slate-200 hover:bg-slate-50'}">🟣 发输变电（${fsList.length}门）</button>
+        <button onclick="setFilter('level','all')" class="ml-2 px-3 py-1.5 rounded-lg border ${currentLevel==='all'?'bg-slate-700 text-white border-slate-700':'border-slate-200 hover:bg-slate-50'}">全部级别</button>
+        <button onclick="setFilter('level','basic')" class="px-3 py-1.5 rounded-lg border ${currentLevel==='basic'?'bg-sky-600 text-white border-sky-600':'border-slate-200 hover:bg-slate-50'}">基础班</button>
         <button onclick="setFilter('level','advanced')" class="px-3 py-1.5 rounded-lg border ${currentLevel==='advanced'?'bg-purple-600 text-white border-purple-600':'border-slate-200 hover:bg-slate-50'}">精讲班</button>
         <button onclick="setFilter('level','sprint')" class="px-3 py-1.5 rounded-lg border ${currentLevel==='sprint'?'bg-amber-600 text-white border-amber-600':'border-slate-200 hover:bg-slate-50'}">冲刺班</button>
+        ${(currentCategory!=='all'||currentLevel!=='all'||searchKw)?`<button onclick="resetLiveFilters()" class="ml-2 px-3 py-1.5 rounded-lg border border-rose-200 text-rose-500 hover:bg-rose-50">✕ 清除筛选</button>`:''}
       </div>
-      ${list.length===0?`<div class="text-center py-16 text-slate-400">暂无符合条件的课程</div>`:`<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">${list.map(c=>liveCard(c,levels,levelColors)).join('')}</div>`}
+
+      ${body}
     </div>`;
 }
+function resetLiveFilters(){currentCategory='all';currentLevel='all';searchKw='';const s=document.getElementById('search');if(s)s.value='';renderLive();}
+
 function setFilter(type,val){if(type==='category') currentCategory=val; else if(type==='level') currentLevel=val; renderLive();}
 function liveCard(c,levels,levelColors){
   const status=progressMap['live:'+c.id]||'';
