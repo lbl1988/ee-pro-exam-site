@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>注册电气工程师专业考试学习平台</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;-webkit-tap-highlight-color:transparent;}
+  .scroll-thin::-webkit-scrollbar{width:6px;height:6px;}
+  .scroll-thin::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:3px;}
+  .scroll-thin::-webkit-scrollbar-track{background:transparent;}
+  .fade-in{animation:fade .25s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+  .card-hover:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.08);}
+  .card-hover{transition:all .15s ease;}
+  @media (max-width: 640px){input, textarea, select, button{font-size:16px;}}
+  button{cursor:pointer;}
+</style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen">
+
+<!-- 顶栏 -->
+<header class="bg-white border-b border-slate-200 sticky top-0 z-30">
+  <div class="max-w-7xl mx-auto px-4 py-3 flex items-center gap-3">
+    <div class="flex items-center gap-2 cursor-pointer" onclick="go('home')">
+      <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white text-lg font-bold">专</div>
+      <div>
+        <div class="font-bold text-slate-800 leading-tight">注册电气工程师 · 专业考试</div>
+        <div class="text-xs text-slate-400 leading-tight">2025年课程 · 考试手册 · 学习笔记</div>
+      </div>
+    </div>
+    <div class="flex-1"></div>
+    <input id="search" oninput="onSearch(this.value)" placeholder="搜索课程、章节…" class="hidden sm:block w-64 px-3 py-2 text-sm rounded-lg border border-slate-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 outline-none">
+    <div id="userBar" class="flex items-center gap-2"></div>
+  </div>
+  <!-- 标签栏 -->
+  <nav class="max-w-7xl mx-auto px-4 flex gap-1 text-sm overflow-x-auto">
+    <button onclick="go('home')" class="tab-btn px-3 py-2 border-b-2 border-blue-600 text-blue-700 font-medium whitespace-nowrap" data-tab="home">首页</button>
+    <button onclick="go('chapters')" class="tab-btn px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-slate-700 whitespace-nowrap" data-tab="chapters">章节知识</button>
+    <button onclick="go('live')" class="tab-btn px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-slate-700 whitespace-nowrap" data-tab="live">2025直播</button>
+    <button onclick="go('manuals')" class="tab-btn px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-slate-700 whitespace-nowrap" data-tab="manuals">考试手册</button>
+    <button onclick="go('notes')" class="tab-btn px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-slate-700 whitespace-nowrap" data-tab="notes">我的笔记</button>
+    <button onclick="go('stats')" class="tab-btn px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-slate-700 whitespace-nowrap" data-tab="stats">学习统计</button>
+  </nav>
+</header>
+
+<main id="app" class="max-w-7xl mx-auto px-4 py-6"></main>
+
+<!-- 登录注册弹窗 -->
+<div id="authModal" class="fixed inset-0 bg-black/40 z-50 hidden items-center justify-center" onclick="if(event.target===this)closeAuth()">
+  <div class="bg-white rounded-2xl shadow-xl w-full max-w-sm p-6 fade-in">
+    <div class="flex items-center justify-between mb-4">
+      <h3 id="authTitle" class="text-lg font-bold">登录</h3>
+      <button type="button" onclick="closeAuth()" class="text-slate-400 hover:text-slate-600 text-xl">×</button>
+    </div>
+    <form id="authForm" onsubmit="submitAuth(event)" class="space-y-3">
+      <div id="nameField" class="hidden">
+        <label class="text-xs text-slate-500">用户名</label>
+        <input id="au" class="w-full px-3 py-2 text-sm rounded-lg border border-slate-200 focus:border-blue-400 outline-none" placeholder="请输入用户名" autocomplete="username">
+      </div>
+      <div>
+        <label class="text-xs text-slate-500">账号（邮箱或用户名）</label>
+        <input id="ai" required class="w-full px-3 py-2 text-sm rounded-lg border border-slate-200 focus:border-blue-400 outline-none" placeholder="登录时填用户名或邮箱" autocomplete="username">
+      </div>
+      <div>
+        <label class="text-xs text-slate-500">密码</label>
+        <input id="ap" type="password" required class="w-full px-3 py-2 text-sm rounded-lg border border-slate-200 focus:border-blue-400 outline-none" placeholder="至少6位" autocomplete="current-password">
+      </div>
+      <div id="aeField" class="hidden">
+        <label class="text-xs text-slate-500">邮箱（注册时必填）</label>
+        <input id="ae" type="email" class="w-full px-3 py-2 text-sm rounded-lg border border-slate-200 focus:border-blue-400 outline-none" placeholder="用于注册" autocomplete="email">
+      </div>
+      <button type="button" onclick="submitAuth(event)" class="w-full py-2.5 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-700 text-white font-medium hover:opacity-90" id="authBtn">登录</button>
+      <p class="text-center text-xs text-slate-400" id="authToggle">没有账号？<a href="#" onclick="toggleAuth(event)" class="text-blue-600">去注册</a></p>
+      <p id="authErr" class="text-xs text-red-500 text-center hidden"></p>
+    </form>
+  </div>
+</div>
+
+<footer class="text-center text-xs text-slate-400 py-6">注册电气工程师专业考试学习平台 · 2025直播课程 · 权威考试手册</footer>
+
+<script>
+const API = '/api';
+let token = localStorage.getItem('ee_pro_token');
+let user = JSON.parse(localStorage.getItem('ee_pro_user') || 'null');
+let chapters = [];
+let liveCourses = [];
+let manuals = [];
+let progressMap = {};
+let myNotes = [];
+let currentView = 'home';
+let currentItem = null;
+let searchKw = '';
+let authMode = 'login';
+
+// 考试手册数据（权威培训机构）
+const manualsData = [
+  { id: 'dg', name: '电教中心', logo: '电', desc: '注册电气工程师培训权威机构，涵盖公共基础与专业基础', url: '', courses: [] },
+  { id: 'gk', name: '工控圈', logo: '工', desc: '专业基础精讲课程，电路、电磁场、模电数电等深度讲解', url: '', courses: [] },
+  { id: 'jg', name: '匠工教育', logo: '匠', desc: '多年培训经验，提供完整课件和真题解析', url: '', courses: [] },
+  { id: 'zj', name: '中建教育', logo: '中', desc: '公共基础精讲班，数学、物理、化学等全科覆盖', url: '', courses: [] }
+];
+
+// ─── 工具 ───
+async function req(path, opts = {}) {
+  const headers = { 'Content-Type': 'application/json', ...(opts.headers||{}) };
+  if (token) headers.Authorization = 'Bearer ' + token;
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), 15000);
+  let r;
+  try {
+    r = await fetch(API + path, { ...opts, headers, signal: ctrl.signal });
+  } catch (e) {
+    clearTimeout(timer);
+    if (e.name === 'AbortError') throw new Error('请求超时，请检查网络后重试');
+    throw new Error('网络错误：' + (e.message || e));
+  }
+  clearTimeout(timer);
+  const data = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(data.error || '请求失败');
+  return data;
+}
+
+function safeSetItem(k, v) {
+  try { localStorage.setItem(k, v); } catch(e) { console.warn('localStorage 写入失败:', e); }
+}
+
+function escapeHtml(s){return (s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+function toast(msg, type='info') {
+  const t = document.createElement('div');
+  const colors = {info:'bg-slate-800', success:'bg-emerald-600', error:'bg-red-500'};
+  t.className = `fixed top-20 left-1/2 -translate-x-1/2 ${colors[type]} text-white text-sm px-4 py-2 rounded-lg shadow-lg z-50 fade-in`;
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 2500);
+}
+
+// ─── 初始化 ───
+async function init() {
+  renderUserBar();
+  try {
+    chapters = await req('/chapters');
+  } catch (e) { chapters = []; }
+  try {
+    liveCourses = await req('/live-courses');
+  } catch (e) { liveCourses = []; }
+  manuals = manualsData;
+  if (token) {
+    try { user = await req('/auth/me'); safeSetItem('ee_pro_user', JSON.stringify(user)); }
+    catch(e){ logout(true); }
+  }
+  await loadUserData();
+  renderUserBar();
+  go('home');
+}
+
+async function loadUserData() {
+  if (!token) return;
+  try {
+    const [prog, notes] = await Promise.all([req('/progress'), req('/notes')]);
+    progressMap = prog;
+    myNotes = notes;
+  } catch(e) { console.warn(e); }
+}
+
+// ─── 认证 UI ───
+function renderUserBar() {
+  const bar = document.getElementById('userBar');
+  if (user) {
+    bar.innerHTML = `
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-sm">${escapeHtml(user.username[0]||'U')}</div>
+        <span class="text-sm font-medium hidden sm:block">${escapeHtml(user.username)}</span>
+        <button onclick="logout()" class="text-xs text-slate-400 hover:text-red-500 ml-1">退出</button>
+      </div>`;
+  } else {
+    bar.innerHTML = `
+      <button onclick="openAuth('login')" class="text-sm px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50">登录</button>
+      <button onclick="openAuth('register')" class="text-sm px-3 py-1.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700">注册</button>`;
+  }
+}
+
+function openAuth(mode) {
+  authMode = mode;
+  document.getElementById('authTitle').textContent = mode==='login'?'登录':'注册';
+  document.getElementById('authBtn').textContent = mode==='login'?'登录':'注册';
+  document.getElementById('nameField').classList.toggle('hidden', mode!=='register');
+  document.getElementById('aeField').classList.toggle('hidden', mode!=='register');
+  document.getElementById('au').required = (mode === 'register');
+  document.getElementById('ae').required = (mode === 'register');
+  document.getElementById('ai').required = true;
+  document.getElementById('ai').placeholder = mode==='login'?'用户名或邮箱':'登录用用户名';
+  document.getElementById('authToggle').innerHTML = mode==='login'
+    ? '没有账号？<a href="#" onclick="toggleAuth(event)" class="text-blue-600">去注册</a>'
+    : '已有账号？<a href="#" onclick="toggleAuth(event)" class="text-blue-600">去登录</a>';
+  document.getElementById('authModal').classList.remove('hidden');
+  document.getElementById('authModal').classList.add('flex');
+  document.getElementById('authErr').classList.add('hidden');
+}
+
+function closeAuth() {
+  document.getElementById('authModal').classList.add('hidden');
+  document.getElementById('authModal').classList.remove('flex');
+}
+
+function toggleAuth(e){ e.preventDefault(); openAuth(authMode==='login'?'register':'login'); }
+
+async function submitAuth(e) {
+  if (e && e.preventDefault) e.preventDefault();
+  const errEl = document.getElementById('authErr');
+  const btn = document.getElementById('authBtn');
+  if (errEl) errEl.classList.add('hidden');
+  if (btn.dataset.loading === '1') return;
+  btn.dataset.loading = '1';
+  const oldText = btn.textContent;
+  btn.textContent = '提交中…';
+  btn.disabled = true;
+  try {
+    const ai = document.getElementById('ai');
+    const ap = document.getElementById('ap');
+    const au = document.getElementById('au');
+    const ae = document.getElementById('ae');
+    if (!ai || !ap) throw new Error('表单元素未找到');
+    const body = authMode==='login'
+      ? { login: ai.value.trim(), password: ap.value }
+      : { username: (au&&au.value||'').trim(), email: (ae&&ae.value||'').trim(), password: ap.value };
+    const data = await req('/auth/' + authMode, { method:'POST', body: JSON.stringify(body) });
+    if (!data.token) throw new Error('服务器返回数据异常');
+    token = data.token; user = data.user;
+    safeSetItem('ee_pro_token', token);
+    safeSetItem('ee_pro_user', JSON.stringify(user));
+    closeAuth();
+    await loadUserData();
+    renderUserBar();
+    go(currentView);
+    toast('欢迎，'+user.username+'！','success');
+  } catch(err) {
+    const msg = err && err.message ? err.message : String(err);
+    if (errEl) {
+      errEl.textContent = '提交失败：' + msg;
+      errEl.classList.remove('hidden');
+    }
+    toast('登录失败：' + msg, 'error');
+  } finally {
+    btn.dataset.loading = '0';
+    btn.textContent = oldText;
+    btn.disabled = false;
+  }
+}
+
+function logout(silent) {
+  token=null; user=null;
+  localStorage.removeItem('ee_pro_token'); localStorage.removeItem('ee_pro_user');
+  progressMap={}; myNotes=[];
+  renderUserBar();
+  go('home');
+  if(!silent) toast('已退出登录');
+}
+
+// ─── 视图切换 ───
+function go(view) {
+  currentView = view;
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    const active = b.dataset.tab === view;
+    b.classList.toggle('border-blue-600', active);
+    b.classList.toggle('text-blue-700', active);
+    b.classList.toggle('font-medium', active);
+    b.classList.toggle('border-transparent', !active);
+    b.classList.toggle('text-slate-500', !active);
+  });
+  if (view==='home') renderHome();
+  else if (view==='chapters') renderChapters();
+  else if (view==='live') renderLive();
+  else if (view==='manuals') renderManuals();
+  else if (view==='notes') renderNotes();
+  else if (view==='stats') renderStats();
+}
+
+function onSearch(v){ searchKw = v.trim().toLowerCase(); go(currentView); }
+
+// ─── 首页 ───
+function renderHome() {
+  const app = document.getElementById('app');
+  const doneCount = Object.values(progressMap).filter(s => s === 'done').length;
+  const learningCount = Object.values(progressMap).filter(s => s === 'learning').length;
+  app.innerHTML = `
+    <div class="fade-in">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+        <div class="bg-white rounded-xl p-4 border border-slate-100">
+          <div class="text-2xl font-bold text-blue-600">${chapters.length}</div><div class="text-xs text-slate-500">章节知识</div>
+        </div>
+        <div class="bg-white rounded-xl p-4 border border-slate-100">
+          <div class="text-2xl font-bold text-indigo-600">${liveCourses.length}</div><div class="text-xs text-slate-500">2025直播课</div>
+        </div>
+        <div class="bg-white rounded-xl p-4 border border-slate-100">
+          <div class="text-2xl font-bold text-emerald-600">${doneCount}</div><div class="text-xs text-slate-500">已学完</div>
+        </div>
+        <div class="bg-white rounded-xl p-4 border border-slate-100">
+          <div class="text-2xl font-bold text-amber-600">${learningCount}</div><div class="text-xs text-slate-500">学习中</div>
+        </div>
+      </div>
+      <h2 class="text-xl font-bold mb-4">快速入口</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div onclick="go('chapters')" class="card-hover bg-white rounded-2xl border border-slate-100 p-5 cursor-pointer">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center text-white text-2xl">📚</div>
+            <div>
+              <div class="font-bold text-slate-800">章节知识</div>
+              <div class="text-xs text-slate-400">课本知识点梳理</div>
+            </div>
+          </div>
+          <p class="text-xs text-slate-500">按章节组织，涵盖专业考试全部考点</p>
+        </div>
+        <div onclick="go('live')" class="card-hover bg-white rounded-2xl border border-slate-100 p-5 cursor-pointer">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-2xl">🎬</div>
+            <div>
+              <div class="font-bold text-slate-800">2025直播</div>
+              <div class="text-xs text-slate-400">分级课程 · 名师讲解</div>
+            </div>
+          </div>
+          <p class="text-xs text-slate-500">基础班、精讲班、冲刺班等多级别课程</p>
+        </div>
+        <div onclick="go('manuals')" class="card-hover bg-white rounded-2xl border border-slate-100 p-5 cursor-pointer">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white text-2xl">📖</div>
+            <div>
+              <div class="font-bold text-slate-800">考试手册</div>
+              <div class="text-xs text-slate-400">权威培训机构</div>
+            </div>
+          </div>
+          <p class="text-xs text-slate-500">电教中心、工控圈、匠工教育等机构资料</p>
+        </div>
+      </div>
+    </div>`;
+}
+
+// ─── 章节知识 ───
+function renderChapters() {
+  const app = document.getElementById('app');
+  const rootChapters = chapters.filter(c => !c.parent_id);
+  app.innerHTML = `
+    <div class="fade-in">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl font-bold">章节知识</h2>
+        ${user ? `<button onclick="addChapter()" class="text-sm px-3 py-1.5 rounded-lg bg-blue-600 text-white">+ 添加章节</button>` : ''}
+      </div>
+      ${rootChapters.length === 0
+        ? `<div class="text-center py-16 text-slate-400">暂无章节内容，登录后可添加</div>`
+        : `<div class="space-y-3">${rootChapters.map(c => chapterCard(c)).join('')}</div>`}
+    </div>`;
+}
+
+function chapterCard(c) {
+  const children = chapters.filter(ch => ch.parent_id === c.id);
+  return `
+    <div class="bg-white rounded-xl border border-slate-100 overflow-hidden">
+      <div class="px-4 py-3 bg-slate-50 flex items-center justify-between cursor-pointer" onclick="toggleChapter(${c.id})">
+        <div class="flex items-center gap-2">
+          <span class="text-blue-600">📂</span>
+          <span class="font-medium">${escapeHtml(c.title)}</span>
+        </div>
+        <div class="flex items-center gap-2">
+          ${children.length > 0 ? `<span class="text-xs text-slate-400">${children.length}小节</span>` : ''}
+          <span class="text-slate-400">▼</span>
+        </div>
+      </div>
+      <div id="chapter-${c.id}" class="hidden p-3 space-y-2">
+        ${c.content ? `<div class="text-sm text-slate-600 p-3 bg-slate-50 rounded-lg">${escapeHtml(c.content)}</div>` : ''}
+        ${children.map(ch => `
+          <div class="p-3 bg-white rounded-lg border border-slate-100 cursor-pointer hover:border-blue-200" onclick="openChapterDetail(${ch.id})">
+            <div class="font-medium text-sm">${escapeHtml(ch.title)}</div>
+            ${ch.content ? `<p class="text-xs text-slate-500 mt-1 line-clamp-2">${escapeHtml(ch.content.slice(0,100))}</p>` : ''}
+          </div>
+        `).join('')}
+      </div>
+    </div>`;
+}
+
+function toggleChapter(id) {
+  const el = document.getElementById('chapter-' + id);
+  el.classList.toggle('hidden');
+}
+
+function addChapter() {
+  if (!user) return toast('请先登录','error');
+  const title = prompt('请输入章节标题：');
+  if (!title) return;
+  req('/chapters', { method: 'POST', body: JSON.stringify({ title }) })
+    .then(() => { toast('添加成功','success'); init(); })
+    .catch(e => toast(e.message,'error'));
+}
+
+// ─── 2025直播课程 ───
+function renderLive() {
+  const app = document.getElementById('app');
+  const levels = { basic: '基础班', advanced: '精讲班', sprint: '冲刺班' };
+  const levelColors = { basic: 'bg-blue-100 text-blue-700', advanced: 'bg-purple-100 text-purple-700', sprint: 'bg-amber-100 text-amber-700' };
+  app.innerHTML = `
+    <div class="fade-in">
+      <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+        <h2 class="text-xl font-bold">2025直播课程</h2>
+        <div class="flex gap-2 text-xs">
+          ${Object.entries(levels).map(([k,v]) => `
+            <button onclick="filterLive('${k}')" class="px-3 py-1.5 rounded-lg border ${k==='basic'?'bg-blue-600 text-white border-blue-600':'border-slate-200 hover:bg-slate-50'}">${v}</button>
+          `).join('')}
+        </div>
+      </div>
+      ${liveCourses.length === 0
+        ? `<div class="text-center py-16 text-slate-400">暂无直播课程</div>`
+        : `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">${liveCourses.map(c => liveCard(c, levels, levelColors)).join('')}</div>`}
+    </div>`;
+}
+
+function liveCard(c, levels, levelColors) {
+  const scheduled = c.scheduled_at ? new Date(c.scheduled_at).toLocaleString('zh-CN', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '待定';
+  const status = progressMap['live:'+c.id] || '';
+  const statusBadge = status==='done'?'<span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-700">已学完</span>':status==='learning'?'<span class="text-[10px] px-1.5 py-0.5 rounded bg-blue-100 text-blue-700">学习中</span>':'';
+  return `
+    <div class="card-hover bg-white rounded-xl border border-slate-100 p-4 cursor-pointer" onclick="openLive(${c.id})">
+      <div class="flex items-start justify-between gap-2 mb-2">
+        <div class="flex-1 min-w-0">
+          <div class="text-sm font-medium text-slate-800 truncate">${escapeHtml(c.title)}</div>
+          ${c.chapter_title ? `<div class="text-xs text-slate-400">${escapeHtml(c.chapter_title)}</div>` : ''}
+        </div>
+        <span class="text-[10px] px-2 py-1 rounded ${levelColors[c.level]||'bg-slate-100 text-slate-600'}">${levels[c.level]||c.level}</span>
+      </div>
+      <div class="flex items-center gap-3 text-xs text-slate-500 mb-3">
+        ${c.teacher ? `<span>👨‍🏫 ${escapeHtml(c.teacher)}</span>` : ''}
+        <span>📅 ${scheduled}</span>
+        ${statusBadge}
+      </div>
+      ${c.description ? `<p class="text-xs text-slate-400 line-clamp-2">${escapeHtml(c.description)}</p>` : ''}
+    </div>`;
+}
+
+function filterLive(level) {
+  // 简单实现：重新获取数据后渲染
+  req('/live-courses?level=' + level)
+    .then(data => { liveCourses = data; renderLive(); })
+    .catch(e => toast(e.message,'error'));
+}
+
+function openLive(id) {
+  const c = liveCourses.find(x => x.id === id);
+  if (!c) return;
+  currentItem = { type: 'live', id: c.id, title: c.title };
+  const app = document.getElementById('app');
+  app.innerHTML = `
+    <div class="fade-in">
+      <button onclick="go('live')" class="text-sm text-slate-500 hover:text-blue-600 mb-3">← 返回直播列表</button>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        <div class="lg:col-span-2 space-y-4">
+          <div>
+            <h2 class="text-lg font-bold">${escapeHtml(c.title)}</h2>
+            <p class="text-xs text-slate-400 mt-1">${c.teacher || '讲师待定'} · ${c.scheduled_at ? new Date(c.scheduled_at).toLocaleString('zh-CN') : '时间待定'}</p>
+          </div>
+          <div id="playerBox" class="bg-black rounded-xl overflow-hidden" style="min-height:300px">
+            ${renderLivePlayer(c.external_url)}
+          </div>
+          <div class="bg-white rounded-xl border border-slate-100 p-4 flex items-center gap-3 flex-wrap">
+            <span class="text-sm text-slate-500">学习状态：</span>
+            ${['planned','learning','done'].map(st => {
+              const labels = {planned:'计划学习',learning:'学习中',done:'已学完'};
+              const colors = {planned:'border-slate-300 text-slate-600',learning:'border-blue-500 text-blue-600 bg-blue-50',done:'border-emerald-500 text-emerald-600 bg-emerald-50'};
+              const cur = progressMap['live:'+c.id]===st;
+              return `<button onclick="setProgress('live','${c.id}','${st}')" class="text-xs px-3 py-1.5 rounded-lg border ${colors[st]} ${cur?'font-medium':'hover:bg-slate-50'}">${labels[st]}</button>`;
+            }).join('')}
+          </div>
+        </div>
+        <div class="lg:col-span-1">
+          <div class="bg-white rounded-xl border border-slate-100 p-4 sticky top-32">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="font-bold text-sm">📝 学习笔记</h3>
+              <span id="noteStatus" class="text-[10px] text-slate-400">云端同步</span>
+            </div>
+            ${user ? `
+              <textarea id="noteArea" oninput="onNoteInput()" rows="14" placeholder="记录本节课的知识点、公式、疑问…&#10;自动保存到云端。" class="w-full text-sm p-3 rounded-lg border border-slate-200 focus:border-blue-400 outline-none resize-y scroll-thin"></textarea>
+              <div class="flex items-center justify-between mt-2 text-xs">
+                <span class="text-slate-400" id="noteSaved"></span>
+                <span class="text-slate-400" id="noteCount">0 字</span>
+              </div>
+            ` : `
+              <div class="text-center py-8 text-sm text-slate-400">
+                <p class="mb-3">登录后即可记录笔记</p>
+                <button onclick="openAuth('login')" class="px-4 py-2 rounded-lg bg-blue-600 text-white text-sm hover:bg-blue-700">去登录</button>
+              </div>
+            `}
+          </div>
+        </div>
+      </div>
+    </div>`;
+  if (user) loadNote('live', c.id);
+}
+
+function renderLivePlayer(url) {
+  if (!url) {
+    return `
+      <div class="flex flex-col items-center justify-center text-center text-white/70 py-20 px-6">
+        <div class="text-5xl mb-3">🎬</div>
+        <p class="font-medium mb-1">直播尚未开始或链接未配置</p>
+        <p class="text-xs text-white/50">请关注课程安排，准时参加直播</p>
+      </div>`;
+  }
+  // B站
+  let m;
+  if (url.includes('bilibili.com')) {
+    let bvid='', page='';
+    if ((m = url.match(/\/video\/(BV\w+)/))) bvid = m[1];
+    if ((m = url.match(/[?&]p=(\d+)/))) page = m[1];
+    if (bvid) {
+      const src = `https://player.bilibili.com/player.html?bvid=${bvid}&page=${page||1}&high_quality=1&danmaku=0`;
+      return `<iframe src="${src}" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="w-full" style="height:480px;max-height:60vh"></iframe>`;
+    }
+  }
+  // 直链
+  if (/\.(mp4|m3u8|webm|ogg)(\?|$)/i.test(url)) {
+    return `<video src="${url}" controls class="w-full" style="max-height:60vh"></video>`;
+  }
+  return `
+    <div class="flex flex-col items-center justify-center text-center text-white/80 py-20 px-6">
+      <div class="text-5xl mb-3">🔗</div>
+      <p class="font-medium mb-1">点击下方按钮进入直播</p>
+      <a href="${escapeHtml(url)}" target="_blank" rel="noopener" class="mt-4 px-4 py-2 rounded-lg bg-blue-600 text-white text-sm hover:bg-blue-700">打开直播链接</a>
+    </div>`;
+}
+
+// ─── 考试手册 ───
+function renderManuals() {
+  const app = document.getElementById('app');
+  app.innerHTML = `
+    <div class="fade-in">
+      <h2 class="text-xl font-bold mb-4">考试手册 · 权威培训机构</h2>
+      <p class="text-sm text-slate-500 mb-4">汇集各大权威培训机构的课程资料、真题解析、知识点总结</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        ${manuals.map(m => `
+          <div class="card-hover bg-white rounded-xl border border-slate-100 p-5 cursor-pointer" onclick="openManual('${m.id}')">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-slate-700 to-slate-900 flex items-center justify-center text-white font-bold">${m.logo}</div>
+              <div>
+                <div class="font-bold text-slate-800">${escapeHtml(m.name)}</div>
+                <div class="text-xs text-slate-400">${m.desc}</div>
+              </div>
+            </div>
+            <div class="text-xs text-blue-600">查看详情 →</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>`;
+}
+
+function openManual(id) {
+  const m = manuals.find(x => x.id === id);
+  if (!m) return;
+  const app = document.getElementById('app');
+  app.innerHTML = `
+    <div class="fade-in">
+      <button onclick="go('manuals')" class="text-sm text-slate-500 hover:text-blue-600 mb-3">← 返回机构列表</button>
+      <div class="bg-white rounded-xl border border-slate-100 p-6 mb-4">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-slate-700 to-slate-900 flex items-center justify-center text-white font-bold text-xl">${m.logo}</div>
+          <div>
+            <h2 class="text-xl font-bold">${escapeHtml(m.name)}</h2>
+            <p class="text-sm text-slate-500">${m.desc}</p>
+          </div>
+        </div>
+        ${m.url ? `<a href="${escapeHtml(m.url)}" target="_blank" rel="noopener" class="inline-block px-4 py-2 rounded-lg bg-blue-600 text-white text-sm hover:bg-blue-700">访问官网</a>` : ''}
+      </div>
+      <h3 class="font-bold mb-3">课程资料</h3>
+      <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 text-xs text-amber-800">
+        登录后可在后台添加具体课程链接、PDF资料等。当前为演示模式，后续可扩展为完整资料库。
+      </div>
+    </div>`;
+}
+
+// ─── 笔记 ───
+function renderNotes() {
+  const app = document.getElementById('app');
+  if (!user) {
+    app.innerHTML = `<div class="text-center py-20"><div class="text-5xl mb-4">📝</div><p class="text-slate-500 mb-4">登录后查看你的云端学习笔记</p><button onclick="openAuth('login')" class="px-5 py-2 rounded-lg bg-blue-600 text-white">去登录</button></div>`;
+    return;
+  }
+  app.innerHTML = `
+    <div class="fade-in">
+      <h2 class="text-xl font-bold mb-4">我的学习笔记 <span class="text-sm text-slate-400 font-normal">（${myNotes.length} 条）</span></h2>
+      ${myNotes.length===0 ? `<div class="text-center py-16 text-slate-400">还没有笔记，去课程中边看边记笔记吧</div>` :
+        `<div class="space-y-3">${myNotes.map(n => `
+          <div class="bg-white rounded-xl border border-slate-100 p-4 cursor-pointer hover:border-blue-200" onclick="jumpToNote('${n.item_type}','${n.item_id}')">
+            <div class="flex items-center justify-between mb-1">
+              <h3 class="font-medium text-sm">${escapeHtml(n.item_title||n.item_id)}</h3>
+              <span class="text-[10px] text-slate-400">${new Date(n.updated_at).toLocaleString()}</span>
+            </div>
+            <p class="text-xs text-slate-500 line-clamp-2">${escapeHtml((n.content||'').slice(0,150))||'<span class="text-slate-300">空笔记</span>'}</p>
+          </div>`).join('')}</div>`}
+    </div>`;
+}
+
+function jumpToNote(type, id){
+  if (type === 'live') openLive(parseInt(id));
+  else if (type === 'chapter') openChapterDetail(parseInt(id));
+}
+
+// ─── 统计 ───
+async function renderStats() {
+  const app = document.getElementById('app');
+  if (!user) {
+    app.innerHTML = `<div class="text-center py-20"><div class="text-5xl mb-4">📊</div><p class="text-slate-500 mb-4">登录后查看学习统计</p><button onclick="openAuth('login')" class="px-5 py-2 rounded-lg bg-blue-600 text-white">去登录</button></div>`;
+    return;
+  }
+  let stats;
+  try { stats = await req('/stats'); } catch(e){ stats={done:0,learning:0,planned:0,notes:0}; }
+  app.innerHTML = `
+    <div class="fade-in">
+      <h2 class="text-xl font-bold mb-4">学习统计</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+        <div class="bg-white rounded-xl p-5 border border-slate-100"><div class="text-3xl font-bold text-emerald-600">${stats.done}</div><div class="text-xs text-slate-500 mt-1">已学完</div></div>
+        <div class="bg-white rounded-xl p-5 border border-slate-100"><div class="text-3xl font-bold text-blue-600">${stats.learning}</div><div class="text-xs text-slate-500 mt-1">学习中</div></div>
+        <div class="bg-white rounded-xl p-5 border border-slate-100"><div class="text-3xl font-bold text-amber-600">${stats.planned}</div><div class="text-xs text-slate-500 mt-1">计划学习</div></div>
+        <div class="bg-white rounded-xl p-5 border border-slate-100"><div class="text-3xl font-bold text-purple-600">${stats.notes}</div><div class="text-xs text-slate-500 mt-1">笔记数</div></div>
+      </div>
+    </div>`;
+}
+
+// ─── 笔记逻辑 ───
+let noteTimer = null;
+async function loadNote(type, id) {
+  try {
+    const n = await req('/notes/' + type + '/' + id);
+    const area = document.getElementById('noteArea');
+    if (area) { area.value = n.content || ''; updateNoteCount(); }
+  } catch(e) { /* 忽略 */ }
+}
+
+function onNoteInput() {
+  updateNoteCount();
+  const s = document.getElementById('noteStatus');
+  if (s) { s.textContent = '保存中…'; s.className='text-[10px] text-amber-500'; }
+  clearTimeout(noteTimer);
+  noteTimer = setTimeout(saveNote, 800);
+}
+
+function updateNoteCount() {
+  const area = document.getElementById('noteArea');
+  const c = document.getElementById('noteCount');
+  if (area && c) c.textContent = (area.value.length) + ' 字';
+}
+
+async function saveNote() {
+  if (!currentItem || !user) return;
+  const area = document.getElementById('noteArea');
+  if (!area) return;
+  try {
+    await req('/notes/' + currentItem.type + '/' + currentItem.id, {
+      method:'POST',
+      body: JSON.stringify({ content: area.value, itemTitle: currentItem.title })
+    });
+    const s = document.getElementById('noteStatus');
+    if (s) { s.textContent='已保存 · '+new Date().toLocaleTimeString(); s.className='text-[10px] text-emerald-500'; }
+    myNotes = await req('/notes');
+  } catch(e) {
+    const s = document.getElementById('noteStatus');
+    if (s) { s.textContent='保存失败'; s.className='text-[10px] text-red-500'; }
+  }
+}
+
+async function setProgress(type, id, status) {
+  if (!user) return toast('请先登录','error');
+  try {
+    await req('/progress/' + type + '/' + id, { method: 'POST', body: JSON.stringify({status}) });
+    progressMap[type+':'+id] = status;
+    toast('已更新学习状态','success');
+  } catch(e) { toast(e.message,'error'); }
+}
+
+init();
+</script>
+</body>
+</html>
