@@ -1233,21 +1233,12 @@ function openPaperDetail(id){
 
           <!-- PDF真题对照 -->
           <div class="bg-white rounded-xl border border-slate-100 overflow-hidden" id="pdfCard-${paper.id}">
-            <div class="flex items-center justify-between p-3 border-b border-slate-100 bg-slate-50 flex-wrap gap-2">
+            <div class="flex items-center justify-between p-3 border-b border-slate-100 bg-slate-50">
               <h3 class="font-bold text-sm">📄 ${getPaperYear(id)}年${paper.category}${paper.time}${paper.type} · PDF对照</h3>
-              <div class="flex gap-2">
-                <button onclick="switchPdfViewer('${paper.id}','google','${paper.pdfUrl}')" id="btn-google-${paper.id}" class="text-xs px-2 py-1 rounded bg-blue-50 border border-blue-300 font-medium">Google预览</button>
-                <button onclick="switchPdfViewer('${paper.id}','direct','${paper.pdfUrl}')" id="btn-direct-${paper.id}" class="text-xs px-2 py-1 rounded bg-white border border-slate-200 hover:bg-slate-50">直接预览</button>
-              </div>
+              <a href="${paper.pdfUrl}" target="_blank" rel="noopener" class="text-xs px-3 py-1 rounded bg-blue-50 text-blue-600 border border-blue-200 hover:bg-blue-100">📥 下载PDF（备用）</a>
             </div>
-            <div id="pdfWrap-${paper.id}" class="w-full" style="height:600px;">
-              <iframe id="pdfFrame-${paper.id}" src="https://docs.google.com/gview?embedded=1&url=${encodeURIComponent(paper.pdfUrl)}" class="w-full h-full border-0"></iframe>
-            </div>
-            <div id="pdfFallback-${paper.id}" class="hidden p-8 text-center">
-              <div class="text-4xl mb-3">📄</div>
-              <p class="text-sm text-slate-600 mb-2">PDF 预览暂时无法加载</p>
-              <p class="text-xs text-slate-400 mb-4">正在尝试直接预览方式…</p>
-              <button onclick="switchPdfViewer('${paper.id}','direct','${paper.pdfUrl}')" class="px-4 py-2 rounded-lg bg-blue-600 text-white text-sm hover:bg-blue-700">切换到直接预览</button>
+            <div id="pdfWrap-${paper.id}" class="w-full" style="height:650px;">
+              <iframe id="pdfFrame-${paper.id}" src="${paper.pdfUrl}#toolbar=1&view=FitH" class="w-full h-full border-0"></iframe>
             </div>
           </div>
 
@@ -1318,34 +1309,6 @@ function getYearPapers(currentId){
   if(!year) return [];
   const yObj=pastPapersData.find(y=>y.year===parseInt(year));
   return yObj?yObj.papers:[];
-}
-
-function switchPdfViewer(pid, mode, url){
-  const frame=document.getElementById('pdfFrame-'+pid);
-  const wrap=document.getElementById('pdfWrap-'+pid);
-  const fallback=document.getElementById('pdfFallback-'+pid);
-  const btnDirect=document.getElementById('btn-direct-'+pid);
-  const btnGoogle=document.getElementById('btn-google-'+pid);
-  if(!frame) return;
-  // reset buttons
-  if(btnDirect){btnDirect.classList.remove('font-medium','bg-blue-50','border-blue-300'); btnDirect.classList.add('bg-white','border-slate-200');}
-  if(btnGoogle){btnGoogle.classList.remove('font-medium','bg-blue-50','border-blue-300'); btnGoogle.classList.add('bg-white','border-slate-200');}
-  // show iframe, hide fallback
-  if(wrap) wrap.classList.remove('hidden');
-  if(fallback) fallback.classList.add('hidden');
-  if(mode==='google'){
-    frame.src='https://docs.google.com/gview?embedded=1&url='+encodeURIComponent(url);
-    if(btnGoogle){btnGoogle.classList.add('font-medium','bg-blue-50','border-blue-300'); btnGoogle.classList.remove('bg-white','border-slate-200');}
-  } else {
-    frame.src=url;
-    if(btnDirect){btnDirect.classList.add('font-medium','bg-blue-50','border-blue-300'); btnDirect.classList.remove('bg-white','border-slate-200');}
-  }
-}
-function onPdfError(pid){
-  const wrap=document.getElementById('pdfWrap-'+pid);
-  const fallback=document.getElementById('pdfFallback-'+pid);
-  if(wrap) wrap.classList.add('hidden');
-  if(fallback) fallback.classList.remove('hidden');
 }
 
 // ============ 考试手册 ============
