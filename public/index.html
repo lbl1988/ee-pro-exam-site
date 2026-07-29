@@ -1230,6 +1230,28 @@ function openPaperDetail(id){
               <span>📥</span> 下载PDF真题
             </a>
           </div>
+
+          <!-- PDF真题对照 -->
+          <div class="bg-white rounded-xl border border-slate-100 overflow-hidden" id="pdfCard-${paper.id}">
+            <div class="flex items-center justify-between p-3 border-b border-slate-100 bg-slate-50 flex-wrap gap-2">
+              <h3 class="font-bold text-sm">📄 PDF真题对照</h3>
+              <div class="flex gap-2">
+                <button onclick="switchPdfViewer('${paper.id}','direct','${paper.pdfUrl}')" id="btn-direct-${paper.id}" class="text-xs px-2 py-1 rounded bg-white border border-slate-200 hover:bg-slate-50 font-medium">直接预览</button>
+                <button onclick="switchPdfViewer('${paper.id}','google','${paper.pdfUrl}')" id="btn-google-${paper.id}" class="text-xs px-2 py-1 rounded bg-white border border-slate-200 hover:bg-slate-50">Google预览</button>
+                <a href="${paper.pdfUrl}" target="_blank" rel="noopener" class="text-xs px-2 py-1 rounded bg-blue-50 text-blue-600 border border-blue-200 hover:bg-blue-100">新标签页打开</a>
+              </div>
+            </div>
+            <div id="pdfWrap-${paper.id}" class="w-full" style="height:520px;">
+              <iframe id="pdfFrame-${paper.id}" src="${paper.pdfUrl}" class="w-full h-full border-0" onerror="onPdfError('${paper.id}')"></iframe>
+            </div>
+            <div id="pdfFallback-${paper.id}" class="hidden p-6 text-center">
+              <div class="text-3xl mb-2">📄</div>
+              <p class="text-sm text-slate-600 mb-2">PDF 预览加载失败</p>
+              <p class="text-xs text-slate-400 mb-3">该网站可能禁止了 iframe 嵌入，请使用下方按钮打开</p>
+              <a href="${paper.pdfUrl}" target="_blank" rel="noopener" class="inline-flex items-center gap-1 px-4 py-2 rounded-lg bg-rose-600 text-white text-sm hover:bg-rose-700">📥 下载PDF真题</a>
+            </div>
+          </div>
+
           <div class="bg-white rounded-xl border border-slate-100 p-4">
             <h3 class="font-bold text-sm mb-3">试卷信息</h3>
             <div class="grid grid-cols-2 gap-3 text-sm">
@@ -1253,7 +1275,23 @@ function openPaperDetail(id){
             </div>
           </div>
         </div>
-        <div class="lg:col-span-1">
+        <div class="lg:col-span-1 space-y-4">
+          <!-- 同年份试卷导航 -->
+          <div class="bg-white rounded-xl border border-slate-100 p-4 sticky top-20">
+            <h3 class="font-bold text-sm mb-3">📑 ${getPaperYear(id)}年同卷导航</h3>
+            <div class="space-y-1.5 max-h-48 overflow-y-auto scroll-thin">
+              ${getYearPapers(id).map(p=>`
+                <div onclick="openPaperDetail('${p.id}')" class="cursor-pointer px-2.5 py-1.5 rounded-lg text-xs ${p.id===id?'bg-amber-50 border border-amber-200 text-amber-800 font-medium':'bg-slate-50 text-slate-600 hover:bg-slate-100 border border-transparent'}">
+                  <div class="flex items-center gap-1.5">
+                    <span class="text-[10px] px-1 rounded ${p.category==='供配电'?'bg-blue-100 text-blue-700':'bg-indigo-100 text-indigo-700'}">${p.category}</span>
+                    <span>${p.time}</span>
+                    <span class="text-slate-400">${p.type}</span>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+          <!-- 学习笔记 -->
           <div class="bg-white rounded-xl border border-slate-100 p-4 sticky top-32">
             <div class="flex items-center justify-between mb-2">
               <h3 class="font-bold text-sm">📝 学习笔记</h3>
@@ -1275,6 +1313,40 @@ function openPaperDetail(id){
 function getPaperYear(id){
   const m=id.match(/^p(\d+)/);
   return m?('20'+m[1]):'';
+}
+function getYearPapers(currentId){
+  const year=getPaperYear(currentId);
+  if(!year) return [];
+  const yObj=pastPapersData.find(y=>y.year===parseInt(year));
+  return yObj?yObj.papers:[];
+}
+
+function switchPdfViewer(pid, mode, url){
+  const frame=document.getElementById('pdfFrame-'+pid);
+  const wrap=document.getElementById('pdfWrap-'+pid);
+  const fallback=document.getElementById('pdfFallback-'+pid);
+  const btnDirect=document.getElementById('btn-direct-'+pid);
+  const btnGoogle=document.getElementById('btn-google-'+pid);
+  if(!frame) return;
+  // reset buttons
+  if(btnDirect){btnDirect.classList.remove('font-medium','bg-blue-50','border-blue-300'); btnDirect.classList.add('bg-white','border-slate-200');}
+  if(btnGoogle){btnGoogle.classList.remove('font-medium','bg-blue-50','border-blue-300'); btnGoogle.classList.add('bg-white','border-slate-200');}
+  // show iframe, hide fallback
+  if(wrap) wrap.classList.remove('hidden');
+  if(fallback) fallback.classList.add('hidden');
+  if(mode==='google'){
+    frame.src='https://docs.google.com/gview?embedded=1&url='+encodeURIComponent(url);
+    if(btnGoogle){btnGoogle.classList.add('font-medium','bg-blue-50','border-blue-300'); btnGoogle.classList.remove('bg-white','border-slate-200');}
+  } else {
+    frame.src=url;
+    if(btnDirect){btnDirect.classList.add('font-medium','bg-blue-50','border-blue-300'); btnDirect.classList.remove('bg-white','border-slate-200');}
+  }
+}
+function onPdfError(pid){
+  const wrap=document.getElementById('pdfWrap-'+pid);
+  const fallback=document.getElementById('pdfFallback-'+pid);
+  if(wrap) wrap.classList.add('hidden');
+  if(fallback) fallback.classList.remove('hidden');
 }
 
 // ============ 考试手册 ============
