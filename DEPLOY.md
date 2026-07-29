@@ -2,56 +2,40 @@
 
 ## 功能特性
 
-- 📚 **章节知识管理**：按章节组织课本知识点，支持多级目录
-- 🎬 **2025直播课程**：基础班、精讲班、冲刺班等分级课程
-- 📖 **考试手册**：汇集电教中心、工控圈、匠工教育等权威培训机构资料
-- 📝 **学习笔记**：云端同步笔记，按用户隔离
-- 📊 **学习进度**：跟踪学习状态（计划学习、学习中、已学完）
+- 📚 **章节知识管理**：供配电15章 + 发输变电17章，按考试大纲整理所有核心考点
+- 🎬 **2025直播课程**：15门课程（基础班/精讲班/冲刺班三级），B站直接嵌入播放
+- 📖 **考试手册**：7家权威培训机构 + 16本核心规范标准
+- 📝 **学习笔记**：本地自动保存，章节/课程关联
+- 📊 **学习进度**：计划学习/学习中/已学完三状态跟踪
+
+## 技术架构
+
+纯前端架构，所有数据嵌入 HTML，无需数据库。
+- 前端：Tailwind CSS + Vanilla JS
+- 后端：Express.js（仅提供静态文件服务）
+- 存储：浏览器 localStorage（笔记+进度）
 
 ## 本地运行
 
-1. 安装依赖：
 ```bash
 npm install
-```
-
-2. 配置环境变量：
-```bash
-cp .env.example .env
-# 编辑 .env 填入数据库连接信息
-```
-
-3. 启动服务：
-```bash
 npm start
+# 访问 http://localhost:3000
 ```
-
-4. 访问 http://localhost:3000
 
 ## 部署到 Render
 
-1. 在 GitHub 创建仓库并推送代码
-2. 登录 [Render](https://render.com)，创建新的 Web Service
-3. 连接 GitHub 仓库，选择分支
-4. 配置：
+1. 在 Render 创建 Web Service，连接 GitHub 仓库 `lbl1988/ee-pro-exam-site`
+2. 配置：
    - Build Command: `npm install`
    - Start Command: `npm start`
-5. 添加环境变量：
-   - `DATABASE_URL`：PostgreSQL 数据库连接
-   - `JWT_SECRET`：JWT 密钥
-   - `SITE_URL`：网站地址
-6. 部署
+3. 无需数据库配置，直接部署
 
-## 数据库
+## 直播课程来源
 
-支持 PostgreSQL 数据库（推荐）：
-- [Neon](https://neon.tech) - 免费PostgreSQL
-- [Supabase](https://supabase.com) - 免费PostgreSQL
-- Render PostgreSQL
+所有直播课程链接均来自 B 站公开免费课程，通过 iframe 嵌入 B 站播放器直接播放：
+- 张工教育、珞研教育、仟帆教育、纳米教育、工控圈等权威机构
 
-## 技术栈
+## 章节知识来源
 
-- 前端：HTML5 + Tailwind CSS + Vanilla JS
-- 后端：Express.js + PostgreSQL
-- 认证：JWT + bcrypt
-- 托管：Render
+依据《注册电气工程师供配电/发输变电专业考试大纲》整理。
