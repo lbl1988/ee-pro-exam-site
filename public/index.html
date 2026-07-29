@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>注册电气工程师专业考试学习平台</title>
+<title>注册电气工程师专业考试学习平台 · 2025</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
   body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;-webkit-tap-highlight-color:transparent;}
@@ -14,120 +14,430 @@
   @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
   .card-hover:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.08);}
   .card-hover{transition:all .15s ease;}
+  .pro-tab{cursor:pointer;padding:6px 14px;border-radius:8px;font-size:13px;font-weight:500;transition:all .15s;}
+  .pro-tab-active{background:linear-gradient(135deg,#2563eb,#4f46e5);color:white;}
+  .pro-tab-inactive{background:#f1f5f9;color:#64748b;}
+  .pro-tab-inactive:hover{background:#e2e8f0;}
+  .chapter-item{cursor:pointer;padding:8px 12px;border-radius:8px;transition:all .15s;border:1px solid transparent;}
+  .chapter-item:hover{background:#eff6ff;border-color:#bfdbfe;}
+  .chapter-item.active{background:#dbeafe;border-color:#3b82f6;color:#1d4ed8;}
   @media (max-width: 640px){input, textarea, select, button{font-size:16px;}}
   button{cursor:pointer;}
+  .level-basic{background:#dbeafe;color:#1e40af;}
+  .level-advanced{background:#f3e8ff;color:#6b21a8;}
+  .level-sprint{background:#fef3c7;color:#92400e;}
 </style>
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen">
 
-<!-- 顶栏 -->
 <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
   <div class="max-w-7xl mx-auto px-4 py-3 flex items-center gap-3">
     <div class="flex items-center gap-2 cursor-pointer" onclick="go('home')">
       <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white text-lg font-bold">专</div>
       <div>
         <div class="font-bold text-slate-800 leading-tight">注册电气工程师 · 专业考试</div>
-        <div class="text-xs text-slate-400 leading-tight">2025年课程 · 考试手册 · 学习笔记</div>
+        <div class="text-xs text-slate-400 leading-tight">供配电 / 发输变电 · 2025直播 · 权威手册</div>
       </div>
     </div>
     <div class="flex-1"></div>
-    <input id="search" oninput="onSearch(this.value)" placeholder="搜索课程、章节…" class="hidden sm:block w-64 px-3 py-2 text-sm rounded-lg border border-slate-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 outline-none">
-    <div id="userBar" class="flex items-center gap-2"></div>
+    <input id="search" oninput="onSearch(this.value)" placeholder="搜索章节、课程…" class="hidden sm:block w-56 px-3 py-1.5 text-sm rounded-lg border border-slate-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 outline-none">
   </div>
-  <!-- 标签栏 -->
   <nav class="max-w-7xl mx-auto px-4 flex gap-1 text-sm overflow-x-auto">
     <button onclick="go('home')" class="tab-btn px-3 py-2 border-b-2 border-blue-600 text-blue-700 font-medium whitespace-nowrap" data-tab="home">首页</button>
     <button onclick="go('chapters')" class="tab-btn px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-slate-700 whitespace-nowrap" data-tab="chapters">章节知识</button>
     <button onclick="go('live')" class="tab-btn px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-slate-700 whitespace-nowrap" data-tab="live">2025直播</button>
     <button onclick="go('manuals')" class="tab-btn px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-slate-700 whitespace-nowrap" data-tab="manuals">考试手册</button>
-    <button onclick="go('notes')" class="tab-btn px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-slate-700 whitespace-nowrap" data-tab="notes">我的笔记</button>
-    <button onclick="go('stats')" class="tab-btn px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-slate-700 whitespace-nowrap" data-tab="stats">学习统计</button>
+    <button onclick="go('notes')" class="tab-btn px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-slate-700 whitespace-nowrap" data-tab="notes">学习笔记</button>
   </nav>
 </header>
 
 <main id="app" class="max-w-7xl mx-auto px-4 py-6"></main>
 
-<!-- 登录注册弹窗 -->
-<div id="authModal" class="fixed inset-0 bg-black/40 z-50 hidden items-center justify-center" onclick="if(event.target===this)closeAuth()">
-  <div class="bg-white rounded-2xl shadow-xl w-full max-w-sm p-6 fade-in">
-    <div class="flex items-center justify-between mb-4">
-      <h3 id="authTitle" class="text-lg font-bold">登录</h3>
-      <button type="button" onclick="closeAuth()" class="text-slate-400 hover:text-slate-600 text-xl">×</button>
-    </div>
-    <form id="authForm" onsubmit="submitAuth(event)" class="space-y-3">
-      <div id="nameField" class="hidden">
-        <label class="text-xs text-slate-500">用户名</label>
-        <input id="au" class="w-full px-3 py-2 text-sm rounded-lg border border-slate-200 focus:border-blue-400 outline-none" placeholder="请输入用户名" autocomplete="username">
-      </div>
-      <div>
-        <label class="text-xs text-slate-500">账号（邮箱或用户名）</label>
-        <input id="ai" required class="w-full px-3 py-2 text-sm rounded-lg border border-slate-200 focus:border-blue-400 outline-none" placeholder="登录时填用户名或邮箱" autocomplete="username">
-      </div>
-      <div>
-        <label class="text-xs text-slate-500">密码</label>
-        <input id="ap" type="password" required class="w-full px-3 py-2 text-sm rounded-lg border border-slate-200 focus:border-blue-400 outline-none" placeholder="至少6位" autocomplete="current-password">
-      </div>
-      <div id="aeField" class="hidden">
-        <label class="text-xs text-slate-500">邮箱（注册时必填）</label>
-        <input id="ae" type="email" class="w-full px-3 py-2 text-sm rounded-lg border border-slate-200 focus:border-blue-400 outline-none" placeholder="用于注册" autocomplete="email">
-      </div>
-      <button type="button" onclick="submitAuth(event)" class="w-full py-2.5 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-700 text-white font-medium hover:opacity-90" id="authBtn">登录</button>
-      <p class="text-center text-xs text-slate-400" id="authToggle">没有账号？<a href="#" onclick="toggleAuth(event)" class="text-blue-600">去注册</a></p>
-      <p id="authErr" class="text-xs text-red-500 text-center hidden"></p>
-    </form>
-  </div>
-</div>
-
-<footer class="text-center text-xs text-slate-400 py-6">注册电气工程师专业考试学习平台 · 2025直播课程 · 权威考试手册</footer>
+<footer class="text-center text-xs text-slate-400 py-6">注册电气工程师专业考试学习平台 · 供配电 & 发输变电 · 2025年课程</footer>
 
 <script>
-const API = '/api';
-let token = localStorage.getItem('ee_pro_token');
-let user = JSON.parse(localStorage.getItem('ee_pro_user') || 'null');
-let chapters = [];
-let liveCourses = [];
-let manuals = [];
-let progressMap = {};
-let myNotes = [];
-let currentView = 'home';
-let currentItem = null;
-let searchKw = '';
-let authMode = 'login';
-
-// 考试手册数据（权威培训机构）
-const manualsData = [
-  { id: 'dg', name: '电教中心', logo: '电', desc: '注册电气工程师培训权威机构，涵盖公共基础与专业基础', url: '', courses: [] },
-  { id: 'gk', name: '工控圈', logo: '工', desc: '专业基础精讲课程，电路、电磁场、模电数电等深度讲解', url: '', courses: [] },
-  { id: 'jg', name: '匠工教育', logo: '匠', desc: '多年培训经验，提供完整课件和真题解析', url: '', courses: [] },
-  { id: 'zj', name: '中建教育', logo: '中', desc: '公共基础精讲班，数学、物理、化学等全科覆盖', url: '', courses: [] }
+// ============ 数据：供配电专业章节 ============
+const gongpeiChapters = [
+  { id: 'gp-1', title: '一、安全', points: [
+    '1.1 熟悉工程建设标准强制性条文(电气专业)',
+    '1.2 理解电流对人体的效应',
+    '1.3 掌握安全电压及电击防护基本规定',
+    '1.4 掌握低压系统接地故障保护设计和等电位联结',
+    '1.5 掌握危险环境电力装置的特殊设计规定',
+    '1.6 理解电气设备防误操作规定及措施',
+    '1.7 掌握电气工程设计防火规定及措施',
+    '1.8 理解电力设施抗震设计和措施',
+  ]},
+  { id: 'gp-2', title: '二、环境保护与节能', points: [
+    '2.1 熟悉电气设备对环境影响及防治措施',
+    '2.2 熟悉供配电系统设计节能措施',
+    '2.3 熟悉提高电能质量措施',
+    '2.4 掌握节能型电气产品选用措施',
+  ]},
+  { id: 'gp-3', title: '三、负荷分级及计算', points: [
+    '3.1 掌握负荷分级原则及供电要求',
+    '3.2 掌握负荷计算方法(需要系数法、利用系数法、单位指标法)',
+  ]},
+  { id: 'gp-4', title: '四、110kV及以下供配电系统', points: [
+    '4.1 熟悉供配电系统电压等级选择原则',
+    '4.2 熟悉供配电系统接线方式及特点',
+    '4.3 熟悉应急电源和备用电源选择及接线方式',
+    '4.4 理解电能质量要求及改善措施',
+    '4.5 掌握无功补偿设计规定',
+    '4.6 熟悉抑制谐波措施',
+    '4.7 掌握电压偏差规定及改善措施',
+  ]},
+  { id: 'gp-5', title: '五、变配电所所址选择及电气设备布置', points: [
+    '5.1 熟悉变配电所所址选择基本要求',
+    '5.2 熟悉变配电所布置设计要求',
+    '5.3 掌握电气设备布置设计',
+    '5.4 理解特殊环境变配电装置设计',
+  ]},
+  { id: 'gp-6', title: '六、短路电流计算', points: [
+    '6.1 掌握短路电流计算方法',
+    '6.2 熟悉短路电流计算结果应用',
+    '6.3 熟悉影响短路电流因素及限制短路电流措施',
+  ]},
+  { id: 'gp-7', title: '七、110kV及以下电气设备选择', points: [
+    '7.1 掌握常用电气设备选择技术条件和环境条件',
+    '7.2 熟悉高压变配电设备及电气元件选择',
+    '7.3 熟悉低压配电设备及电器元件选择',
+  ]},
+  { id: 'gp-8', title: '八、35kV及以下导体、电缆及架空线路设计', points: [
+    '8.1 掌握导体选择和设计',
+    '8.2 熟悉电线、电缆选择和设计',
+    '8.3 熟悉电缆敷设设计',
+    '8.4 掌握电缆防火与阻燃设计规定',
+    '8.5 理解架空线路设计规定',
+  ]},
+  { id: 'gp-9', title: '九、变配电所控制、测量、继电保护及自动装置', points: [
+    '9.1 掌握变配电所控制、测量和信号设计规定',
+    '9.2 掌握电气设备和线路继电保护配置、整定计算及选型',
+    '9.3 理解变配电所自动装置及综合自动化设计规定',
+  ]},
+  { id: 'gp-10', title: '十、变配电所操作电源', points: [
+    '10.1 熟悉直流操作电源设计要求',
+    '10.2 熟悉UPS电源设计要求',
+    '10.3 理解交流操作电源设计',
+  ]},
+  { id: 'gp-11', title: '十一、防雷及过电压保护', points: [
+    '11.1 理解电力系统过电压种类和过电压水平',
+    '11.2 熟悉交流电气装置过电压保护设计规定',
+    '11.3 掌握建筑物防雷分类及措施',
+    '11.4 掌握建筑物防雷和防雷击电磁脉冲设计计算',
+  ]},
+  { id: 'gp-12', title: '十二、接地', points: [
+    '12.1 掌握电气装置接地一般规定',
+    '12.2 熟悉电气装置保护接地范围',
+    '12.3 熟悉电气装置接地装置设计规定',
+    '12.4 理解各种接地型式适用范围',
+    '12.5 理解接触电压、跨步电压计算方法',
+  ]},
+  { id: 'gp-13', title: '十三、照明', points: [
+    '13.1 理解照明方式和照明种类划分',
+    '13.2 熟悉照度标准及照明质量规定',
+    '13.3 掌握光源及电气附件选用和灯具选型',
+    '13.4 掌握照明供电及照明控制规定',
+    '13.5 掌握照度计算基本方法(利用系数法、点照度计算)',
+    '13.6 掌握照明工程节能原则及措施',
+  ]},
+  { id: 'gp-14', title: '十四、电气传动', points: [
+    '14.1 熟悉电气传动系统组成及分类',
+    '14.2 理解电动机选择技术要求',
+    '14.3 掌握交、直流电动机起动方式及起动校验',
+    '14.4 掌握交、直流电动机调速技术',
+    '14.5 掌握交、直流电动机电气制动方式及计算',
+    '14.6 掌握电动机保护配置及计算措施',
+    '14.7 熟悉低压电动机控制电器选择',
+    '14.8 熟悉PLC应用',
+  ]},
+  { id: 'gp-15', title: '十五、建筑智能化', points: [
+    '15.1 掌握火灾自动报警系统及消防联动控制设计',
+    '15.2 掌握建筑设备监控系统设计',
+    '15.3 掌握安全防范系统设计',
+    '15.4 熟悉通信网络及系统设计',
+    '15.5 理解有线电视系统设计',
+    '15.6 理解扩声和音响系统设计',
+    '15.7 理解呼叫系统及公共显示装置设计',
+    '15.8 熟悉建筑物内综合布线设计',
+  ]},
 ];
 
-// ─── 工具 ───
-async function req(path, opts = {}) {
-  const headers = { 'Content-Type': 'application/json', ...(opts.headers||{}) };
-  if (token) headers.Authorization = 'Bearer ' + token;
-  const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), 15000);
-  let r;
-  try {
-    r = await fetch(API + path, { ...opts, headers, signal: ctrl.signal });
-  } catch (e) {
-    clearTimeout(timer);
-    if (e.name === 'AbortError') throw new Error('请求超时，请检查网络后重试');
-    throw new Error('网络错误：' + (e.message || e));
-  }
-  clearTimeout(timer);
-  const data = await r.json().catch(() => ({}));
-  if (!r.ok) throw new Error(data.error || '请求失败');
-  return data;
-}
+// ============ 数据：发输变电专业章节 ============
+const fasongChapters = [
+  { id: 'fs-1', title: '一、安全', points: [
+    '1.1 熟悉工程建设标准强制性条文(电力工程部分)',
+    '1.2 掌握电力工程电气保护的要求和主要防护措施',
+    '1.3 掌握危险环境电力装置的设计要求',
+    '1.4 了解劳动、安全、卫生的有关规定',
+  ]},
+  { id: 'fs-2', title: '二、环境保护与节能', points: [
+    '2.1 掌握电力工程对环境的影响及防治措施',
+    '2.2 熟悉电力工程的节能措施',
+    '2.3 掌握电力工程节能型产品的选用方法',
+    '2.4 熟悉提高电能质量的措施',
+    '2.5 了解清洁能源发电的特点',
+  ]},
+  { id: 'fs-3', title: '三、消防', points: [
+    '3.1 熟悉电气设备消防安全的要求和措施',
+    '3.2 掌握电缆防火的要求和措施',
+    '3.3 熟悉电力工程火灾报警系统的设计要求',
+  ]},
+  { id: 'fs-4', title: '四、电气主接线', points: [
+    '4.1 掌握电气主接线设计的基本要求(含接入系统设计)',
+    '4.2 掌握各级电压配电装置的基本接线设计',
+    '4.3 熟悉各种电气主接线型式设计',
+    '4.4 掌握主接线设计中的设备配置',
+    '4.5 了解发电机及变压器中性点的接地方式',
+  ]},
+  { id: 'fs-5', title: '五、短路电流计算', points: [
+    '5.1 掌握短路电流的计算方法(实用计算法)',
+    '5.2 掌握短路电流计算结果的应用',
+    '5.3 熟悉限制短路电流的设计措施',
+  ]},
+  { id: 'fs-6', title: '六、设备选择', points: [
+    '6.1 熟悉电气主设备选择的技术条件和环境条件',
+    '6.2 熟悉发电机、变压器、电抗器、电容器的选择',
+    '6.3 掌握开关电器和保护电器的选择',
+    '6.4 掌握电流互感器、电压互感器的选择',
+    '6.5 熟悉成套电器的选择',
+    '6.6 掌握高压电瓷及金具的选择',
+    '6.7 掌握中性点设备的选择',
+    '6.8 了解发电机励磁系统的选择',
+  ]},
+  { id: 'fs-7', title: '七、导体及电缆的设计选择', points: [
+    '7.1 掌握导体的选择及设计要求',
+    '7.2 熟悉电缆的选择',
+    '7.3 掌握电缆敷设设计要求',
+  ]},
+  { id: 'fs-8', title: '八、电气设备布置及配电装置设计', points: [
+    '8.1 熟悉电气设备布置的要求',
+    '8.2 掌握高压配电装置的设计',
+    '8.3 了解特殊地区的电气设备布置',
+  ]},
+  { id: 'fs-9', title: '九、过电压保护和绝缘配合', points: [
+    '9.1 熟悉电力系统过电压种类和过电压水平',
+    '9.2 掌握雷电过电压的特点及相应的限制和保护',
+    '9.3 掌握暂时过电压的特点及相应的限制和保护',
+    '9.4 掌握操作过电压的特点及相应的限制和保护',
+    '9.5 了解输电线路、配电装置及电气设备的绝缘配合',
+  ]},
+  { id: 'fs-10', title: '十、接地', points: [
+    '10.1 熟悉电气接地的设计',
+    '10.2 了解直流输电系统接地的基本要求',
+    '10.3 熟悉高土壤电阻率地区接地设计',
+    '10.4 掌握接地电阻、接触电位差、跨步电位差的计算',
+  ]},
+  { id: 'fs-11', title: '十一、仪表和控制', points: [
+    '11.1 熟悉控制方式的设计选择',
+    '11.2 熟悉二次设备的布置设计',
+    '11.3 掌握二次回路的设计要求',
+    '11.4 熟悉电气系统采用计算机监控的设计',
+    '11.5 了解二次设备及控制电缆抗干扰的要求',
+  ]},
+  { id: 'fs-12', title: '十二、继电保护、安全自动装置及调度自动化', points: [
+    '12.1 掌握线路、母线和断路器继电保护的配置、整定计算',
+    '12.2 熟悉电气主设备继电保护的配置、整定计算',
+    '12.3 了解安全自动装置的原理及配置',
+    '12.4 了解电力系统调度自动化的功能及配置',
+  ]},
+  { id: 'fs-13', title: '十三、直流系统', points: [
+    '13.1 熟悉直流系统的设计要求',
+    '13.2 掌握蓄电池的选择及容量计算',
+    '13.3 掌握充电器的选择及容量计算',
+    '13.4 掌握直流设备的选择和布置设计',
+    '13.5 了解直流系统绝缘监测装置的选择',
+  ]},
+  { id: 'fs-14', title: '十四、发电厂和变电所用电', points: [
+    '14.1 熟悉厂(所)用电负荷的分类、电压选择',
+    '14.2 掌握厂(所)用电接线要求、备用方式和负荷配置',
+    '14.3 掌握厂(所)用电系统的计算和设备选择',
+    '14.4 熟悉厂(所)用电设备布置设计',
+    '14.5 了解保安电源系统的设计',
+    '14.6 掌握UPS的选择',
+  ]},
+  { id: 'fs-15', title: '十五、照明', points: [
+    '15.1 熟悉发电厂、变电所照明系统的设计要求',
+    '15.2 熟悉照明系统的供电方式',
+    '15.3 掌握照明设备的选择',
+    '15.4 掌握照度计算的基本方法',
+    '15.5 了解绿色照明的特点',
+  ]},
+  { id: 'fs-16', title: '十六、输电线路', points: [
+    '16.1 熟悉输电线路路径的选择',
+    '16.2 掌握输电线路导、地线的选择',
+    '16.3 掌握输电线路电气参数的计算',
+    '16.4 了解杆塔塔头设计',
+    '16.5 了解输电线路对电信线路的影响及防护',
+    '16.6 掌握电线力学特性的计算',
+    '16.7 熟悉各种杆塔荷载的一般规定及计算',
+    '16.8 熟悉杆塔的定位校验',
+    '16.9 了解电线的防振',
+  ]},
+  { id: 'fs-17', title: '十七、电力系统规划设计', points: [
+    '17.1 了解电力系统规划设计的内容和方法',
+    '17.2 了解电力系统安全稳定运行的基本要求',
+    '17.3 熟悉无功补偿型式选择及容量计算',
+    '17.4 了解电力系统中性点接地方式',
+    '17.5 熟悉电力系统短路容量及设备选择',
+  ]},
+];
 
-function safeSetItem(k, v) {
-  try { localStorage.setItem(k, v); } catch(e) { console.warn('localStorage 写入失败:', e); }
-}
+// ============ 数据：直播课程（B站免费公开课程，可直接嵌入播放） ============
+const liveCourses = [
+  // 供配电专业
+  {
+    id: 'lc-1', title: '2025供配电专业精讲班 · 全套', level: 'basic', category: '供配电',
+    teacher: '纳米教育', duration: 3150,
+    bvid: 'BV1wgwKeEE5P', page: 1,
+    description: '2025年注册电气工程师供配电专业精讲班，涵盖所有章节知识点，系统讲解配四、50217、50054等核心规范。',
+    scheduled: '2025-01-01'
+  },
+  {
+    id: 'lc-2', title: '2025供配电专业精讲班 · XZ', level: 'basic', category: '供配电',
+    teacher: 'XZ教育', duration: 5100,
+    bvid: 'BV1w6w3eAEdh', page: 1,
+    description: '供配电专业精讲班，含电气布置讲解、智能化、短路电流计算、照明等核心章节。',
+    scheduled: '2025-01-16'
+  },
+  {
+    id: 'lc-3', title: '供配电专业精讲课 · 短路电流计算', level: 'advanced', category: '供配电',
+    teacher: '张工教育', duration: 120,
+    bvid: 'BV1xedbYBECE', page: 1,
+    description: '供配电专业短路电流计算：短路电流基本概念、峰值电流计算、直流分量分析，实用计算方法。',
+    scheduled: '2025-09-01'
+  },
+  {
+    id: 'lc-4', title: '供配电专业精讲课 · 传动基础', level: 'advanced', category: '供配电',
+    teacher: '张工教育', duration: 150,
+    bvid: 'BV1hm41zwEtu', page: 1,
+    description: '电气传动基础：直流电机调速原理、变流电路、整流变压器、晶闸管变流器直流调速系统。',
+    scheduled: '2025-10-13'
+  },
+  {
+    id: 'lc-5', title: '供配电专业精讲课 · 电动机选择', level: 'advanced', category: '供配电',
+    teacher: '张工教育', duration: 180,
+    bvid: 'BV13uxTzDEcH', page: 1,
+    description: '传动知识点：电动机类型、机械特性、电机选择及容量校验、常用机械公式。',
+    scheduled: '2025-10-05'
+  },
+  {
+    id: 'lc-6', title: '供配电专业 · 安全精讲课', level: 'basic', category: '供配电',
+    teacher: '珞研教育', duration: 120,
+    bvid: 'BV1WBo5YYEmq', page: 1,
+    description: '安全章节精讲：接触电压分析、50054低压配电设计规范、13870安全标准等。',
+    scheduled: '2025-04-14'
+  },
+  {
+    id: 'lc-7', title: '供配电专业 · 过电压入门', level: 'basic', category: '供配电',
+    teacher: '珞研教育', duration: 100,
+    bvid: 'BV1VaCBYmEZY', page: 1,
+    description: '过电压入门班：雷电过电压、操作过电压、工频过电压、谐振过电压基本概念。',
+    scheduled: '2024-12-24'
+  },
+  {
+    id: 'lc-8', title: '供配电专业 · 建筑智能化精讲', level: 'advanced', category: '供配电',
+    teacher: '珞研教育', duration: 125,
+    bvid: 'BV1Hd5hzjEXC', page: 1,
+    description: '建筑智能化精讲：火灾报警系统、综合布线、安防监控、建筑设备监控等。',
+    scheduled: '2025-03-18'
+  },
+  {
+    id: 'lc-9', title: '供配电专业 · 电缆GB50217精讲', level: 'advanced', category: '供配电',
+    teacher: '仟帆教育', duration: 120,
+    bvid: 'BV1mtdLYNEVN', page: 1,
+    description: '电缆设计选择：GB50217-2018电力工程电缆设计标准详解，载流量计算、防火阻燃。',
+    scheduled: '2025-06-01'
+  },
+  {
+    id: 'lc-10', title: '供配电专业 · 传动精讲', level: 'advanced', category: '供配电',
+    teacher: '仟帆教育', duration: 150,
+    bvid: 'BV1mtdLYNEVN', page: 2,
+    description: '电气传动系统：交直流电动机起动、调速、制动方式及计算，PLC应用。',
+    scheduled: '2025-06-15'
+  },
+  // 发输变电专业
+  {
+    id: 'lc-11', title: '发输变电专业精讲班 · 全套', level: 'basic', category: '发输变电',
+    teacher: '西伯利亚土豆酱', duration: 4800,
+    bvid: 'BV1NNsmzQEc7', page: 1,
+    description: '发输变电专业全套精讲课：主接线、配电装置、短路电流、线路、接地、继电保护、设备选择、厂用电等。',
+    scheduled: '2025-11-09'
+  },
+  {
+    id: 'lc-12', title: '发输变电专业 · 电气参数计算', level: 'advanced', category: '发输变电',
+    teacher: '西伯利亚土豆酱', duration: 140,
+    bvid: 'BV1WGuCziE43', page: 1,
+    description: '输电线路电气参数计算：电阻、电抗、电纳、电导计算方法，正序负序零序参数。',
+    scheduled: '2025-07-15'
+  },
+  {
+    id: 'lc-13', title: '发输变电专业 · 新能源发电', level: 'sprint', category: '发输变电',
+    teacher: '张工教育', duration: 120,
+    bvid: 'BV12ShozPE8N', page: 1,
+    description: '新能源发电：风力发电、光伏发电原理与电气系统设计，2025年新增考点。',
+    scheduled: '2025-08-30'
+  },
+  {
+    id: 'lc-14', title: '发输变电专业 · 导体电缆精讲', level: 'advanced', category: '发输变电',
+    teacher: '张工教育', duration: 145,
+    bvid: 'BV1sUt1zsE4r', page: 1,
+    description: '导体与电缆：经济电流密度、载流量校验、电缆选择、架空线设计。',
+    scheduled: '2025-08-09'
+  },
+  {
+    id: 'lc-15', title: '发输变电专业 · 照明规范解读', level: 'basic', category: '发输变电',
+    teacher: '张工教育', duration: 140,
+    bvid: 'BV12ShozPE8N', page: 2,
+    description: '照明设计规范：NB/T 35008-2023水力发电厂照明设计规范，照度计算、LPD计算。',
+    scheduled: '2025-09-01'
+  },
+];
 
+// ============ 数据：权威培训机构手册 ============
+const manualsData = [
+  { id: 'mg', name: '张工教育', logo: '张', desc: '2006年开始筹划勘察设计注册考试培训，老牌头部教育企业', url: 'https://space.bilibili.com/1801904672', platform: 'B站', tag: '供配电/发输变电' },
+  { id: 'ly', name: '珞研教育', logo: '珞', desc: '专注注电培训，老电工注电团队，直播课+录播课结合', url: 'https://space.bilibili.com/506808546', platform: 'B站', tag: '供配电/发输变电' },
+  { id: 'qf', name: '仟帆教育', logo: '仟', desc: '今生老师主讲，精讲班涵盖所有核心章节，规范条文精讲', url: 'https://space.bilibili.com/1009258415', platform: 'B站', tag: '供配电' },
+  { id: 'nm', name: '纳米教育', logo: '纳', desc: '注电培训知名品牌，供配电/发输变电双专业精讲', url: 'https://space.bilibili.com/3593273181', platform: 'B站', tag: '供配电/发输变电' },
+  { id: 'gk', name: '工控圈', logo: '工', desc: '发输变电专业精讲102课时，含真题课、精选题目课', url: 'https://space.bilibili.com/499778261', platform: 'B站', tag: '发输变电' },
+  { id: 'yt', name: '盈智教育', logo: '盈', desc: '协议无忧预习课121课时，潘老师/胡老师主讲，5.0评分', url: 'https://www.yingzhiedu.com/course/180', platform: '官网', tag: '供配电' },
+  { id: 'xn', name: '西伯利亚土豆酱', logo: '土', desc: '发输变电精讲系列40+课时，含直播回放和精选题目讲解', url: 'https://space.bilibili.com/279800048', platform: 'B站', tag: '发输变电' },
+];
+
+// ============ 数据：核心规范手册 ============
+const standardManuals = [
+  { name: 'GB 50052-2009', title: '供配电系统设计规范', category: '供配电' },
+  { name: 'GB 50053-2013', title: '20kV及以下变电所设计规范', category: '供配电' },
+  { name: 'GB 50054-2011', title: '低压配电设计规范', category: '供配电' },
+  { name: 'GB 50055-2011', title: '通用用电设备配电设计规范', category: '供配电' },
+  { name: 'GB 50057-2010', title: '建筑物防雷设计规范', category: '供配电' },
+  { name: 'GB 50058-2014', title: '爆炸和火灾危险环境电力装置设计规范', category: '供配电' },
+  { name: 'GB 50034-2013', title: '建筑照明设计标准', category: '供配电' },
+  { name: 'GB 50217-2018', title: '电力工程电缆设计标准', category: '供配电/发输变电' },
+  { name: 'GB/T 11022-2020', title: '高压开关设备共用技术要求', category: '发输变电' },
+  { name: 'GB/T 11023-2018', title: '高压开关设备通用技术条件', category: '发输变电' },
+  { name: 'GB/T 14285-2006', title: '继电保护和安全自动装置技术规程', category: '发输变电' },
+  { name: 'GB/T 11604-2018', title: '高压电器设备的工频耐压试验', category: '发输变电' },
+  { name: 'GB 50060-2011', title: '66kV及以下架空电力线路设计规范', category: '发输变电' },
+  { name: 'GB/T 50064-2014', title: '交流电气装置的接地设计规范', category: '供配电/发输变电' },
+  { name: 'NB/T 35008-2023', title: '水力发电厂照明设计规范', category: '发输变电' },
+  { name: 'DL/T 5222-2021', title: '导体和电器选择设计规程', category: '发输变电' },
+];
+
+// ============ 应用状态 ============
+let currentView = 'home';
+let currentProType = 'gongpei';
+let currentChapterId = null;
+let currentLiveId = null;
+let currentCategory = 'all';
+let currentLevel = 'all';
+let searchKw = '';
+let myNotes = {};
+let progressMap = {};
+
+// ============ 工具函数 ============
 function escapeHtml(s){return (s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-
 function toast(msg, type='info') {
   const t = document.createElement('div');
   const colors = {info:'bg-slate-800', success:'bg-emerald-600', error:'bg-red-500'};
@@ -137,129 +447,31 @@ function toast(msg, type='info') {
   setTimeout(() => t.remove(), 2500);
 }
 
-// ─── 初始化 ───
-async function init() {
-  renderUserBar();
+// B站嵌入播放器
+function renderBiliPlayer(bvid, page = 1) {
+  const src = `https://player.bilibili.com/player.html?bvid=${bvid}&page=${page}&high_quality=1&danmaku=0&autoplay=0`;
+  return `<div class="aspect-video w-full bg-black rounded-lg overflow-hidden">
+    <iframe src="${src}" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="w-full h-full"></iframe>
+  </div>`;
+}
+
+// ============ 本地存储 ============
+function loadData() {
   try {
-    chapters = await req('/chapters');
-  } catch (e) { chapters = []; }
-  try {
-    liveCourses = await req('/live-courses');
-  } catch (e) { liveCourses = []; }
-  manuals = manualsData;
-  if (token) {
-    try { user = await req('/auth/me'); safeSetItem('ee_pro_user', JSON.stringify(user)); }
-    catch(e){ logout(true); }
-  }
-  await loadUserData();
-  renderUserBar();
-  go('home');
+    const n = localStorage.getItem('ee_pro_notes');
+    if (n) myNotes = JSON.parse(n);
+    const p = localStorage.getItem('ee_pro_progress');
+    if (p) progressMap = JSON.parse(p);
+  } catch(e) {}
+}
+function saveNotes() {
+  try { localStorage.setItem('ee_pro_notes', JSON.stringify(myNotes)); } catch(e) {}
+}
+function saveProgress() {
+  try { localStorage.setItem('ee_pro_progress', JSON.stringify(progressMap)); } catch(e) {}
 }
 
-async function loadUserData() {
-  if (!token) return;
-  try {
-    const [prog, notes] = await Promise.all([req('/progress'), req('/notes')]);
-    progressMap = prog;
-    myNotes = notes;
-  } catch(e) { console.warn(e); }
-}
-
-// ─── 认证 UI ───
-function renderUserBar() {
-  const bar = document.getElementById('userBar');
-  if (user) {
-    bar.innerHTML = `
-      <div class="flex items-center gap-2">
-        <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-sm">${escapeHtml(user.username[0]||'U')}</div>
-        <span class="text-sm font-medium hidden sm:block">${escapeHtml(user.username)}</span>
-        <button onclick="logout()" class="text-xs text-slate-400 hover:text-red-500 ml-1">退出</button>
-      </div>`;
-  } else {
-    bar.innerHTML = `
-      <button onclick="openAuth('login')" class="text-sm px-3 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50">登录</button>
-      <button onclick="openAuth('register')" class="text-sm px-3 py-1.5 rounded-lg bg-blue-600 text-white hover:bg-blue-700">注册</button>`;
-  }
-}
-
-function openAuth(mode) {
-  authMode = mode;
-  document.getElementById('authTitle').textContent = mode==='login'?'登录':'注册';
-  document.getElementById('authBtn').textContent = mode==='login'?'登录':'注册';
-  document.getElementById('nameField').classList.toggle('hidden', mode!=='register');
-  document.getElementById('aeField').classList.toggle('hidden', mode!=='register');
-  document.getElementById('au').required = (mode === 'register');
-  document.getElementById('ae').required = (mode === 'register');
-  document.getElementById('ai').required = true;
-  document.getElementById('ai').placeholder = mode==='login'?'用户名或邮箱':'登录用用户名';
-  document.getElementById('authToggle').innerHTML = mode==='login'
-    ? '没有账号？<a href="#" onclick="toggleAuth(event)" class="text-blue-600">去注册</a>'
-    : '已有账号？<a href="#" onclick="toggleAuth(event)" class="text-blue-600">去登录</a>';
-  document.getElementById('authModal').classList.remove('hidden');
-  document.getElementById('authModal').classList.add('flex');
-  document.getElementById('authErr').classList.add('hidden');
-}
-
-function closeAuth() {
-  document.getElementById('authModal').classList.add('hidden');
-  document.getElementById('authModal').classList.remove('flex');
-}
-
-function toggleAuth(e){ e.preventDefault(); openAuth(authMode==='login'?'register':'login'); }
-
-async function submitAuth(e) {
-  if (e && e.preventDefault) e.preventDefault();
-  const errEl = document.getElementById('authErr');
-  const btn = document.getElementById('authBtn');
-  if (errEl) errEl.classList.add('hidden');
-  if (btn.dataset.loading === '1') return;
-  btn.dataset.loading = '1';
-  const oldText = btn.textContent;
-  btn.textContent = '提交中…';
-  btn.disabled = true;
-  try {
-    const ai = document.getElementById('ai');
-    const ap = document.getElementById('ap');
-    const au = document.getElementById('au');
-    const ae = document.getElementById('ae');
-    if (!ai || !ap) throw new Error('表单元素未找到');
-    const body = authMode==='login'
-      ? { login: ai.value.trim(), password: ap.value }
-      : { username: (au&&au.value||'').trim(), email: (ae&&ae.value||'').trim(), password: ap.value };
-    const data = await req('/auth/' + authMode, { method:'POST', body: JSON.stringify(body) });
-    if (!data.token) throw new Error('服务器返回数据异常');
-    token = data.token; user = data.user;
-    safeSetItem('ee_pro_token', token);
-    safeSetItem('ee_pro_user', JSON.stringify(user));
-    closeAuth();
-    await loadUserData();
-    renderUserBar();
-    go(currentView);
-    toast('欢迎，'+user.username+'！','success');
-  } catch(err) {
-    const msg = err && err.message ? err.message : String(err);
-    if (errEl) {
-      errEl.textContent = '提交失败：' + msg;
-      errEl.classList.remove('hidden');
-    }
-    toast('登录失败：' + msg, 'error');
-  } finally {
-    btn.dataset.loading = '0';
-    btn.textContent = oldText;
-    btn.disabled = false;
-  }
-}
-
-function logout(silent) {
-  token=null; user=null;
-  localStorage.removeItem('ee_pro_token'); localStorage.removeItem('ee_pro_user');
-  progressMap={}; myNotes=[];
-  renderUserBar();
-  go('home');
-  if(!silent) toast('已退出登录');
-}
-
-// ─── 视图切换 ───
+// ============ 视图路由 ============
 function go(view) {
   currentView = view;
   document.querySelectorAll('.tab-btn').forEach(b => {
@@ -275,406 +487,395 @@ function go(view) {
   else if (view==='live') renderLive();
   else if (view==='manuals') renderManuals();
   else if (view==='notes') renderNotes();
-  else if (view==='stats') renderStats();
 }
 
 function onSearch(v){ searchKw = v.trim().toLowerCase(); go(currentView); }
 
-// ─── 首页 ───
+// ============ 首页 ============
 function renderHome() {
   const app = document.getElementById('app');
+  const gpCount = gongpeiChapters.length;
+  const fsCount = fasongChapters.length;
   const doneCount = Object.values(progressMap).filter(s => s === 'done').length;
-  const learningCount = Object.values(progressMap).filter(s => s === 'learning').length;
   app.innerHTML = `
-    <div class="fade-in">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-        <div class="bg-white rounded-xl p-4 border border-slate-100">
-          <div class="text-2xl font-bold text-blue-600">${chapters.length}</div><div class="text-xs text-slate-500">章节知识</div>
-        </div>
-        <div class="bg-white rounded-xl p-4 border border-slate-100">
-          <div class="text-2xl font-bold text-indigo-600">${liveCourses.length}</div><div class="text-xs text-slate-500">2025直播课</div>
-        </div>
-        <div class="bg-white rounded-xl p-4 border border-slate-100">
-          <div class="text-2xl font-bold text-emerald-600">${doneCount}</div><div class="text-xs text-slate-500">已学完</div>
-        </div>
-        <div class="bg-white rounded-xl p-4 border border-slate-100">
-          <div class="text-2xl font-bold text-amber-600">${learningCount}</div><div class="text-xs text-slate-500">学习中</div>
+    <div class="fade-in space-y-5">
+      <div class="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl p-6 text-white">
+        <h1 class="text-2xl font-bold mb-2">注册电气工程师 · 专业考试</h1>
+        <p class="text-blue-100 text-sm mb-4">2025年课程 · 供配电 & 发输变电 · 权威机构直播 · 全程陪跑</p>
+        <div class="flex gap-3">
+          <button onclick="go('live')" class="px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg text-sm font-medium">📺 观看直播</button>
+          <button onclick="go('chapters')" class="px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg text-sm font-medium">📚 章节知识</button>
+          <button onclick="go('manuals')" class="px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg text-sm font-medium">📖 考试手册</button>
         </div>
       </div>
-      <h2 class="text-xl font-bold mb-4">快速入口</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div class="bg-white rounded-xl p-4 border border-slate-100">
+          <div class="text-2xl font-bold text-blue-600">${gpCount}</div><div class="text-xs text-slate-500">供配电章节</div>
+        </div>
+        <div class="bg-white rounded-xl p-4 border border-slate-100">
+          <div class="text-2xl font-bold text-indigo-600">${fsCount}</div><div class="text-xs text-slate-500">发输变电章节</div>
+        </div>
+        <div class="bg-white rounded-xl p-4 border border-slate-100">
+          <div class="text-2xl font-bold text-emerald-600">${liveCourses.length}</div><div class="text-xs text-slate-500">直播课程</div>
+        </div>
+        <div class="bg-white rounded-xl p-4 border border-slate-100">
+          <div class="text-2xl font-bold text-amber-600">${doneCount}</div><div class="text-xs text-slate-500">已学完</div>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div onclick="go('chapters')" class="card-hover bg-white rounded-2xl border border-slate-100 p-5 cursor-pointer">
           <div class="flex items-center gap-3 mb-3">
             <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center text-white text-2xl">📚</div>
-            <div>
-              <div class="font-bold text-slate-800">章节知识</div>
-              <div class="text-xs text-slate-400">课本知识点梳理</div>
-            </div>
+            <div><div class="font-bold text-slate-800">章节知识</div><div class="text-xs text-slate-400">供配电15章 / 发输变电17章</div></div>
           </div>
-          <p class="text-xs text-slate-500">按章节组织，涵盖专业考试全部考点</p>
+          <p class="text-xs text-slate-500">按考试大纲整理，涵盖所有核心考点和规范条文</p>
         </div>
         <div onclick="go('live')" class="card-hover bg-white rounded-2xl border border-slate-100 p-5 cursor-pointer">
           <div class="flex items-center gap-3 mb-3">
             <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-2xl">🎬</div>
-            <div>
-              <div class="font-bold text-slate-800">2025直播</div>
-              <div class="text-xs text-slate-400">分级课程 · 名师讲解</div>
-            </div>
+            <div><div class="font-bold text-slate-800">2025直播课程</div><div class="text-xs text-slate-400">基础班/精讲班/冲刺班</div></div>
           </div>
-          <p class="text-xs text-slate-500">基础班、精讲班、冲刺班等多级别课程</p>
+          <p class="text-xs text-slate-500">张工教育、珞研、仟帆、纳米教育等权威机构课程，B站直接播放</p>
         </div>
         <div onclick="go('manuals')" class="card-hover bg-white rounded-2xl border border-slate-100 p-5 cursor-pointer">
           <div class="flex items-center gap-3 mb-3">
             <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white text-2xl">📖</div>
-            <div>
-              <div class="font-bold text-slate-800">考试手册</div>
-              <div class="text-xs text-slate-400">权威培训机构</div>
-            </div>
+            <div><div class="font-bold text-slate-800">考试手册</div><div class="text-xs text-slate-400">权威机构 + 核心规范</div></div>
           </div>
-          <p class="text-xs text-slate-500">电教中心、工控圈、匠工教育等机构资料</p>
+          <p class="text-xs text-slate-500">各大培训机构资料 + 16本核心规范标准汇编</p>
+        </div>
+        <div onclick="go('notes')" class="card-hover bg-white rounded-2xl border border-slate-100 p-5 cursor-pointer">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-white text-2xl">📝</div>
+            <div><div class="font-bold text-slate-800">我的笔记</div><div class="text-xs text-slate-400">本地存储 · 随学随记</div></div>
+          </div>
+          <p class="text-xs text-slate-500">边看边记，自动保存到本地浏览器</p>
         </div>
       </div>
     </div>`;
 }
 
-// ─── 章节知识 ───
+// ============ 章节知识 ============
 function renderChapters() {
   const app = document.getElementById('app');
-  const rootChapters = chapters.filter(c => !c.parent_id);
   app.innerHTML = `
     <div class="fade-in">
-      <div class="flex items-center justify-between mb-4">
-        <h2 class="text-xl font-bold">章节知识</h2>
-        ${user ? `<button onclick="addChapter()" class="text-sm px-3 py-1.5 rounded-lg bg-blue-600 text-white">+ 添加章节</button>` : ''}
+      <div class="flex items-center gap-2 mb-4">
+        <button onclick="switchProType('gongpei')" class="pro-tab ${currentProType==='gongpei'?'pro-tab-active':'pro-tab-inactive'}">供配电专业</button>
+        <button onclick="switchProType('fasong')" class="pro-tab ${currentProType==='fasong'?'pro-tab-active':'pro-tab-inactive'}">发输变电专业</button>
       </div>
-      ${rootChapters.length === 0
-        ? `<div class="text-center py-16 text-slate-400">暂无章节内容，登录后可添加</div>`
-        : `<div class="space-y-3">${rootChapters.map(c => chapterCard(c)).join('')}</div>`}
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div class="md:col-span-1 space-y-1 bg-white rounded-xl border border-slate-100 p-3 max-h-[70vh] overflow-y-auto scroll-thin">
+          ${getChaptersForType().map(c => `
+            <div class="chapter-item ${currentChapterId===c.id?'active':''}" onclick="openChapter('${c.id}')">
+              <div class="font-medium text-sm">${escapeHtml(c.title)}</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">${c.points.length} 个考点</div>
+            </div>
+          `).join('')}
+        </div>
+        <div class="md:col-span-3">
+          ${renderChapterDetail()}
+        </div>
+      </div>
     </div>`;
 }
 
-function chapterCard(c) {
-  const children = chapters.filter(ch => ch.parent_id === c.id);
+function getChaptersForType() {
+  let list = currentProType==='gongpei' ? gongpeiChapters : fasongChapters;
+  if (searchKw) {
+    list = list.filter(c => c.title.toLowerCase().includes(searchKw) || c.points.some(p => p.toLowerCase().includes(searchKw)));
+  }
+  return list;
+}
+
+function switchProType(type) {
+  currentProType = type;
+  currentChapterId = null;
+  renderChapters();
+}
+
+function openChapter(id) {
+  currentChapterId = id;
+  renderChapters();
+}
+
+function renderChapterDetail() {
+  const list = getChaptersForType();
+  const ch = list.find(c => c.id === currentChapterId);
+  if (!ch) {
+    const first = list[0];
+    if (first) { currentChapterId = first.id; return renderChapterDetail(); }
+    return `<div class="bg-white rounded-xl border border-slate-100 p-8 text-center text-slate-400">选择左侧章节查看详细考点</div>`;
+  }
+  const notes = myNotes['chapter:'+ch.id] || '';
+  const status = progressMap['chapter:'+ch.id] || '';
   return `
-    <div class="bg-white rounded-xl border border-slate-100 overflow-hidden">
-      <div class="px-4 py-3 bg-slate-50 flex items-center justify-between cursor-pointer" onclick="toggleChapter(${c.id})">
-        <div class="flex items-center gap-2">
-          <span class="text-blue-600">📂</span>
-          <span class="font-medium">${escapeHtml(c.title)}</span>
-        </div>
-        <div class="flex items-center gap-2">
-          ${children.length > 0 ? `<span class="text-xs text-slate-400">${children.length}小节</span>` : ''}
-          <span class="text-slate-400">▼</span>
+    <div class="bg-white rounded-xl border border-slate-100 p-5">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="text-lg font-bold">${escapeHtml(ch.title)}</h2>
+        <div class="flex gap-1">
+          ${['planned','learning','done'].map(st => {
+            const labels = {planned:'计划',learning:'学习中',done:'已学完'};
+            const colors = {planned:'bg-slate-100 text-slate-600',learning:'bg-blue-100 text-blue-700',done:'bg-emerald-100 text-emerald-700'};
+            const cur = status===st;
+            return `<button onclick="setStatus('chapter:${ch.id}','${st}')" class="text-xs px-2 py-1 rounded ${colors[st]} ${cur?'font-bold ring-2 ring-offset-1 ring-blue-300':''}">${labels[st]}</button>`;
+          }).join('')}
         </div>
       </div>
-      <div id="chapter-${c.id}" class="hidden p-3 space-y-2">
-        ${c.content ? `<div class="text-sm text-slate-600 p-3 bg-slate-50 rounded-lg">${escapeHtml(c.content)}</div>` : ''}
-        ${children.map(ch => `
-          <div class="p-3 bg-white rounded-lg border border-slate-100 cursor-pointer hover:border-blue-200" onclick="openChapterDetail(${ch.id})">
-            <div class="font-medium text-sm">${escapeHtml(ch.title)}</div>
-            ${ch.content ? `<p class="text-xs text-slate-500 mt-1 line-clamp-2">${escapeHtml(ch.content.slice(0,100))}</p>` : ''}
-          </div>
-        `).join('')}
+      <div class="space-y-2 mb-4">
+        ${ch.points.map((p,i) => `
+          <div class="p-3 bg-slate-50 rounded-lg border-l-4 border-blue-400">
+            <span class="text-sm text-slate-700">${escapeHtml(p)}</span>
+          </div>`).join('')}
+      </div>
+      <div class="border-t border-slate-100 pt-4">
+        <div class="flex items-center justify-between mb-2">
+          <h3 class="font-bold text-sm">📝 学习笔记</h3>
+          <span class="text-[10px] text-slate-400">本地自动保存</span>
+        </div>
+        <textarea id="noteArea" oninput="onNoteInput('chapter:${ch.id}')" rows="6" placeholder="记录你的学习心得、公式推导、易错点…" class="w-full text-sm p-3 rounded-lg border border-slate-200 focus:border-blue-400 outline-none resize-y">${escapeHtml(notes)}</textarea>
+        <div class="text-[10px] text-slate-400 mt-1 flex justify-between">
+          <span id="noteStatus-${ch.id}"></span>
+          <span>${(notes.length)} 字</span>
+        </div>
       </div>
     </div>`;
 }
 
-function toggleChapter(id) {
-  const el = document.getElementById('chapter-' + id);
-  el.classList.toggle('hidden');
-}
-
-function addChapter() {
-  if (!user) return toast('请先登录','error');
-  const title = prompt('请输入章节标题：');
-  if (!title) return;
-  req('/chapters', { method: 'POST', body: JSON.stringify({ title }) })
-    .then(() => { toast('添加成功','success'); init(); })
-    .catch(e => toast(e.message,'error'));
-}
-
-// ─── 2025直播课程 ───
+// ============ 2025直播 ============
 function renderLive() {
   const app = document.getElementById('app');
   const levels = { basic: '基础班', advanced: '精讲班', sprint: '冲刺班' };
-  const levelColors = { basic: 'bg-blue-100 text-blue-700', advanced: 'bg-purple-100 text-purple-700', sprint: 'bg-amber-100 text-amber-700' };
+  const levelColors = { basic: 'level-basic', advanced: 'level-advanced', sprint: 'level-sprint' };
+  let list = liveCourses;
+  if (currentCategory !== 'all') list = list.filter(c => c.category === currentCategory);
+  if (currentLevel !== 'all') list = list.filter(c => c.level === currentLevel);
+  if (searchKw) list = list.filter(c => c.title.toLowerCase().includes(searchKw) || c.teacher.toLowerCase().includes(searchKw));
+
   app.innerHTML = `
     <div class="fade-in">
       <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
         <h2 class="text-xl font-bold">2025直播课程</h2>
-        <div class="flex gap-2 text-xs">
-          ${Object.entries(levels).map(([k,v]) => `
-            <button onclick="filterLive('${k}')" class="px-3 py-1.5 rounded-lg border ${k==='basic'?'bg-blue-600 text-white border-blue-600':'border-slate-200 hover:bg-slate-50'}">${v}</button>
-          `).join('')}
+        <div class="flex gap-2 flex-wrap text-xs">
+          <button onclick="setFilter('category','all')" class="px-3 py-1.5 rounded-lg border ${currentCategory==='all'?'bg-blue-600 text-white border-blue-600':'border-slate-200 hover:bg-slate-50'}">全部</button>
+          <button onclick="setFilter('category','供配电')" class="px-3 py-1.5 rounded-lg border ${currentCategory==='供配电'?'bg-blue-600 text-white border-blue-600':'border-slate-200 hover:bg-slate-50'}">供配电</button>
+          <button onclick="setFilter('category','发输变电')" class="px-3 py-1.5 rounded-lg border ${currentCategory==='发输变电'?'bg-blue-600 text-white border-blue-600':'border-slate-200 hover:bg-slate-50'}">发输变电</button>
         </div>
       </div>
-      ${liveCourses.length === 0
-        ? `<div class="text-center py-16 text-slate-400">暂无直播课程</div>`
-        : `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">${liveCourses.map(c => liveCard(c, levels, levelColors)).join('')}</div>`}
+      <div class="flex gap-2 flex-wrap text-xs mb-4">
+        <button onclick="setFilter('level','all')" class="px-3 py-1.5 rounded-lg border ${currentLevel==='all'?'bg-slate-700 text-white border-slate-700':'border-slate-200 hover:bg-slate-50'}">全部级别</button>
+        <button onclick="setFilter('level','basic')" class="px-3 py-1.5 rounded-lg border ${currentLevel==='basic'?'bg-blue-600 text-white border-blue-600':'border-slate-200 hover:bg-slate-50'}">基础班</button>
+        <button onclick="setFilter('level','advanced')" class="px-3 py-1.5 rounded-lg border ${currentLevel==='advanced'?'bg-purple-600 text-white border-purple-600':'border-slate-200 hover:bg-slate-50'}">精讲班</button>
+        <button onclick="setFilter('level','sprint')" class="px-3 py-1.5 rounded-lg border ${currentLevel==='sprint'?'bg-amber-600 text-white border-amber-600':'border-slate-200 hover:bg-slate-50'}">冲刺班</button>
+      </div>
+      ${list.length === 0
+        ? `<div class="text-center py-16 text-slate-400">暂无符合条件的课程</div>`
+        : `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">${list.map(c => liveCard(c, levels, levelColors)).join('')}</div>`}
     </div>`;
+}
+
+function setFilter(type, val) {
+  if (type === 'category') currentCategory = val;
+  else if (type === 'level') currentLevel = val;
+  renderLive();
 }
 
 function liveCard(c, levels, levelColors) {
-  const scheduled = c.scheduled_at ? new Date(c.scheduled_at).toLocaleString('zh-CN', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '待定';
   const status = progressMap['live:'+c.id] || '';
-  const statusBadge = status==='done'?'<span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-700">已学完</span>':status==='learning'?'<span class="text-[10px] px-1.5 py-0.5 rounded bg-blue-100 text-blue-700">学习中</span>':'';
+  const statusBadge = status==='done'?'<span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-700">✓ 已学完</span>':status==='learning'?'<span class="text-[10px] px-1.5 py-0.5 rounded bg-blue-100 text-blue-700">● 学习中</span>':'';
+  const duration = c.duration ? `${Math.floor(c.duration/60)}分` : '';
   return `
-    <div class="card-hover bg-white rounded-xl border border-slate-100 p-4 cursor-pointer" onclick="openLive(${c.id})">
-      <div class="flex items-start justify-between gap-2 mb-2">
-        <div class="flex-1 min-w-0">
-          <div class="text-sm font-medium text-slate-800 truncate">${escapeHtml(c.title)}</div>
-          ${c.chapter_title ? `<div class="text-xs text-slate-400">${escapeHtml(c.chapter_title)}</div>` : ''}
+    <div class="card-hover bg-white rounded-xl border border-slate-100 overflow-hidden cursor-pointer" onclick="openLiveDetail('${c.id}')">
+      <div class="bg-slate-900 aspect-video flex items-center justify-center relative">
+        <img src="https://i0.hdslb.com/bfs/archive/${c.bvid}.jpg" onerror="this.style.display='none';this.parentNode.innerHTML+='<div class=\\'text-white/50 text-3xl\\'>▶</div>'" class="w-full h-full object-cover"/>
+        <div class="absolute inset-0 flex items-center justify-center bg-black/20">
+          <div class="w-14 h-14 rounded-full bg-white/80 flex items-center justify-center text-slate-800 text-2xl">▶</div>
         </div>
-        <span class="text-[10px] px-2 py-1 rounded ${levelColors[c.level]||'bg-slate-100 text-slate-600'}">${levels[c.level]||c.level}</span>
+        <div class="absolute bottom-2 right-2 text-white text-xs bg-black/60 px-2 py-0.5 rounded">${duration}</div>
       </div>
-      <div class="flex items-center gap-3 text-xs text-slate-500 mb-3">
-        ${c.teacher ? `<span>👨‍🏫 ${escapeHtml(c.teacher)}</span>` : ''}
-        <span>📅 ${scheduled}</span>
-        ${statusBadge}
+      <div class="p-4">
+        <div class="flex items-start justify-between gap-2 mb-2">
+          <div class="flex-1 min-w-0">
+            <div class="text-sm font-medium text-slate-800 line-clamp-2">${escapeHtml(c.title)}</div>
+          </div>
+          <span class="text-[10px] px-2 py-1 rounded ${levelColors[c.level]||'bg-slate-100 text-slate-600'} whitespace-nowrap">${levels[c.level]||c.level}</span>
+        </div>
+        <div class="flex items-center gap-2 text-xs text-slate-500 mb-2 flex-wrap">
+          <span>👨‍🏫 ${escapeHtml(c.teacher)}</span>
+          <span class="px-1.5 py-0.5 bg-slate-100 rounded">${escapeHtml(c.category)}</span>
+          ${statusBadge}
+        </div>
+        <p class="text-xs text-slate-400 line-clamp-2">${escapeHtml(c.description)}</p>
       </div>
-      ${c.description ? `<p class="text-xs text-slate-400 line-clamp-2">${escapeHtml(c.description)}</p>` : ''}
     </div>`;
 }
 
-function filterLive(level) {
-  // 简单实现：重新获取数据后渲染
-  req('/live-courses?level=' + level)
-    .then(data => { liveCourses = data; renderLive(); })
-    .catch(e => toast(e.message,'error'));
-}
-
-function openLive(id) {
+function openLiveDetail(id) {
   const c = liveCourses.find(x => x.id === id);
   if (!c) return;
-  currentItem = { type: 'live', id: c.id, title: c.title };
+  currentLiveId = id;
   const app = document.getElementById('app');
+  const notes = myNotes['live:'+c.id] || '';
+  const status = progressMap['live:'+c.id] || '';
   app.innerHTML = `
     <div class="fade-in">
-      <button onclick="go('live')" class="text-sm text-slate-500 hover:text-blue-600 mb-3">← 返回直播列表</button>
+      <button onclick="go('live')" class="text-sm text-slate-500 hover:text-blue-600 mb-3">← 返回课程列表</button>
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
         <div class="lg:col-span-2 space-y-4">
           <div>
             <h2 class="text-lg font-bold">${escapeHtml(c.title)}</h2>
-            <p class="text-xs text-slate-400 mt-1">${c.teacher || '讲师待定'} · ${c.scheduled_at ? new Date(c.scheduled_at).toLocaleString('zh-CN') : '时间待定'}</p>
+            <div class="flex items-center gap-3 mt-2 text-xs text-slate-500 flex-wrap">
+              <span>👨‍🏫 ${escapeHtml(c.teacher)}</span>
+              <span class="px-2 py-0.5 bg-slate-100 rounded">${escapeHtml(c.category)}</span>
+              <span>📺 B站直播课</span>
+            </div>
           </div>
-          <div id="playerBox" class="bg-black rounded-xl overflow-hidden" style="min-height:300px">
-            ${renderLivePlayer(c.external_url)}
+          ${renderBiliPlayer(c.bvid, c.page)}
+          <div class="bg-white rounded-xl border border-slate-100 p-4">
+            <h3 class="font-bold text-sm mb-2">课程介绍</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">${escapeHtml(c.description)}</p>
           </div>
-          <div class="bg-white rounded-xl border border-slate-100 p-4 flex items-center gap-3 flex-wrap">
-            <span class="text-sm text-slate-500">学习状态：</span>
-            ${['planned','learning','done'].map(st => {
-              const labels = {planned:'计划学习',learning:'学习中',done:'已学完'};
-              const colors = {planned:'border-slate-300 text-slate-600',learning:'border-blue-500 text-blue-600 bg-blue-50',done:'border-emerald-500 text-emerald-600 bg-emerald-50'};
-              const cur = progressMap['live:'+c.id]===st;
-              return `<button onclick="setProgress('live','${c.id}','${st}')" class="text-xs px-3 py-1.5 rounded-lg border ${colors[st]} ${cur?'font-medium':'hover:bg-slate-50'}">${labels[st]}</button>`;
-            }).join('')}
+          <div class="bg-white rounded-xl border border-slate-100 p-4">
+            <h3 class="font-bold text-sm mb-3">学习状态</h3>
+            <div class="flex gap-2 flex-wrap">
+              ${['planned','learning','done'].map(st => {
+                const labels = {planned:'📋 计划学习',learning:'📖 学习中',done:'✅ 已学完'};
+                const colors = {planned:'border-slate-300 text-slate-600 hover:bg-slate-50',learning:'border-blue-500 text-blue-600 bg-blue-50',done:'border-emerald-500 text-emerald-600 bg-emerald-50'};
+                const cur = status===st;
+                return `<button onclick="setStatus('live:${c.id}','${st}')" class="text-sm px-4 py-2 rounded-lg border ${colors[st]} ${cur?'font-bold':''}">${labels[st]}</button>`;
+              }).join('')}
+            </div>
           </div>
         </div>
         <div class="lg:col-span-1">
           <div class="bg-white rounded-xl border border-slate-100 p-4 sticky top-32">
             <div class="flex items-center justify-between mb-2">
               <h3 class="font-bold text-sm">📝 学习笔记</h3>
-              <span id="noteStatus" class="text-[10px] text-slate-400">云端同步</span>
             </div>
-            ${user ? `
-              <textarea id="noteArea" oninput="onNoteInput()" rows="14" placeholder="记录本节课的知识点、公式、疑问…&#10;自动保存到云端。" class="w-full text-sm p-3 rounded-lg border border-slate-200 focus:border-blue-400 outline-none resize-y scroll-thin"></textarea>
-              <div class="flex items-center justify-between mt-2 text-xs">
-                <span class="text-slate-400" id="noteSaved"></span>
-                <span class="text-slate-400" id="noteCount">0 字</span>
-              </div>
-            ` : `
-              <div class="text-center py-8 text-sm text-slate-400">
-                <p class="mb-3">登录后即可记录笔记</p>
-                <button onclick="openAuth('login')" class="px-4 py-2 rounded-lg bg-blue-600 text-white text-sm hover:bg-blue-700">去登录</button>
-              </div>
-            `}
+            <textarea id="noteArea" oninput="onNoteInput('live:${c.id}')" rows="12" placeholder="记录本节课的知识点、公式、疑问…&#10;自动保存到本地。" class="w-full text-sm p-3 rounded-lg border border-slate-200 focus:border-blue-400 outline-none resize-y">${escapeHtml(notes)}</textarea>
+            <div class="text-[10px] text-slate-400 mt-1 flex justify-between">
+              <span id="noteStatus-live:${c.id}"></span>
+              <span>${notes.length} 字</span>
+            </div>
           </div>
         </div>
       </div>
     </div>`;
-  if (user) loadNote('live', c.id);
 }
 
-function renderLivePlayer(url) {
-  if (!url) {
-    return `
-      <div class="flex flex-col items-center justify-center text-center text-white/70 py-20 px-6">
-        <div class="text-5xl mb-3">🎬</div>
-        <p class="font-medium mb-1">直播尚未开始或链接未配置</p>
-        <p class="text-xs text-white/50">请关注课程安排，准时参加直播</p>
-      </div>`;
-  }
-  // B站
-  let m;
-  if (url.includes('bilibili.com')) {
-    let bvid='', page='';
-    if ((m = url.match(/\/video\/(BV\w+)/))) bvid = m[1];
-    if ((m = url.match(/[?&]p=(\d+)/))) page = m[1];
-    if (bvid) {
-      const src = `https://player.bilibili.com/player.html?bvid=${bvid}&page=${page||1}&high_quality=1&danmaku=0`;
-      return `<iframe src="${src}" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="w-full" style="height:480px;max-height:60vh"></iframe>`;
-    }
-  }
-  // 直链
-  if (/\.(mp4|m3u8|webm|ogg)(\?|$)/i.test(url)) {
-    return `<video src="${url}" controls class="w-full" style="max-height:60vh"></video>`;
-  }
-  return `
-    <div class="flex flex-col items-center justify-center text-center text-white/80 py-20 px-6">
-      <div class="text-5xl mb-3">🔗</div>
-      <p class="font-medium mb-1">点击下方按钮进入直播</p>
-      <a href="${escapeHtml(url)}" target="_blank" rel="noopener" class="mt-4 px-4 py-2 rounded-lg bg-blue-600 text-white text-sm hover:bg-blue-700">打开直播链接</a>
-    </div>`;
-}
-
-// ─── 考试手册 ───
+// ============ 考试手册 ============
 function renderManuals() {
   const app = document.getElementById('app');
   app.innerHTML = `
     <div class="fade-in">
-      <h2 class="text-xl font-bold mb-4">考试手册 · 权威培训机构</h2>
-      <p class="text-sm text-slate-500 mb-4">汇集各大权威培训机构的课程资料、真题解析、知识点总结</p>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        ${manuals.map(m => `
-          <div class="card-hover bg-white rounded-xl border border-slate-100 p-5 cursor-pointer" onclick="openManual('${m.id}')">
-            <div class="flex items-center gap-3 mb-3">
-              <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-slate-700 to-slate-900 flex items-center justify-center text-white font-bold">${m.logo}</div>
-              <div>
-                <div class="font-bold text-slate-800">${escapeHtml(m.name)}</div>
-                <div class="text-xs text-slate-400">${m.desc}</div>
-              </div>
-            </div>
-            <div class="text-xs text-blue-600">查看详情 →</div>
-          </div>
-        `).join('')}
-      </div>
-    </div>`;
-}
-
-function openManual(id) {
-  const m = manuals.find(x => x.id === id);
-  if (!m) return;
-  const app = document.getElementById('app');
-  app.innerHTML = `
-    <div class="fade-in">
-      <button onclick="go('manuals')" class="text-sm text-slate-500 hover:text-blue-600 mb-3">← 返回机构列表</button>
-      <div class="bg-white rounded-xl border border-slate-100 p-6 mb-4">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-slate-700 to-slate-900 flex items-center justify-center text-white font-bold text-xl">${m.logo}</div>
-          <div>
-            <h2 class="text-xl font-bold">${escapeHtml(m.name)}</h2>
-            <p class="text-sm text-slate-500">${m.desc}</p>
+      <h2 class="text-xl font-bold mb-4">考试手册</h2>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+        <div>
+          <h3 class="font-bold mb-3 text-sm">🏫 权威培训机构</h3>
+          <div class="space-y-2">
+            ${manualsData.map(m => `
+              <div class="bg-white rounded-xl border border-slate-100 p-4 flex items-center gap-3">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-slate-700 to-slate-900 flex items-center justify-center text-white font-bold text-lg flex-shrink-0">${m.logo}</div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-2">
+                    <span class="font-bold text-slate-800">${escapeHtml(m.name)}</span>
+                    <span class="text-[10px] px-1.5 py-0.5 bg-blue-50 text-blue-600 rounded">${escapeHtml(m.platform)}</span>
+                  </div>
+                  <p class="text-xs text-slate-500 mt-0.5 line-clamp-1">${escapeHtml(m.desc)}</p>
+                  <div class="flex items-center gap-2 mt-1">
+                    <span class="text-[10px] px-1.5 py-0.5 bg-slate-100 text-slate-600 rounded">${escapeHtml(m.tag)}</span>
+                    <a href="${escapeHtml(m.url)}" target="_blank" rel="noopener" class="text-[10px] text-blue-600 hover:underline">访问 →</a>
+                  </div>
+                </div>
+              </div>`).join('')}
           </div>
         </div>
-        ${m.url ? `<a href="${escapeHtml(m.url)}" target="_blank" rel="noopener" class="inline-block px-4 py-2 rounded-lg bg-blue-600 text-white text-sm hover:bg-blue-700">访问官网</a>` : ''}
+        <div>
+          <h3 class="font-bold mb-3 text-sm">📋 核心规范标准</h3>
+          <div class="space-y-2">
+            ${standardManuals.map(s => `
+              <div class="bg-white rounded-xl border border-slate-100 p-3 flex items-center justify-between">
+                <div>
+                  <div class="font-mono text-sm text-blue-700 font-bold">${escapeHtml(s.name)}</div>
+                  <p class="text-xs text-slate-500 mt-0.5">${escapeHtml(s.title)}</p>
+                </div>
+                <span class="text-[10px] px-2 py-0.5 bg-emerald-50 text-emerald-600 rounded whitespace-nowrap">${escapeHtml(s.category)}</span>
+              </div>`).join('')}
+          </div>
+        </div>
       </div>
-      <h3 class="font-bold mb-3">课程资料</h3>
       <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 text-xs text-amber-800">
-        登录后可在后台添加具体课程链接、PDF资料等。当前为演示模式，后续可扩展为完整资料库。
+        💡 <strong>备考建议：</strong>以上规范为注册电气工程师专业考试必考内容，建议在官方渠道购买正版规范。考试时可携带纸质规范手册进入考场。
       </div>
     </div>`;
 }
 
-// ─── 笔记 ───
+// ============ 我的笔记 ============
 function renderNotes() {
   const app = document.getElementById('app');
-  if (!user) {
-    app.innerHTML = `<div class="text-center py-20"><div class="text-5xl mb-4">📝</div><p class="text-slate-500 mb-4">登录后查看你的云端学习笔记</p><button onclick="openAuth('login')" class="px-5 py-2 rounded-lg bg-blue-600 text-white">去登录</button></div>`;
-    return;
+  const entries = Object.entries(myNotes).filter(([k,v]) => v && v.trim());
+  if (searchKw) {
+    const kw = searchKw;
+    var filtered = entries.filter(([k,v]) => v.toLowerCase().includes(kw) || k.toLowerCase().includes(kw));
+  } else {
+    var filtered = entries;
   }
   app.innerHTML = `
     <div class="fade-in">
-      <h2 class="text-xl font-bold mb-4">我的学习笔记 <span class="text-sm text-slate-400 font-normal">（${myNotes.length} 条）</span></h2>
-      ${myNotes.length===0 ? `<div class="text-center py-16 text-slate-400">还没有笔记，去课程中边看边记笔记吧</div>` :
-        `<div class="space-y-3">${myNotes.map(n => `
-          <div class="bg-white rounded-xl border border-slate-100 p-4 cursor-pointer hover:border-blue-200" onclick="jumpToNote('${n.item_type}','${n.item_id}')">
+      <h2 class="text-xl font-bold mb-4">我的学习笔记 <span class="text-sm text-slate-400 font-normal">（${filtered.length} 条）</span></h2>
+      ${filtered.length===0 ? `<div class="text-center py-16 text-slate-400">还没有笔记，去章节知识或直播课程中边学边记笔记吧</div>` :
+        `<div class="space-y-2">${filtered.map(([k,v]) => {
+          const label = k.startsWith('chapter:') ? '📚 章节' : k.startsWith('live:') ? '🎬 课程' : '📝';
+          const title = k.replace('chapter:','').replace('live:','');
+          return `<div class="bg-white rounded-xl border border-slate-100 p-4 cursor-pointer hover:border-blue-200" onclick="jumpToNote('${k}')">
             <div class="flex items-center justify-between mb-1">
-              <h3 class="font-medium text-sm">${escapeHtml(n.item_title||n.item_id)}</h3>
-              <span class="text-[10px] text-slate-400">${new Date(n.updated_at).toLocaleString()}</span>
+              <div class="flex items-center gap-2">
+                <span class="text-xs">${label}</span>
+                <h3 class="font-medium text-sm">${escapeHtml(title)}</h3>
+              </div>
             </div>
-            <p class="text-xs text-slate-500 line-clamp-2">${escapeHtml((n.content||'').slice(0,150))||'<span class="text-slate-300">空笔记</span>'}</p>
-          </div>`).join('')}</div>`}
+            <p class="text-xs text-slate-500 line-clamp-3">${escapeHtml(v.slice(0,200))}</p>
+          </div>`;
+        }).join('')}</div>`}
     </div>`;
 }
 
-function jumpToNote(type, id){
-  if (type === 'live') openLive(parseInt(id));
-  else if (type === 'chapter') openChapterDetail(parseInt(id));
+function jumpToNote(key) {
+  const [type, id] = key.split(':');
+  if (type === 'chapter') { currentProType = currentProType; openChapter(id); }
+  else if (type === 'live') { openLiveDetail(id); }
 }
 
-// ─── 统计 ───
-async function renderStats() {
-  const app = document.getElementById('app');
-  if (!user) {
-    app.innerHTML = `<div class="text-center py-20"><div class="text-5xl mb-4">📊</div><p class="text-slate-500 mb-4">登录后查看学习统计</p><button onclick="openAuth('login')" class="px-5 py-2 rounded-lg bg-blue-600 text-white">去登录</button></div>`;
-    return;
-  }
-  let stats;
-  try { stats = await req('/stats'); } catch(e){ stats={done:0,learning:0,planned:0,notes:0}; }
-  app.innerHTML = `
-    <div class="fade-in">
-      <h2 class="text-xl font-bold mb-4">学习统计</h2>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-        <div class="bg-white rounded-xl p-5 border border-slate-100"><div class="text-3xl font-bold text-emerald-600">${stats.done}</div><div class="text-xs text-slate-500 mt-1">已学完</div></div>
-        <div class="bg-white rounded-xl p-5 border border-slate-100"><div class="text-3xl font-bold text-blue-600">${stats.learning}</div><div class="text-xs text-slate-500 mt-1">学习中</div></div>
-        <div class="bg-white rounded-xl p-5 border border-slate-100"><div class="text-3xl font-bold text-amber-600">${stats.planned}</div><div class="text-xs text-slate-500 mt-1">计划学习</div></div>
-        <div class="bg-white rounded-xl p-5 border border-slate-100"><div class="text-3xl font-bold text-purple-600">${stats.notes}</div><div class="text-xs text-slate-500 mt-1">笔记数</div></div>
-      </div>
-    </div>`;
-}
-
-// ─── 笔记逻辑 ───
+// ============ 笔记自动保存 ============
 let noteTimer = null;
-async function loadNote(type, id) {
-  try {
-    const n = await req('/notes/' + type + '/' + id);
-    const area = document.getElementById('noteArea');
-    if (area) { area.value = n.content || ''; updateNoteCount(); }
-  } catch(e) { /* 忽略 */ }
-}
-
-function onNoteInput() {
-  updateNoteCount();
-  const s = document.getElementById('noteStatus');
-  if (s) { s.textContent = '保存中…'; s.className='text-[10px] text-amber-500'; }
-  clearTimeout(noteTimer);
-  noteTimer = setTimeout(saveNote, 800);
-}
-
-function updateNoteCount() {
-  const area = document.getElementById('noteArea');
-  const c = document.getElementById('noteCount');
-  if (area && c) c.textContent = (area.value.length) + ' 字';
-}
-
-async function saveNote() {
-  if (!currentItem || !user) return;
+function onNoteInput(key) {
   const area = document.getElementById('noteArea');
   if (!area) return;
-  try {
-    await req('/notes/' + currentItem.type + '/' + currentItem.id, {
-      method:'POST',
-      body: JSON.stringify({ content: area.value, itemTitle: currentItem.title })
-    });
-    const s = document.getElementById('noteStatus');
-    if (s) { s.textContent='已保存 · '+new Date().toLocaleTimeString(); s.className='text-[10px] text-emerald-500'; }
-    myNotes = await req('/notes');
-  } catch(e) {
-    const s = document.getElementById('noteStatus');
-    if (s) { s.textContent='保存失败'; s.className='text-[10px] text-red-500'; }
+  const statusEl = document.getElementById('noteStatus-' + key);
+  if (statusEl) { statusEl.textContent = '保存中…'; statusEl.className='text-[10px] text-amber-500'; }
+  myNotes[key] = area.value;
+  clearTimeout(noteTimer);
+  noteTimer = setTimeout(() => {
+    saveNotes();
+    if (statusEl) { statusEl.textContent='已保存 · '+new Date().toLocaleTimeString(); statusEl.className='text-[10px] text-emerald-500'; }
+  }, 600);
+}
+
+// ============ 学习状态 ============
+function setStatus(key, status) {
+  progressMap[key] = status;
+  saveProgress();
+  toast('学习状态已更新：' + ({planned:'计划学习',learning:'学习中',done:'已学完'}[status]), 'success');
+  if (currentView === 'chapters') renderChapterDetail();
+  else if (currentView === 'live') {
+    if (currentLiveId) openLiveDetail(currentLiveId);
+    else renderLive();
   }
 }
 
-async function setProgress(type, id, status) {
-  if (!user) return toast('请先登录','error');
-  try {
-    await req('/progress/' + type + '/' + id, { method: 'POST', body: JSON.stringify({status}) });
-    progressMap[type+':'+id] = status;
-    toast('已更新学习状态','success');
-  } catch(e) { toast(e.message,'error'); }
-}
-
-init();
+// ============ 启动 ============
+loadData();
+go('home');
 </script>
 </body>
 </html>
