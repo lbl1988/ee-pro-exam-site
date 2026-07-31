@@ -170,6 +170,39 @@
   .level-basic{background:#dbeafe;color:#1e40af;}
   .level-advanced{background:#f3e8ff;color:#6b21a8;}
   .level-sprint{background:#fef3c7;color:#92400e;}
+
+  /* ===== 用户认证 UI(登录/注册/修改密码弹窗 + 顶部用户区) ===== */
+  .ee-user-greeting{font-size:13px;color:rgba(255,255,255,0.95);display:flex;align-items:center;gap:5px;white-space:nowrap;}
+  .ee-user-greeting i{color:var(--ee-accent-orange);font-size:15px;}
+  .ee-btn-login{background:var(--ee-accent-orange);color:#fff;border:none;padding:6px 14px;border-radius:6px;font-size:13px;font-weight:600;display:flex;align-items:center;gap:5px;cursor:pointer;transition:var(--ee-transition);}
+  .ee-btn-login:hover{background:#e67e22;}
+  .ee-btn-pwd,.ee-btn-logout{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);color:#fff;width:30px;height:30px;border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:var(--ee-transition);font-size:13px;}
+  .ee-btn-pwd:hover{background:rgba(255,255,255,0.3);}
+  .ee-btn-logout:hover{background:var(--ee-accent);}
+
+  .ee-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:9999;align-items:center;justify-content:center;padding:20px;}
+  .ee-modal-overlay.show{display:flex;}
+  .ee-modal-box{background:#fff;border-radius:12px;padding:28px 30px;width:100%;max-width:400px;box-shadow:0 12px 40px rgba(0,0,0,0.25);position:relative;animation:ee-modal-in .25s ease;}
+  @keyframes ee-modal-in{from{opacity:0;transform:translateY(-12px);}to{opacity:1;transform:translateY(0);}}
+  .ee-modal-close{position:absolute;top:10px;right:14px;background:none;border:none;font-size:24px;color:var(--ee-text-light);cursor:pointer;line-height:1;}
+  .ee-modal-close:hover{color:var(--ee-accent);}
+  .ee-auth-tabs{display:flex;gap:6px;margin-bottom:20px;border-bottom:2px solid var(--ee-border);}
+  .ee-auth-tab{flex:1;padding:10px;background:none;border:none;border-bottom:3px solid transparent;font-size:15px;color:var(--ee-text-gray);cursor:pointer;font-weight:600;margin-bottom:-2px;transition:var(--ee-transition);}
+  .ee-auth-tab.active{color:var(--ee-primary);border-bottom-color:var(--ee-primary);}
+  .ee-auth-form .ee-form-group{margin-bottom:14px;}
+  .ee-auth-form label{display:block;font-size:13px;color:var(--ee-text-dark);margin-bottom:5px;font-weight:600;}
+  .ee-auth-form input{width:100%;padding:9px 12px;border:1px solid var(--ee-border);border-radius:6px;font-size:14px;outline:none;transition:var(--ee-transition);box-sizing:border-box;}
+  .ee-auth-form input:focus{border-color:var(--ee-primary-light);box-shadow:0 0 0 3px rgba(46,134,193,0.12);}
+  .ee-btn{display:inline-block;padding:10px 18px;border-radius:6px;font-size:15px;font-weight:600;cursor:pointer;border:none;transition:var(--ee-transition);}
+  .ee-btn-primary{background:var(--ee-primary);color:#fff;}
+  .ee-btn-primary:hover{background:var(--ee-primary-dark);}
+  .ee-btn-block{width:100%;padding:11px;}
+  .ee-auth-message{font-size:13px;min-height:18px;margin-top:8px;text-align:center;}
+  .ee-auth-message.success{color:#27ae60;}
+  .ee-auth-message.error{color:var(--ee-accent);}
+  .ee-auth-hint{font-size:11px;color:var(--ee-text-light);text-align:center;margin-top:12px;}
+  .ee-pwd-modal-title{font-size:18px;color:var(--ee-primary-dark);margin-bottom:18px;display:flex;align-items:center;gap:8px;}
+  .ee-pwd-modal-title i{color:var(--ee-accent-orange);}
 </style>
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen">
@@ -1596,5 +1629,6 @@ function setStatus(key,status){
 loadData();
 go('home');
 </script>
+<script src="auth.js"></script>
 </body>
 </html>
