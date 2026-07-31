@@ -5,8 +5,144 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>注册电气工程师专业考试学习平台 · 2025</title>
 <script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
   body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;-webkit-tap-highlight-color:transparent;}
+
+  /* ===== 2026 风格 CSS 变量 ===== */
+  :root{
+    --ee-primary:#1a5276;
+    --ee-primary-dark:#0e3a5e;
+    --ee-primary-light:#2e86c1;
+    --ee-accent:#e74c3c;
+    --ee-accent-orange:#f39c12;
+    --ee-bg-light:#f4f6f7;
+    --ee-text-dark:#2c3e50;
+    --ee-text-gray:#566573;
+    --ee-text-light:#95a5a6;
+    --ee-border:#d5dbdb;
+    --ee-shadow:0 2px 8px rgba(0,0,0,0.08);
+    --ee-shadow-hover:0 4px 16px rgba(0,0,0,0.12);
+    --ee-radius:8px;
+    --ee-transition:all .3s ease;
+  }
+
+  /* ===== 导航栏 ===== */
+  .ee-navbar{background:linear-gradient(135deg,var(--ee-primary-dark),var(--ee-primary));color:#fff;position:sticky;top:0;z-index:30;box-shadow:0 2px 12px rgba(0,0,0,0.15);}
+  .ee-navbar-container{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:10px 16px;}
+  .ee-navbar-brand{display:flex;align-items:center;gap:10px;cursor:pointer;color:#fff;font-weight:700;}
+  .ee-navbar-brand .ee-brand-logo{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,var(--ee-accent-orange),#e67e22);display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;}
+  .ee-navbar-brand .ee-brand-name{font-size:16px;line-height:1.2;}
+  .ee-navbar-brand .ee-brand-sub{font-size:11px;color:rgba(255,255,255,0.7);font-weight:400;line-height:1.2;}
+  .ee-search{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.2);color:#fff;border-radius:8px;padding:6px 12px;font-size:13px;outline:none;transition:var(--ee-transition);}
+  .ee-search::placeholder{color:rgba(255,255,255,0.6);}
+  .ee-search:focus{background:rgba(255,255,255,0.25);border-color:rgba(255,255,255,0.4);}
+  .ee-nav-tabs{display:flex;gap:4px;overflow-x:auto;border-top:1px solid rgba(255,255,255,0.1);max-width:1280px;margin:0 auto;padding:0 16px;}
+  .ee-nav-tab{cursor:pointer;padding:10px 16px;font-size:14px;color:rgba(255,255,255,0.8);border:none;background:transparent;border-bottom:3px solid transparent;white-space:nowrap;transition:var(--ee-transition);}
+  .ee-nav-tab:hover{color:#fff;background:rgba(255,255,255,0.08);}
+  .ee-nav-tab.active{color:#fff;border-bottom-color:var(--ee-accent-orange);font-weight:600;background:rgba(255,255,255,0.1);}
+
+  /* ===== Hero ===== */
+  .ee-hero{background:linear-gradient(135deg,var(--ee-primary),var(--ee-primary-light));color:#fff;border-radius:16px;padding:36px 32px;margin-bottom:20px;position:relative;overflow:hidden;}
+  .ee-hero::before{content:'';position:absolute;top:-50%;right:-15%;width:360px;height:360px;background:rgba(255,255,255,0.06);border-radius:50%;}
+  .ee-hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--ee-accent-orange);color:#fff;padding:4px 14px;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:12px;position:relative;}
+  .ee-hero h1{font-size:26px;font-weight:700;margin-bottom:8px;position:relative;}
+  .ee-hero p{font-size:14px;opacity:0.9;position:relative;}
+  .ee-hero-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.25);border-radius:8px;color:#fff;font-size:13px;font-weight:500;cursor:pointer;transition:var(--ee-transition);}
+  .ee-hero-btn:hover{background:rgba(255,255,255,0.3);}
+
+  /* ===== 统计条 ===== */
+  .ee-stat{background:#fff;border-radius:var(--ee-radius);padding:14px 16px;box-shadow:var(--ee-shadow);border-top:3px solid var(--ee-primary-light);text-align:center;}
+  .ee-stat-num{font-size:24px;font-weight:700;color:var(--ee-primary-dark);line-height:1.2;}
+  .ee-stat-label{font-size:12px;color:var(--ee-text-gray);margin-top:2px;}
+  .ee-hero-stat{background:rgba(255,255,255,0.15);border-radius:10px;padding:10px 14px;text-align:center;}
+  .ee-hero-stat .num{font-size:20px;font-weight:700;}
+  .ee-hero-stat .lbl{font-size:11px;color:rgba(255,255,255,0.75);}
+
+  /* ===== 板块入口卡 ===== */
+  .ee-section-card{background:#fff;border-radius:var(--ee-radius);padding:24px 20px;box-shadow:var(--ee-shadow);transition:var(--ee-transition);border-top:4px solid var(--ee-primary-light);cursor:pointer;display:flex;flex-direction:column;}
+  .ee-section-card:hover{transform:translateY(-4px);box-shadow:var(--ee-shadow-hover);}
+  .ee-section-card .ee-card-icon{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--ee-primary-light),var(--ee-primary));color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:12px;}
+  .ee-section-card h3{font-size:17px;color:var(--ee-primary-dark);font-weight:700;margin-bottom:6px;}
+  .ee-section-card .ee-card-sub{font-size:12px;color:var(--ee-text-light);margin-bottom:8px;}
+  .ee-section-card p{font-size:13px;color:var(--ee-text-gray);line-height:1.6;}
+
+  /* ===== 知识/章节卡(左侧彩色边框) ===== */
+  .ee-subject-card{background:#fff;border-radius:var(--ee-radius);padding:20px 24px;box-shadow:var(--ee-shadow);transition:var(--ee-transition);border-left:4px solid var(--ee-primary-light);margin-bottom:16px;}
+  .ee-subject-card:hover{box-shadow:var(--ee-shadow-hover);}
+  .ee-subject-card.ee-border-orange{border-left-color:var(--ee-accent-orange);}
+  .ee-subject-card.ee-border-red{border-left-color:var(--ee-accent);}
+  .ee-subject-card.ee-border-green{border-left-color:#27ae60;}
+  .ee-subject-card.ee-border-indigo{border-left-color:#6c5ce7;}
+
+  /* ===== 章节列表项 ===== */
+  .ee-chapter-item{cursor:pointer;padding:10px 14px;border-radius:8px;transition:var(--ee-transition);border:1px solid transparent;border-left:3px solid transparent;}
+  .ee-chapter-item:hover{background:#eaf2f8;border-left-color:var(--ee-primary-light);}
+  .ee-chapter-item.active{background:#dbeafe;border-left-color:var(--ee-primary);border-color:#bfdbfe;}
+  .ee-chapter-item.active .ee-ch-title{color:var(--ee-primary-dark);}
+
+  /* ===== 视频/直播卡 ===== */
+  .ee-video-card{background:#fff;border-radius:var(--ee-radius);overflow:hidden;box-shadow:var(--ee-shadow);transition:var(--ee-transition);cursor:pointer;display:flex;flex-direction:column;}
+  .ee-video-card:hover{transform:translateY(-4px);box-shadow:var(--ee-shadow-hover);}
+  .ee-video-thumb{position:relative;width:100%;padding-top:56.25%;background:linear-gradient(135deg,#0e3a5e,#1a5276);}
+  .ee-video-thumb .ee-thumb-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;}
+  .ee-video-thumb .ee-play-icon{font-size:36px;color:rgba(255,255,255,0.9);margin-bottom:4px;}
+  .ee-video-body{padding:14px 16px;}
+  .ee-level-badge{font-size:11px;padding:2px 8px;border-radius:4px;font-weight:600;}
+  .ee-level-basic{background:#dbeafe;color:#1e40af;}
+  .ee-level-advanced{background:#f3e8ff;color:#6b21a8;}
+  .ee-level-sprint{background:#fef3c7;color:#92400e;}
+  .ee-status-done{font-size:10px;padding:1px 6px;border-radius:4px;background:#d4efdf;color:#1e8449;}
+  .ee-status-learning{font-size:10px;padding:1px 6px;border-radius:4px;background:#dbeafe;color:#1e40af;}
+  .ee-zhenti-badge{font-size:10px;padding:1px 6px;border-radius:4px;background:#fdebd0;color:#9c640c;}
+
+  /* ===== 页面标题 ===== */
+  .ee-page-header{margin-bottom:20px;}
+  .ee-page-header h1,.ee-page-header h2{font-size:22px;color:var(--ee-primary-dark);display:flex;align-items:center;gap:10px;font-weight:700;}
+  .ee-page-header h1 i,.ee-page-header h2 i{color:var(--ee-accent-orange);}
+  .ee-page-header p{color:var(--ee-text-gray);margin-top:6px;font-size:14px;}
+  .ee-section-title{font-size:16px;color:var(--ee-primary-dark);margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid var(--ee-primary-light);display:flex;align-items:center;gap:8px;font-weight:700;}
+  .ee-section-title i{color:var(--ee-accent-orange);}
+
+  /* ===== 按钮系列 ===== */
+  .ee-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:var(--ee-transition);border:none;text-decoration:none;}
+  .ee-btn-primary{background:var(--ee-primary);color:#fff;}
+  .ee-btn-primary:hover{background:var(--ee-primary-dark);color:#fff;transform:translateY(-1px);}
+  .ee-btn-bili{background:#fb7299;color:#fff;}
+  .ee-btn-bili:hover{background:#e55e85;color:#fff;}
+  .ee-btn-pdf{background:var(--ee-accent);color:#fff;}
+  .ee-btn-pdf:hover{background:#c0392b;color:#fff;}
+  .ee-btn-outline{background:transparent;color:var(--ee-primary);border:1.5px solid var(--ee-primary);}
+  .ee-btn-outline:hover{background:var(--ee-primary);color:#fff;}
+
+  /* ===== 切换器/筛选 Tab(2026风格) ===== */
+  .ee-tabs{display:inline-flex;gap:6px;background:var(--ee-bg-light);padding:4px;border-radius:10px;}
+  .ee-tab{padding:8px 18px;border-radius:8px;font-size:13px;font-weight:600;color:var(--ee-text-gray);cursor:pointer;transition:var(--ee-transition);border:none;background:transparent;display:inline-flex;align-items:center;gap:6px;}
+  .ee-tab.active{background:var(--ee-primary);color:#fff;box-shadow:0 2px 8px rgba(26,82,118,0.3);}
+  .ee-tab:hover:not(.active){background:rgba(0,0,0,0.05);}
+  .ee-filter-btn{padding:6px 14px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;transition:var(--ee-transition);border:1px solid var(--ee-border);background:#fff;color:var(--ee-text-gray);display:inline-flex;align-items:center;gap:5px;}
+  .ee-filter-btn:hover{background:var(--ee-bg-light);}
+  .ee-filter-btn.active{background:var(--ee-primary);color:#fff;border-color:var(--ee-primary);}
+  .ee-filter-btn.active-orange{background:var(--ee-accent-orange);color:#fff;border-color:var(--ee-accent-orange);}
+
+  /* ===== 状态切换按钮 ===== */
+  .ee-status-btn{font-size:12px;padding:5px 12px;border-radius:8px;cursor:pointer;transition:var(--ee-transition);border:1px solid var(--ee-border);background:#fff;color:var(--ee-text-gray);display:inline-flex;align-items:center;gap:4px;}
+  .ee-status-btn.ee-st-planned:hover{background:var(--ee-bg-light);}
+  .ee-status-btn.ee-st-learning{border-color:var(--ee-primary-light);color:var(--ee-primary);background:#eaf2f8;}
+  .ee-status-btn.ee-st-done{border-color:#27ae60;color:#1e8449;background:#d4efdf;}
+  .ee-status-btn.cur{font-weight:700;box-shadow:0 0 0 2px rgba(26,82,118,0.25);}
+
+  /* ===== 笔记区 ===== */
+  .ee-note-card{background:#fff;border-radius:var(--ee-radius);padding:18px 20px;box-shadow:var(--ee-shadow);border-left:4px solid var(--ee-accent-orange);margin-bottom:12px;cursor:pointer;transition:var(--ee-transition);}
+  .ee-note-card:hover{box-shadow:var(--ee-shadow-hover);transform:translateX(2px);}
+  .ee-note-area{width:100%;font-size:13px;padding:12px;border-radius:8px;border:1px solid var(--ee-border);outline:none;resize:vertical;transition:var(--ee-transition);font-family:inherit;}
+  .ee-note-area:focus{border-color:var(--ee-primary-light);box-shadow:0 0 0 3px rgba(46,134,193,0.12);}
+
+  /* ===== 模块卡片通用 ===== */
+  .ee-panel{background:#fff;border-radius:var(--ee-radius);padding:20px;box-shadow:var(--ee-shadow);border-left:4px solid var(--ee-primary-light);}
+  .ee-panel-title{font-size:14px;font-weight:700;color:var(--ee-primary-dark);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+  .ee-panel-title i{color:var(--ee-accent-orange);}
+  .ee-tip-box{background:#fef9e7;border-left:4px solid var(--ee-accent-orange);border-radius:0 8px 8px 0;padding:12px 16px;font-size:13px;color:#7e5109;}
   .scroll-thin::-webkit-scrollbar{width:6px;height:6px;}
   .scroll-thin::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:3px;}
   .scroll-thin::-webkit-scrollbar-track{background:transparent;}
@@ -38,25 +174,25 @@
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen">
 
-<header class="bg-white border-b border-slate-200 sticky top-0 z-30">
-  <div class="max-w-7xl mx-auto px-4 py-3 flex items-center gap-3">
-    <div class="flex items-center gap-2 cursor-pointer" onclick="go('home')">
-      <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white text-lg font-bold">专</div>
+<header class="ee-navbar">
+  <div class="ee-navbar-container">
+    <div class="ee-navbar-brand" onclick="go('home')">
+      <div class="ee-brand-logo"><i class="fas fa-bolt"></i></div>
       <div>
-        <div class="font-bold text-slate-800 leading-tight">注册电气工程师 · 专业考试</div>
-        <div class="text-xs text-slate-400 leading-tight">供配电 / 发输变电 · 2025直播 · 权威手册</div>
+        <div class="ee-brand-name">注册电气工程师 · 专业考试</div>
+        <div class="ee-brand-sub">供配电 / 发输变电 · 2025直播 · 权威手册</div>
       </div>
     </div>
     <div class="flex-1"></div>
-    <input id="search" oninput="onSearch(this.value)" placeholder="搜索章节、课程…" class="hidden sm:block w-56 px-3 py-1.5 text-sm rounded-lg border border-slate-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 outline-none">
+    <input id="search" oninput="onSearch(this.value)" placeholder="搜索章节、课程…" class="ee-search hidden sm:block w-56">
   </div>
-  <nav class="max-w-7xl mx-auto px-4 flex gap-1 text-sm overflow-x-auto">
-    <button onclick="go('home')" class="tab-btn px-3 py-2 border-b-2 border-blue-600 text-blue-700 font-medium whitespace-nowrap" data-tab="home">首页</button>
-    <button onclick="go('chapters')" class="tab-btn px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-slate-700 whitespace-nowrap" data-tab="chapters">章节知识</button>
-    <button onclick="go('live')" class="tab-btn px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-slate-700 whitespace-nowrap" data-tab="live">2025直播</button>
-    <button onclick="go('papers')" class="tab-btn px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-slate-700 whitespace-nowrap" data-tab="papers">历年真题</button>
-    <button onclick="go('manuals')" class="tab-btn px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-slate-700 whitespace-nowrap" data-tab="manuals">考试手册</button>
-    <button onclick="go('notes')" class="tab-btn px-3 py-2 border-b-2 border-transparent text-slate-500 hover:text-slate-700 whitespace-nowrap" data-tab="notes">学习笔记</button>
+  <nav class="ee-nav-tabs">
+    <button onclick="go('home')" class="ee-nav-tab active" data-tab="home"><i class="fas fa-home"></i> 首页</button>
+    <button onclick="go('chapters')" class="ee-nav-tab" data-tab="chapters"><i class="fas fa-book"></i> 章节知识</button>
+    <button onclick="go('live')" class="ee-nav-tab" data-tab="live"><i class="fas fa-video"></i> 2025直播</button>
+    <button onclick="go('papers')" class="ee-nav-tab" data-tab="papers"><i class="fas fa-file-alt"></i> 历年真题</button>
+    <button onclick="go('manuals')" class="ee-nav-tab" data-tab="manuals"><i class="fas fa-book-open"></i> 考试手册</button>
+    <button onclick="go('notes')" class="ee-nav-tab" data-tab="notes"><i class="fas fa-pencil-alt"></i> 学习笔记</button>
   </nav>
 </header>
 
@@ -770,10 +906,8 @@ function saveProgress(){try{localStorage.setItem('ee_pro_progress',JSON.stringif
 // ============ 路由 ============
 function go(view){
   currentView=view;
-  document.querySelectorAll('.tab-btn').forEach(b=>{
-    const active=b.dataset.tab===view;
-    b.classList.toggle('border-blue-600',active);b.classList.toggle('text-blue-700',active);b.classList.toggle('font-medium',active);
-    b.classList.toggle('border-transparent',!active);b.classList.toggle('text-slate-500',!active);
+  document.querySelectorAll('.ee-nav-tab').forEach(b=>{
+    b.classList.toggle('active', b.dataset.tab===view);
   });
   if(view==='home') renderHome();
   else if(view==='chapters') renderChapters();
@@ -790,58 +924,55 @@ function renderHome(){
   const doneCount=Object.values(progressMap).filter(s=>s==='done').length;
   app.innerHTML=`
     <div class="fade-in space-y-5">
-      <div class="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-2xl p-6 text-white">
-        <h1 class="text-2xl font-bold mb-2">注册电气工程师 · 专业考试</h1>
-        <p class="text-blue-100 text-sm mb-4">2025年课程 · 供配电 & 发输变电 · 权威机构直播 · 全程陪跑</p>
-        <div class="flex gap-3 flex-wrap">
-          <button onclick="go('live')" class="px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg text-sm font-medium">📺 观看直播</button>
-          <button onclick="go('papers')" class="px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg text-sm font-medium">📚 历年真题</button>
-          <button onclick="go('chapters')" class="px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg text-sm font-medium">📖 章节知识</button>
-          <button onclick="go('manuals')" class="px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg text-sm font-medium">📋 考试手册</button>
+      <section class="ee-hero">
+        <span class="ee-hero-badge"><i class="fas fa-graduation-cap"></i> 2025备考季</span>
+        <h1>注册电气工程师 · 专业考试</h1>
+        <p>2025年课程 · 供配电 & 发输变电 · 权威机构直播 · 全程陪跑</p>
+        <div class="flex gap-3 flex-wrap mt-4">
+          <button onclick="go('live')" class="ee-hero-btn"><i class="fas fa-tv"></i> 观看直播</button>
+          <button onclick="go('papers')" class="ee-hero-btn"><i class="fas fa-file-alt"></i> 历年真题</button>
+          <button onclick="go('chapters')" class="ee-hero-btn"><i class="fas fa-book"></i> 章节知识</button>
+          <button onclick="go('manuals')" class="ee-hero-btn"><i class="fas fa-book-open"></i> 考试手册</button>
         </div>
-      </div>
+      </section>
       <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
-        <div class="bg-white rounded-xl p-4 border border-slate-100"><div class="text-2xl font-bold text-blue-600">${gongpeiChapters.length}</div><div class="text-xs text-slate-500">供配电章节</div></div>
-        <div class="bg-white rounded-xl p-4 border border-slate-100"><div class="text-2xl font-bold text-indigo-600">${fasongChapters.length}</div><div class="text-xs text-slate-500">发输变电章节</div></div>
-        <div class="bg-white rounded-xl p-4 border border-slate-100"><div class="text-2xl font-bold text-emerald-600">${liveCourses.length}</div><div class="text-xs text-slate-500">直播课程</div></div>
-        <div class="bg-white rounded-xl p-4 border border-slate-100"><div class="text-2xl font-bold text-amber-600">${pastPapersData.length}</div><div class="text-xs text-slate-500">真题年份</div></div>
-        <div class="bg-white rounded-xl p-4 border border-slate-100"><div class="text-2xl font-bold text-rose-600">${doneCount}</div><div class="text-xs text-slate-500">已学完</div></div>
+        <div class="ee-stat"><div class="ee-stat-num">${gongpeiChapters.length}</div><div class="ee-stat-label">供配电章节</div></div>
+        <div class="ee-stat"><div class="ee-stat-num">${fasongChapters.length}</div><div class="ee-stat-label">发输变电章节</div></div>
+        <div class="ee-stat"><div class="ee-stat-num">${liveCourses.length}</div><div class="ee-stat-label">直播课程</div></div>
+        <div class="ee-stat"><div class="ee-stat-num">${pastPapersData.length}</div><div class="ee-stat-label">真题年份</div></div>
+        <div class="ee-stat"><div class="ee-stat-num">${doneCount}</div><div class="ee-stat-label">已学完</div></div>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div onclick="go('chapters')" class="card-hover bg-white rounded-2xl border border-slate-100 p-5 cursor-pointer">
-          <div class="flex items-center gap-3 mb-3">
-            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center text-white text-2xl">📚</div>
-            <div><div class="font-bold text-slate-800">章节知识</div><div class="text-xs text-slate-400">供配电15章 / 发输变电17章 · 每章含详细讲解</div></div>
-          </div>
-          <p class="text-xs text-slate-500">按考试大纲整理，每章含核心概念、关键公式、规范依据、考试重点</p>
+      <h2 class="ee-section-title"><i class="fas fa-th-large"></i> 学习板块</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div onclick="go('chapters')" class="ee-section-card" style="border-top-color:#2e86c1;">
+          <div class="ee-card-icon" style="background:linear-gradient(135deg,#2e86c1,#1a5276);"><i class="fas fa-book"></i></div>
+          <h3>章节知识</h3>
+          <div class="ee-card-sub">供配电15章 / 发输变电17章 · 每章含详细讲解</div>
+          <p>按考试大纲整理，每章含核心概念、关键公式、规范依据、考试重点</p>
         </div>
-        <div onclick="go('live')" class="card-hover bg-white rounded-2xl border border-slate-100 p-5 cursor-pointer">
-          <div class="flex items-center gap-3 mb-3">
-            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-2xl">🎬</div>
-            <div><div class="font-bold text-slate-800">2025直播课程</div><div class="text-xs text-slate-400">基础班/精讲班/冲刺班 · B站直接播放</div></div>
-          </div>
-          <p class="text-xs text-slate-500">张工教育、珞研、仟帆、纳米教育等权威机构课程，嵌入B站播放器直接观看</p>
+        <div onclick="go('live')" class="ee-section-card" style="border-top-color:#6c5ce7;">
+          <div class="ee-card-icon" style="background:linear-gradient(135deg,#6c5ce7,#1a5276);"><i class="fas fa-video"></i></div>
+          <h3>2025直播课程</h3>
+          <div class="ee-card-sub">基础班/精讲班/冲刺班 · B站直接播放</div>
+          <p>张工教育、珞研、仟帆、纳米教育等权威机构课程，嵌入B站播放器直接观看</p>
         </div>
-        <div onclick="go('papers')" class="card-hover bg-white rounded-2xl border border-slate-100 p-5 cursor-pointer">
-          <div class="flex items-center gap-3 mb-3">
-            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500 to-rose-500 flex items-center justify-center text-white text-2xl">📚</div>
-            <div><div class="font-bold text-slate-800">历年真题</div><div class="text-xs text-slate-400">2011-2024年 · 视频讲解+PDF下载</div></div>
-          </div>
-          <p class="text-xs text-slate-500">冯胤清、Wasy电堂、张工教育、清风注电等真题讲解，覆盖供配电/发输变电双专业</p>
+        <div onclick="go('papers')" class="ee-section-card" style="border-top-color:#f39c12;">
+          <div class="ee-card-icon" style="background:linear-gradient(135deg,#f39c12,#e67e22);"><i class="fas fa-file-alt"></i></div>
+          <h3>历年真题</h3>
+          <div class="ee-card-sub">2011-2024年 · 视频讲解+PDF下载</div>
+          <p>冯胤清、Wasy电堂、张工教育、清风注电等真题讲解，覆盖供配电/发输变电双专业</p>
         </div>
-        <div onclick="go('manuals')" class="card-hover bg-white rounded-2xl border border-slate-100 p-5 cursor-pointer">
-          <div class="flex items-center gap-3 mb-3">
-            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white text-2xl">📖</div>
-            <div><div class="font-bold text-slate-800">考试手册</div><div class="text-xs text-slate-400">权威机构 + 核心规范</div></div>
-          </div>
-          <p class="text-xs text-slate-500">各大培训机构资料 + 16本核心规范标准汇编</p>
+        <div onclick="go('manuals')" class="ee-section-card" style="border-top-color:#27ae60;">
+          <div class="ee-card-icon" style="background:linear-gradient(135deg,#27ae60,#1e8449);"><i class="fas fa-book-open"></i></div>
+          <h3>考试手册</h3>
+          <div class="ee-card-sub">权威机构 + 核心规范</div>
+          <p>各大培训机构资料 + 16本核心规范标准汇编</p>
         </div>
-        <div onclick="go('notes')" class="card-hover bg-white rounded-2xl border border-slate-100 p-5 cursor-pointer">
-          <div class="flex items-center gap-3 mb-3">
-            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-white text-2xl">📝</div>
-            <div><div class="font-bold text-slate-800">我的笔记</div><div class="text-xs text-slate-400">本地存储 · 随学随记</div></div>
-          </div>
-          <p class="text-xs text-slate-500">边看边记，自动保存到本地浏览器</p>
+        <div onclick="go('notes')" class="ee-section-card" style="border-top-color:#e74c3c;">
+          <div class="ee-card-icon" style="background:linear-gradient(135deg,#e74c3c,#c0392b);"><i class="fas fa-pencil-alt"></i></div>
+          <h3>我的笔记</h3>
+          <div class="ee-card-sub">本地存储 · 随学随记</div>
+          <p>边看边记，自动保存到本地浏览器</p>
         </div>
       </div>
     </div>`;
@@ -852,15 +983,19 @@ function renderChapters(){
   const app=document.getElementById('app');
   app.innerHTML=`
     <div class="fade-in">
-      <div class="flex items-center gap-2 mb-4">
-        <button onclick="switchProType('gongpei')" class="pro-tab ${currentProType==='gongpei'?'pro-tab-active':'pro-tab-inactive'}">供配电专业</button>
-        <button onclick="switchProType('fasong')" class="pro-tab ${currentProType==='fasong'?'pro-tab-active':'pro-tab-inactive'}">发输变电专业</button>
+      <div class="ee-page-header">
+        <h2><i class="fas fa-book"></i> 章节知识</h2>
+        <p>按考试大纲整理 · 每章含核心概念、关键公式、规范依据</p>
+      </div>
+      <div class="ee-tabs mb-4">
+        <button onclick="switchProType('gongpei')" class="ee-tab ${currentProType==='gongpei'?'active':''}"><i class="fas fa-plug"></i> 供配电专业</button>
+        <button onclick="switchProType('fasong')" class="ee-tab ${currentProType==='fasong'?'active':''}"><i class="fas fa-bolt"></i> 发输变电专业</button>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div class="md:col-span-1 space-y-1 bg-white rounded-xl border border-slate-100 p-3 max-h-[70vh] overflow-y-auto scroll-thin">
+        <div class="md:col-span-1 space-y-1 ee-panel max-h-[70vh] overflow-y-auto scroll-thin" style="padding:12px;">
           ${getChaptersForType().map(c=>`
-            <div class="chapter-item ${currentChapterId===c.id?'active':''}" onclick="openChapter('${c.id}')">
-              <div class="font-medium text-sm">${escapeHtml(c.title)}</div>
+            <div class="ee-chapter-item ${currentChapterId===c.id?'active':''}" onclick="openChapter('${c.id}')">
+              <div class="ee-ch-title font-medium text-sm">${escapeHtml(c.title)}</div>
               <div class="text-[10px] text-slate-400 mt-0.5">${c.points.length} 个考点</div>
             </div>`).join('')}
         </div>
@@ -878,29 +1013,29 @@ function openChapter(id){currentChapterId=id; renderChapters();}
 function renderChapterDetail(){
   const list=getChaptersForType();
   const ch=list.find(c=>c.id===currentChapterId);
-  if(!ch){const first=list[0]; if(first){currentChapterId=first.id; return renderChapterDetail();} return `<div class="bg-white rounded-xl border border-slate-100 p-8 text-center text-slate-400">选择左侧章节查看详细考点</div>`;}
+  if(!ch){const first=list[0]; if(first){currentChapterId=first.id; return renderChapterDetail();} return `<div class="ee-panel" style="padding:40px;text-align:center;color:var(--ee-text-light);"><i class="fas fa-book-reader" style="font-size:32px;color:var(--ee-primary-light);margin-bottom:12px;"></i><div>选择左侧章节查看详细考点</div></div>`;}
   const notes=myNotes['chapter:'+ch.id]||'';
   const status=progressMap['chapter:'+ch.id]||'';
   return `
-    <div class="bg-white rounded-xl border border-slate-100 p-5">
+    <div class="ee-subject-card">
       <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
-        <h2 class="text-lg font-bold">${escapeHtml(ch.title)}</h2>
+        <h2 class="text-lg font-bold" style="color:var(--ee-primary-dark);">${escapeHtml(ch.title)}</h2>
         <div class="flex gap-1">
           ${['planned','learning','done'].map(st=>{
-            const labels={planned:'📋 计划',learning:'📖 学习中',done:'✅ 已学完'};
-            const colors={planned:'bg-slate-100 text-slate-600',learning:'bg-blue-100 text-blue-700',done:'bg-emerald-100 text-emerald-700'};
+            const labels={planned:'<i class="far fa-clipboard"></i> 计划',learning:'<i class="fas fa-book-open"></i> 学习中',done:'<i class="fas fa-check-circle"></i> 已学完'};
+            const cls={planned:'ee-st-planned',learning:'ee-st-learning',done:'ee-st-done'};
             const cur=status===st;
-            return `<button onclick="setStatus('chapter:${ch.id}','${st}')" class="text-xs px-2 py-1 rounded ${colors[st]} ${cur?'font-bold ring-2 ring-offset-1 ring-blue-300':''}">${labels[st]}</button>`;
+            return `<button onclick="setStatus('chapter:${ch.id}','${st}')" class="ee-status-btn ${cls[st]} ${cur?'cur':''}">${labels[st]}</button>`;
           }).join('')}
         </div>
       </div>
       <div class="content-box mb-4">${ch.content||'<p class="text-slate-400">暂无详细内容</p>'}</div>
       <div class="border-t border-slate-100 pt-4">
         <div class="flex items-center justify-between mb-2">
-          <h3 class="font-bold text-sm">📝 学习笔记</h3>
+          <h3 class="font-bold text-sm ee-panel-title" style="margin-bottom:0;"><i class="fas fa-pencil-alt"></i> 学习笔记</h3>
           <span class="text-[10px] text-slate-400">本地自动保存</span>
         </div>
-        <textarea id="noteArea" oninput="onNoteInput('chapter:${ch.id}')" rows="5" placeholder="记录你的学习心得、公式推导、易错点…" class="w-full text-sm p-3 rounded-lg border border-slate-200 focus:border-blue-400 outline-none resize-y">${escapeHtml(notes)}</textarea>
+        <textarea id="noteArea" oninput="onNoteInput('chapter:${ch.id}')" rows="5" placeholder="记录你的学习心得、公式推导、易错点…" class="ee-note-area">${escapeHtml(notes)}</textarea>
         <div class="text-[10px] text-slate-400 mt-1 flex justify-between">
           <span id="noteStatus-${ch.id}"></span>
           <span>${notes.length} 字</span>
@@ -913,7 +1048,7 @@ function renderChapterDetail(){
 function renderLive(){
   const app=document.getElementById('app');
   const levels={basic:'基础班',advanced:'精讲班',sprint:'冲刺班'};
-  const levelColors={basic:'level-basic',advanced:'level-advanced',sprint:'level-sprint'};
+  const levelColors={basic:'ee-level-basic',advanced:'ee-level-advanced',sprint:'ee-level-sprint'};
   const gpList=liveCourses.filter(c=>c.category==='供配电');
   const fsList=liveCourses.filter(c=>c.category==='发输变电');
   const zhentiList=liveCourses.filter(c=>c.id.startsWith('gp-z')||c.id.startsWith('fs-z'));
@@ -925,20 +1060,20 @@ function renderLive(){
   const gpDone=gpList.filter(c=>progressMap['live:'+c.id]==='done').length;
   const fsDone=fsList.filter(c=>progressMap['live:'+c.id]==='done').length;
 
-  function sectionHeader(title, subtitle, tagCount, tagDone, accent, catVal){
+  function sectionHeader(title, subtitle, tagCount, tagDone, barColor, catVal){
     const active = catVal && currentCategory===catVal;
     const filterBtn = catVal
-      ? `<button onclick="setFilter('category','${catVal}')" class="px-3 py-1 rounded-full border ${active?`${accent.replace('bg-','bg-').replace('500','600')} text-white border-transparent`:'border-slate-200 text-slate-500 hover:bg-slate-50'}">${active?'✓ 只看':'只看'}</button>`
-      : `<button onclick="setZhenti(true)" class="px-3 py-1 rounded-full border ${currentZhenti?`${accent.replace('bg-','bg-').replace('500','600')} text-white border-transparent`:'border-slate-200 text-slate-500 hover:bg-slate-50'}">${currentZhenti?'✓ 只看真题':'只看真题'}</button>`;
+      ? `<button onclick="setFilter('category','${catVal}')" class="ee-filter-btn ${active?'active':''}">${active?'<i class="fas fa-check"></i>':''} 只看</button>`
+      : `<button onclick="setZhenti(true)" class="ee-filter-btn ${currentZhenti?'active-orange':''}">${currentZhenti?'<i class="fas fa-check"></i>':''} 只看真题</button>`;
     return `
       <div class="flex items-center justify-between mb-3 mt-2 flex-wrap gap-2">
         <div class="flex items-center gap-2">
-          <div class="w-1 h-6 rounded-full ${accent}"></div>
-          <h3 class="font-bold text-base text-slate-800">${title}</h3>
+          <div class="w-1.5 h-6 rounded-full" style="background:${barColor};"></div>
+          <h3 class="font-bold text-base" style="color:var(--ee-primary-dark);">${title}</h3>
           <span class="text-xs text-slate-400">${subtitle}</span>
         </div>
         <div class="flex items-center gap-3 text-xs">
-          <span class="text-slate-500">共 <b class="text-slate-800">${tagCount}</b> 门课，已学完 <b class="text-emerald-600">${tagDone}</b> 门</span>
+          <span class="text-slate-500">共 <b style="color:var(--ee-text-dark);">${tagCount}</b> 门课，已学完 <b style="color:#27ae60;">${tagDone}</b> 门</span>
           ${filterBtn}
         </div>
       </div>`;
@@ -952,63 +1087,52 @@ function renderLive(){
     const zhentiFsDone = zhentiFs.filter(c=>progressMap['live:'+c.id]==='done').length;
     // 分三个区块展示
     body = `
-      ${sectionHeader('供配电专业课程', '20门 · 基础班/精讲班/冲刺班 三级分层', gpList.length, gpDone, 'bg-blue-500', '供配电')}
+      ${sectionHeader('供配电专业课程', '20门 · 基础班/精讲班/冲刺班 三级分层', gpList.length, gpDone, '#2e86c1', '供配电')}
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
         ${gpList.filter(c=>!c.id.startsWith('gp-z')).map(c=>liveCard(c,levels,levelColors)).join('')}
       </div>
-      ${sectionHeader('发输变电专业课程', '20门 · 入门/真题/精讲全覆盖', fsList.length, fsDone, 'bg-indigo-500', '发输变电')}
+      ${sectionHeader('发输变电专业课程', '20门 · 入门/真题/精讲全覆盖', fsList.length, fsDone, '#6c5ce7', '发输变电')}
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
         ${fsList.filter(c=>!c.id.startsWith('fs-z')).map(c=>liveCard(c,levels,levelColors)).join('')}
       </div>
-      ${sectionHeader('📚 真题精讲合集', `${zhentiList.length}门 · 2018-2024年真题按年精讲 · 含上午/下午全套`, zhentiList.length, zhentiGpDone+zhentiFsDone, 'bg-amber-500', null)}
+      ${sectionHeader('真题精讲合集', `${zhentiList.length}门 · 2018-2024年真题按年精讲 · 含上午/下午全套`, zhentiList.length, zhentiGpDone+zhentiFsDone, '#f39c12', null)}
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         ${zhentiList.map(c=>liveCard(c,levels,levelColors)).join('')}
       </div>`;
   } else {
     body = filtered.length===0
-      ? `<div class="text-center py-16 text-slate-400">暂无符合条件的课程</div>`
+      ? `<div class="ee-panel" style="padding:48px;text-align:center;color:var(--ee-text-light);"><i class="fas fa-video-slash" style="font-size:32px;margin-bottom:12px;"></i><div>暂无符合条件的课程</div></div>`
       : `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">${filtered.map(c=>liveCard(c,levels,levelColors)).join('')}</div>`;
   }
 
   app.innerHTML=`
     <div class="fade-in">
-      <div class="bg-gradient-to-br from-indigo-600 via-blue-600 to-purple-600 rounded-2xl p-6 text-white mb-5">
+      <section class="ee-hero">
         <div class="flex items-center justify-between flex-wrap gap-3">
           <div>
-            <h2 class="text-2xl font-bold mb-1">📺 2025直播课程</h2>
-            <p class="text-white/80 text-sm">供配电 ${gpList.length} 门 · 发输变电 ${fsList.length} 门 · 真题精讲 ${zhentiList.length} 门 · 六大机构联授</p>
+            <span class="ee-hero-badge"><i class="fas fa-tv"></i> 直播课堂</span>
+            <h2 style="font-size:24px;font-weight:700;margin-bottom:6px;"><i class="fas fa-video" style="color:var(--ee-accent-orange);"></i> 2025直播课程</h2>
+            <p>供配电 ${gpList.length} 门 · 发输变电 ${fsList.length} 门 · 真题精讲 ${zhentiList.length} 门 · 六大机构联授</p>
           </div>
           <div class="grid grid-cols-4 gap-3 text-center">
-            <div class="bg-white/15 rounded-xl px-4 py-2">
-              <div class="text-xl font-bold">${gpList.length}</div>
-              <div class="text-xs text-white/70">供配电课程</div>
-            </div>
-            <div class="bg-white/15 rounded-xl px-4 py-2">
-              <div class="text-xl font-bold">${fsList.length}</div>
-              <div class="text-xs text-white/70">发输变电课程</div>
-            </div>
-            <div class="bg-white/15 rounded-xl px-4 py-2">
-              <div class="text-xl font-bold">${zhentiList.length}</div>
-              <div class="text-xs text-white/70">真题精讲</div>
-            </div>
-            <div class="bg-white/15 rounded-xl px-4 py-2">
-              <div class="text-xl font-bold">${gpDone+fsDone}</div>
-              <div class="text-xs text-white/70">已学完</div>
-            </div>
+            <div class="ee-hero-stat"><div class="num">${gpList.length}</div><div class="lbl">供配电课程</div></div>
+            <div class="ee-hero-stat"><div class="num">${fsList.length}</div><div class="lbl">发输变电课程</div></div>
+            <div class="ee-hero-stat"><div class="num">${zhentiList.length}</div><div class="lbl">真题精讲</div></div>
+            <div class="ee-hero-stat"><div class="num">${gpDone+fsDone}</div><div class="lbl">已学完</div></div>
           </div>
         </div>
-      </div>
+      </section>
 
       <div class="flex gap-2 flex-wrap text-xs mb-3">
-        <button onclick="setFilter('category','all')" class="px-3 py-1.5 rounded-lg border ${currentCategory==='all'?'bg-blue-600 text-white border-blue-600':'border-slate-200 hover:bg-slate-50'}">全部专业</button>
-        <button onclick="setFilter('category','供配电')" class="px-3 py-1.5 rounded-lg border ${currentCategory==='供配电'?'bg-blue-600 text-white border-blue-600':'border-slate-200 hover:bg-slate-50'}">🔵 供配电（${gpList.length}门）</button>
-        <button onclick="setFilter('category','发输变电')" class="px-3 py-1.5 rounded-lg border ${currentCategory==='发输变电'?'bg-indigo-600 text-white border-indigo-600':'border-slate-200 hover:bg-slate-50'}">🟣 发输变电（${fsList.length}门）</button>
-        <button onclick="setZhenti(!currentZhenti)" class="px-3 py-1.5 rounded-lg border ${currentZhenti?'bg-amber-500 text-white border-amber-500':'border-slate-200 hover:bg-slate-50'}">📚 只看真题（${zhentiList.length}门）</button>
-        <button onclick="setFilter('level','all')" class="ml-2 px-3 py-1.5 rounded-lg border ${currentLevel==='all'?'bg-slate-700 text-white border-slate-700':'border-slate-200 hover:bg-slate-50'}">全部级别</button>
-        <button onclick="setFilter('level','basic')" class="px-3 py-1.5 rounded-lg border ${currentLevel==='basic'?'bg-sky-600 text-white border-sky-600':'border-slate-200 hover:bg-slate-50'}">基础班</button>
-        <button onclick="setFilter('level','advanced')" class="px-3 py-1.5 rounded-lg border ${currentLevel==='advanced'?'bg-purple-600 text-white border-purple-600':'border-slate-200 hover:bg-slate-50'}">精讲班</button>
-        <button onclick="setFilter('level','sprint')" class="px-3 py-1.5 rounded-lg border ${currentLevel==='sprint'?'bg-amber-600 text-white border-amber-600':'border-slate-200 hover:bg-slate-50'}">冲刺班</button>
-        ${(currentCategory!=='all'||currentLevel!=='all'||currentZhenti||searchKw)?`<button onclick="resetLiveFilters()" class="ml-2 px-3 py-1.5 rounded-lg border border-rose-200 text-rose-500 hover:bg-rose-50">✕ 清除筛选</button>`:''}
+        <button onclick="setFilter('category','all')" class="ee-filter-btn ${currentCategory==='all'?'active':''}">全部专业</button>
+        <button onclick="setFilter('category','供配电')" class="ee-filter-btn ${currentCategory==='供配电'?'active':''}"><i class="fas fa-plug"></i> 供配电（${gpList.length}门）</button>
+        <button onclick="setFilter('category','发输变电')" class="ee-filter-btn ${currentCategory==='发输变电'?'active':''}"><i class="fas fa-bolt"></i> 发输变电（${fsList.length}门）</button>
+        <button onclick="setZhenti(!currentZhenti)" class="ee-filter-btn ${currentZhenti?'active-orange':''}"><i class="fas fa-file-alt"></i> 只看真题（${zhentiList.length}门）</button>
+        <button onclick="setFilter('level','all')" class="ee-filter-btn ${currentLevel==='all'?'active':''}">全部级别</button>
+        <button onclick="setFilter('level','basic')" class="ee-filter-btn ${currentLevel==='basic'?'active':''}">基础班</button>
+        <button onclick="setFilter('level','advanced')" class="ee-filter-btn ${currentLevel==='advanced'?'active':''}">精讲班</button>
+        <button onclick="setFilter('level','sprint')" class="ee-filter-btn ${currentLevel==='sprint'?'active':''}">冲刺班</button>
+        ${(currentCategory!=='all'||currentLevel!=='all'||currentZhenti||searchKw)?`<button onclick="resetLiveFilters()" class="ee-filter-btn" style="border-color:#f5b7b1;color:#e74c3c;"><i class="fas fa-times"></i> 清除筛选</button>`:''}
       </div>
 
       ${body}
@@ -1020,29 +1144,29 @@ function setZhenti(v){currentZhenti=v; renderLive();}
 function setFilter(type,val){if(type==='category') currentCategory=val; else if(type==='level') currentLevel=val; renderLive();}
 function liveCard(c,levels,levelColors){
   const status=progressMap['live:'+c.id]||'';
-  const statusBadge=status==='done'?'<span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-700">✓ 已学完</span>':status==='learning'?'<span class="text-[10px] px-1.5 py-0.5 rounded bg-blue-100 text-blue-700">● 学习中</span>':'';
+  const statusBadge=status==='done'?'<span class="ee-status-done"><i class="fas fa-check"></i> 已学完</span>':status==='learning'?'<span class="ee-status-learning"><i class="fas fa-circle" style="font-size:6px;"></i> 学习中</span>':'';
   const isZhenti=c.id.startsWith('gp-z')||c.id.startsWith('fs-z');
-  const zhentiBadge=isZhenti?'<span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-100 text-amber-700">📚 真题</span>':'';
+  const zhentiBadge=isZhenti?'<span class="ee-zhenti-badge"><i class="fas fa-file-alt"></i> 真题</span>':'';
   const duration=c.duration?`${Math.floor(c.duration/60)}分`:'';
   return `
-    <div class="card-hover bg-white rounded-xl border border-slate-100 overflow-hidden cursor-pointer" onclick="openLiveDetail('${c.id}')">
-      <div class="bg-gradient-to-br from-slate-800 to-slate-900 aspect-video flex items-center justify-center relative">
-        <div class="text-center">
-          <div class="text-4xl mb-1">▶</div>
+    <div class="ee-video-card" onclick="openLiveDetail('${c.id}')">
+      <div class="ee-video-thumb">
+        <div class="ee-thumb-inner">
+          <div class="ee-play-icon"><i class="fas fa-play-circle"></i></div>
           <div class="text-white/60 text-xs">${escapeHtml(c.teacher)}</div>
         </div>
-        <div class="absolute bottom-2 right-2 text-white text-xs bg-black/60 px-2 py-0.5 rounded">${duration}</div>
-        <div class="absolute top-2 left-2 text-[10px] px-2 py-0.5 rounded ${levelColors[c.level]||'bg-slate-100 text-slate-600'}">${isZhenti?'📚 真题':(levels[c.level]||c.level)}</div>
+        <div class="absolute bottom-2 right-2 text-white text-xs bg-black/60 px-2 py-0.5 rounded"><i class="far fa-clock"></i> ${duration}</div>
+        <div class="absolute top-2 left-2 ee-level-badge ${levelColors[c.level]||'ee-level-basic'}">${isZhenti?'<i class="fas fa-file-alt"></i> 真题':(levels[c.level]||c.level)}</div>
       </div>
-      <div class="p-4">
-        <div class="text-sm font-medium text-slate-800 line-clamp-2 mb-1">${escapeHtml(c.title)}</div>
-        <div class="flex items-center gap-2 text-xs text-slate-500 mb-2 flex-wrap">
-          <span>👨‍🏫 ${escapeHtml(c.teacher)}</span>
+      <div class="ee-video-body">
+        <div class="text-sm font-medium line-clamp-2 mb-1" style="color:var(--ee-text-dark);">${escapeHtml(c.title)}</div>
+        <div class="flex items-center gap-2 text-xs mb-2 flex-wrap" style="color:var(--ee-text-gray);">
+          <span><i class="fas fa-chalkboard-teacher"></i> ${escapeHtml(c.teacher)}</span>
           <span class="px-1.5 py-0.5 bg-slate-100 rounded">${escapeHtml(c.category)}</span>
           ${zhentiBadge}
           ${statusBadge}
         </div>
-        <p class="text-xs text-slate-400 line-clamp-2">${escapeHtml(c.description)}</p>
+        <p class="text-xs line-clamp-2" style="color:var(--ee-text-light);">${escapeHtml(c.description)}</p>
       </div>
     </div>`;
 }
@@ -1057,50 +1181,48 @@ function openLiveDetail(id){
   const pageUrl=biliPageUrl(c.bvid,c.page);
   app.innerHTML=`
     <div class="fade-in">
-      <button onclick="go('live')" class="text-sm text-slate-500 hover:text-blue-600 mb-3">← 返回课程列表</button>
+      <button onclick="go('live')" class="ee-btn ee-btn-outline mb-3"><i class="fas fa-arrow-left"></i> 返回课程列表</button>
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
         <div class="lg:col-span-2 space-y-4">
           <div>
-            <h2 class="text-lg font-bold">${escapeHtml(c.title)}</h2>
-            <div class="flex items-center gap-3 mt-2 text-xs text-slate-500 flex-wrap">
-              <span>👨‍🏫 ${escapeHtml(c.teacher)}</span>
+            <h2 class="text-lg font-bold" style="color:var(--ee-primary-dark);">${escapeHtml(c.title)}</h2>
+            <div class="flex items-center gap-3 mt-2 text-xs flex-wrap" style="color:var(--ee-text-gray);">
+              <span><i class="fas fa-chalkboard-teacher"></i> ${escapeHtml(c.teacher)}</span>
               <span class="px-2 py-0.5 bg-slate-100 rounded">${escapeHtml(c.category)}</span>
-              <span>📺 B站直播课</span>
+              <span><i class="fas fa-tv"></i> B站直播课</span>
             </div>
           </div>
-          <div class="bg-slate-900 rounded-xl overflow-hidden">
-            <div class="aspect-video w-full">
-              <iframe src="${embedUrl}" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="w-full h-full"></iframe>
+          <div class="ee-video-card" style="cursor:default;">
+            <div class="ee-video-thumb" style="background:#000;">
+              <iframe src="${embedUrl}" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"></iframe>
             </div>
           </div>
           <div class="flex gap-2">
-            <a href="${pageUrl}" target="_blank" rel="noopener" class="inline-flex items-center gap-1 px-4 py-2 rounded-lg bg-blue-600 text-white text-sm hover:bg-blue-700">
-              <span>🔗</span> 前往B站观看（备用链接）
-            </a>
+            <a href="${pageUrl}" target="_blank" rel="noopener" class="ee-btn ee-btn-bili"><i class="fab fa-bilibili"></i> 前往B站观看（备用链接）</a>
           </div>
-          <div class="bg-white rounded-xl border border-slate-100 p-4">
-            <h3 class="font-bold text-sm mb-2">课程介绍</h3>
-            <p class="text-sm text-slate-600 leading-relaxed">${escapeHtml(c.description)}</p>
+          <div class="ee-panel">
+            <h3 class="ee-panel-title"><i class="fas fa-info-circle"></i> 课程介绍</h3>
+            <p class="text-sm leading-relaxed" style="color:var(--ee-text-gray);">${escapeHtml(c.description)}</p>
           </div>
-          <div class="bg-white rounded-xl border border-slate-100 p-4">
-            <h3 class="font-bold text-sm mb-3">学习状态</h3>
+          <div class="ee-panel">
+            <h3 class="ee-panel-title"><i class="fas fa-tasks"></i> 学习状态</h3>
             <div class="flex gap-2 flex-wrap">
               ${['planned','learning','done'].map(st=>{
-                const labels={planned:'📋 计划学习',learning:'📖 学习中',done:'✅ 已学完'};
-                const colors={planned:'border-slate-300 text-slate-600 hover:bg-slate-50',learning:'border-blue-500 text-blue-600 bg-blue-50',done:'border-emerald-500 text-emerald-600 bg-emerald-50'};
+                const labels={planned:'<i class="far fa-clipboard"></i> 计划学习',learning:'<i class="fas fa-book-open"></i> 学习中',done:'<i class="fas fa-check-circle"></i> 已学完'};
+                const cls={planned:'ee-st-planned',learning:'ee-st-learning',done:'ee-st-done'};
                 const cur=status===st;
-                return `<button onclick="setStatus('live:${c.id}','${st}')" class="text-sm px-4 py-2 rounded-lg border ${colors[st]} ${cur?'font-bold':''}">${labels[st]}</button>`;
+                return `<button onclick="setStatus('live:${c.id}','${st}')" class="ee-status-btn ${cls[st]} ${cur?'cur':''}">${labels[st]}</button>`;
               }).join('')}
             </div>
           </div>
         </div>
         <div class="lg:col-span-1">
-          <div class="bg-white rounded-xl border border-slate-100 p-4 sticky top-32">
+          <div class="ee-panel ee-border-orange sticky top-32">
             <div class="flex items-center justify-between mb-2">
-              <h3 class="font-bold text-sm">📝 学习笔记</h3>
+              <h3 class="ee-panel-title" style="margin-bottom:0;"><i class="fas fa-pencil-alt"></i> 学习笔记</h3>
             </div>
-            <textarea id="noteArea" oninput="onNoteInput('live:${c.id}')" rows="12" placeholder="记录本节课的知识点、公式、疑问…&#10;自动保存到本地。" class="w-full text-sm p-3 rounded-lg border border-slate-200 focus:border-blue-400 outline-none resize-y">${escapeHtml(notes)}</textarea>
-            <div class="text-[10px] text-slate-400 mt-1 flex justify-between">
+            <textarea id="noteArea" oninput="onNoteInput('live:${c.id}')" rows="12" placeholder="记录本节课的知识点、公式、疑问…&#10;自动保存到本地。" class="ee-note-area">${escapeHtml(notes)}</textarea>
+            <div class="text-[10px] mt-1 flex justify-between" style="color:var(--ee-text-light);">
               <span id="noteStatus-live:${c.id}"></span>
               <span>${notes.length} 字</span>
             </div>
@@ -1122,7 +1244,7 @@ function renderPastPapers(){
   const years = pastPapersData.map(y=>y.year);
 
   // 生成渲染：按类别分组
-  function buildSection(cat, catLabel, catColor, catBg, catIcon, catPaperCount, catDoneCount){
+  function buildSection(cat, catLabel, accent, iconHtml, catPaperCount, catDoneCount){
     // 过滤类别（如果当前筛选了单个类别，则该部分按条件展示）
     let sectionList = pastPapersData.map(y=> ({year:y.year, papers:y.papers.filter(p=>p.category===cat)}))
       .filter(y=>y.papers.length>0);
@@ -1132,8 +1254,8 @@ function renderPastPapers(){
     const sectionBody = sectionList.map(y=>`
       <div class="mb-4">
         <div class="flex items-center gap-2 mb-2">
-          <div class="w-8 h-8 rounded-lg bg-gradient-to-br ${catBg} flex items-center justify-center text-white font-bold text-xs">${y.year}</div>
-          <div class="text-xs text-slate-500">${y.papers.length} 份试卷</div>
+          <div class="w-9 h-9 rounded-lg flex items-center justify-center text-white font-bold text-xs" style="background:linear-gradient(135deg,${accent},${accent}cc);">${y.year}</div>
+          <div class="text-xs" style="color:var(--ee-text-gray);"><i class="far fa-file-lines"></i> ${y.papers.length} 份试卷</div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
           ${y.papers.map(p=>paperCard(p)).join('')}
@@ -1142,18 +1264,18 @@ function renderPastPapers(){
 
     return `
       <section class="mb-10">
-        <div class="flex items-center gap-3 mb-4 pb-3 border-b-2 ${catColor.replace('bg-','border-')} border-opacity-40">
-          <div class="w-12 h-12 rounded-xl bg-gradient-to-br ${catBg} flex items-center justify-center text-2xl shadow-lg shadow-slate-200">${catIcon}</div>
+        <div class="flex items-center gap-3 mb-4 pb-3" style="border-bottom:2px solid ${accent}55;">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl shadow-md" style="background:linear-gradient(135deg,${accent},${accent}cc);color:#fff;">${iconHtml}</div>
           <div class="flex-1">
-            <h3 class="text-lg font-bold text-slate-800">${catLabel} · 历年真题</h3>
-            <div class="text-xs text-slate-500">${sectionList.length} 个年份 · ${catPaperCount} 份试卷</div>
+            <h3 class="text-lg font-bold" style="color:var(--ee-primary-dark);">${catLabel} · 历年真题</h3>
+            <div class="text-xs" style="color:var(--ee-text-gray);">${sectionList.length} 个年份 · ${catPaperCount} 份试卷</div>
           </div>
           <div class="text-right">
-            <div class="text-2xl font-bold ${catColor.replace('bg-','text-')}">${catDoneCount}<span class="text-sm font-normal text-slate-400"> / ${catPaperCount}</span></div>
-            <div class="text-[10px] text-slate-400">已学完</div>
+            <div class="text-2xl font-bold" style="color:${accent};">${catDoneCount}<span class="text-sm font-normal" style="color:var(--ee-text-light);"> / ${catPaperCount}</span></div>
+            <div class="text-[10px]" style="color:var(--ee-text-light);">已学完</div>
           </div>
         </div>
-        ${sectionBody || '<div class="text-center py-10 text-slate-400 text-sm border border-dashed border-slate-200 rounded-xl">暂无符合条件的试卷</div>'}
+        ${sectionBody || '<div class="text-center py-10 text-sm rounded-xl" style="color:var(--ee-text-light);border:1px dashed var(--ee-border);"><i class="far fa-folder-open" style="font-size:24px;display:block;margin-bottom:6px;"></i>暂无符合条件的试卷</div>'}
       </section>`;
   }
 
@@ -1163,77 +1285,65 @@ function renderPastPapers(){
   app.innerHTML=`
     <div class="fade-in">
       <!-- 统计头 -->
-      <div class="bg-gradient-to-br from-amber-500 via-orange-500 to-rose-500 rounded-2xl p-6 text-white mb-5 shadow-lg shadow-orange-100">
+      <section class="ee-hero" style="background:linear-gradient(135deg,var(--ee-primary),var(--ee-primary-light));">
         <div class="flex items-center justify-between flex-wrap gap-3">
           <div>
-            <h2 class="text-2xl font-bold mb-1">📚 历年真题课件</h2>
-            <p class="text-white/80 text-sm">2011-2025年 · 供配电/发输变电 双专业分开展示 · 含视频讲解</p>
+            <span class="ee-hero-badge"><i class="fas fa-file-alt"></i> 真题题库</span>
+            <h2 style="font-size:24px;font-weight:700;margin-bottom:6px;"><i class="fas fa-book" style="color:var(--ee-accent-orange);"></i> 历年真题课件</h2>
+            <p>2011-2025年 · 供配电/发输变电 双专业分开展示 · 含视频讲解</p>
           </div>
           <div class="grid grid-cols-4 gap-3 text-center">
-            <div class="bg-white/15 rounded-xl px-4 py-2 backdrop-blur-sm">
-              <div class="text-xl font-bold">${totalYears}</div>
-              <div class="text-xs text-white/70">年份覆盖</div>
-            </div>
-            <div class="bg-white/15 rounded-xl px-4 py-2 backdrop-blur-sm">
-              <div class="text-xl font-bold">${gpPapers}</div>
-              <div class="text-xs text-white/70">供配电真题</div>
-            </div>
-            <div class="bg-white/15 rounded-xl px-4 py-2 backdrop-blur-sm">
-              <div class="text-xl font-bold">${fsPapers}</div>
-              <div class="text-xs text-white/70">发输变电真题</div>
-            </div>
-            <div class="bg-white/15 rounded-xl px-4 py-2 backdrop-blur-sm">
-              <div class="text-xl font-bold">${gpDone+fsDone}<span class="text-xs opacity-70">/${totalPapers}</span></div>
-              <div class="text-xs text-white/70">已学完</div>
-            </div>
+            <div class="ee-hero-stat"><div class="num">${totalYears}</div><div class="lbl">年份覆盖</div></div>
+            <div class="ee-hero-stat"><div class="num">${gpPapers}</div><div class="lbl">供配电真题</div></div>
+            <div class="ee-hero-stat"><div class="num">${fsPapers}</div><div class="lbl">发输变电真题</div></div>
+            <div class="ee-hero-stat"><div class="num">${gpDone+fsDone}<span class="text-xs opacity-70">/${totalPapers}</span></div><div class="lbl">已学完</div></div>
           </div>
         </div>
-      </div>
+      </section>
 
       <!-- 筛选：专业 + 年份 -->
-      <div class="bg-white rounded-xl border border-slate-100 p-4 mb-5">
+      <div class="ee-panel mb-5">
         <div class="flex gap-2 flex-wrap text-xs mb-2 items-center">
-          <span class="text-slate-500 font-medium">📂 专业筛选：</span>
+          <span class="font-medium" style="color:var(--ee-text-gray);"><i class="fas fa-folder-open"></i> 专业筛选：</span>
           ${(['all','供配电','发输变电']).map(c=>{
-            const labels={all:'全部专业','供配电':'🏢 供配电（'+gpPapers+'份）','发输变电':'⚡ 发输变电（'+fsPapers+'份）'};
+            const labels={all:'全部专业','供配电':'<i class="fas fa-plug"></i> 供配电（'+gpPapers+'份）','发输变电':'<i class="fas fa-bolt"></i> 发输变电（'+fsPapers+'份）'};
             const active = currentPaperCat===c;
-            const cls = active ? (c==='供配电'?'bg-blue-500 text-white border-blue-500':(c==='发输变电'?'bg-indigo-500 text-white border-indigo-500':'bg-amber-500 text-white border-amber-500')) : 'border-slate-200 hover:bg-slate-50 text-slate-600';
-            return `<button onclick="setPaperCat('${c}')" class="px-3 py-1.5 rounded-lg border ${cls} font-medium transition-colors">${labels[c]}</button>`;
+            return `<button onclick="setPaperCat('${c}')" class="ee-filter-btn ${active?'active':''}">${labels[c]}</button>`;
           }).join('')}
         </div>
         <div class="flex gap-2 flex-wrap text-xs items-center">
-          <span class="text-slate-500 font-medium">📅 年份筛选：</span>
-          <button onclick="setPaperYear(null)" class="px-3 py-1.5 rounded-lg border ${!currentPaperYear?'bg-amber-500 text-white border-amber-500':'border-slate-200 hover:bg-slate-50'} font-medium">全部年份</button>
-          ${years.map(y=>`<button onclick="setPaperYear(${y})" class="px-3 py-1.5 rounded-lg border ${currentPaperYear===y?'bg-amber-500 text-white border-amber-500':'border-slate-200 hover:bg-slate-50'}">${y}</button>`).join('')}
-          ${(currentPaperYear||currentPaperCat!=='all'||searchKw)?`<button onclick="clearPaperFilter()" class="ml-2 px-3 py-1.5 rounded-lg border border-rose-200 text-rose-500 hover:bg-rose-50 font-medium">✕ 清除全部筛选</button>`:''}
+          <span class="font-medium" style="color:var(--ee-text-gray);"><i class="far fa-calendar"></i> 年份筛选：</span>
+          <button onclick="setPaperYear(null)" class="ee-filter-btn ${!currentPaperYear?'active-orange':''}">全部年份</button>
+          ${years.map(y=>`<button onclick="setPaperYear(${y})" class="ee-filter-btn ${currentPaperYear===y?'active-orange':''}">${y}</button>`).join('')}
+          ${(currentPaperYear||currentPaperCat!=='all'||searchKw)?`<button onclick="clearPaperFilter()" class="ee-filter-btn" style="border-color:#f5b7b1;color:#e74c3c;"><i class="fas fa-times"></i> 清除全部筛选</button>`:''}
         </div>
       </div>
 
-      ${showGp?buildSection('供配电','🏢 注册电气工程师（供配电）','bg-blue-500','from-blue-500 to-cyan-500','🏢',gpPapers,gpDone):''}
-      ${showFs?buildSection('发输变电','⚡ 注册电气工程师（发输变电）','bg-indigo-500','from-indigo-500 to-violet-500','⚡',fsPapers,fsDone):''}
+      ${showGp?buildSection('供配电','注册电气工程师（供配电）','#2e86c1','<i class="fas fa-plug"></i>',gpPapers,gpDone):''}
+      ${showFs?buildSection('发输变电','注册电气工程师（发输变电）','#6c5ce7','<i class="fas fa-bolt"></i>',fsPapers,fsDone):''}
 
-      ${(!showGp&&!showFs)?'<div class="text-center py-16 text-slate-400">暂无符合条件的真题</div>':''}
+      ${(!showGp&&!showFs)?'<div class="ee-panel" style="padding:48px;text-align:center;color:var(--ee-text-light);"><i class="far fa-folder-open" style="font-size:32px;margin-bottom:12px;"></i><div>暂无符合条件的真题</div></div>':''}
     </div>`;
 }
 function setPaperYear(y){currentPaperYear=y; renderPastPapers();}
 function setPaperCat(c){currentPaperCat=c; renderPastPapers();}
 function clearPaperFilter(){currentPaperYear=null; currentPaperCat='all'; searchKw=''; const s=document.getElementById('search'); if(s)s.value=''; renderPastPapers();}
 function paperCard(p){
-  const catColor = p.category==='供配电'?'bg-blue-500':'bg-indigo-500';
+  const catColor = p.category==='供配电'?'#2e86c1':'#6c5ce7';
   const status = progressMap['paper:'+p.id]||'';
-  const statusBadge = status==='done'?'<span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-700">✓ 已学完</span>':'';
+  const statusBadge = status==='done'?'<span class="ee-status-done"><i class="fas fa-check"></i> 已学完</span>':'';
   return `
-    <div class="card-hover bg-white rounded-xl border border-slate-100 p-4 cursor-pointer" onclick="openPaperDetail('${p.id}')">
+    <div class="ee-subject-card cursor-pointer" style="border-left-color:${catColor};margin-bottom:0;" onclick="openPaperDetail('${p.id}')">
       <div class="flex items-center gap-2 mb-2">
-        <span class="text-[10px] px-2 py-0.5 rounded ${catColor} text-white">${escapeHtml(p.category)}</span>
+        <span class="text-[10px] px-2 py-0.5 rounded text-white" style="background:${catColor};">${escapeHtml(p.category)}</span>
         <span class="text-[10px] px-2 py-0.5 bg-slate-100 text-slate-600 rounded">${escapeHtml(p.time)}</span>
         ${statusBadge}
       </div>
-      <div class="text-sm font-medium text-slate-800 mb-1">${escapeHtml(p.type)}</div>
-      <div class="text-xs text-slate-500 mb-2">${escapeHtml(p.questions)}</div>
-      <div class="flex items-center justify-between text-xs text-slate-400">
-        <span>🎬 ${escapeHtml(p.videoTeacher)} · 讲解</span>
-        <span>${p.duration}分钟</span>
+      <div class="text-sm font-medium mb-1" style="color:var(--ee-text-dark);">${escapeHtml(p.type)}</div>
+      <div class="text-xs mb-2" style="color:var(--ee-text-gray);">${escapeHtml(p.questions)}</div>
+      <div class="flex items-center justify-between text-xs" style="color:var(--ee-text-light);">
+        <span><i class="fas fa-video"></i> ${escapeHtml(p.videoTeacher)} · 讲解</span>
+        <span><i class="far fa-clock"></i> ${p.duration}分钟</span>
       </div>
     </div>`;
 }
@@ -1250,50 +1360,46 @@ function openPaperDetail(id){
   const status=progressMap['paper:'+paper.id]||'';
   const embedUrl=biliEmbedUrl(paper.videoBv,paper.videoPage);
   const pageUrl=biliPageUrl(paper.videoBv,paper.videoPage);
-  const catColor = paper.category==='供配电'?'bg-blue-500':'bg-indigo-500';
+  const catColor = paper.category==='供配电'?'#2e86c1':'#6c5ce7';
   app.innerHTML=`
     <div class="fade-in">
-      <button onclick="go('papers')" class="text-sm text-slate-500 hover:text-amber-600 mb-3">← 返回真题列表</button>
+      <button onclick="go('papers')" class="ee-btn ee-btn-outline mb-3"><i class="fas fa-arrow-left"></i> 返回真题列表</button>
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
         <div class="lg:col-span-2 space-y-4">
           <div>
             <div class="flex items-center gap-2 mb-2">
-              <span class="text-xs px-2 py-0.5 rounded ${catColor} text-white">${escapeHtml(paper.category)}</span>
+              <span class="text-xs px-2 py-0.5 rounded text-white" style="background:${catColor};">${escapeHtml(paper.category)}</span>
               <span class="text-xs px-2 py-0.5 bg-slate-100 text-slate-600 rounded">${escapeHtml(paper.time)}</span>
-              <span class="text-xs px-2 py-0.5 bg-amber-100 text-amber-700 rounded">📅 ${getPaperYear(id)}年</span>
+              <span class="text-xs px-2 py-0.5 rounded" style="background:#fdebd0;color:#9c640c;"><i class="far fa-calendar"></i> ${getPaperYear(id)}年</span>
             </div>
-            <h2 class="text-lg font-bold">${escapeHtml(paper.type)}</h2>
-            <div class="text-xs text-slate-500 mt-1">${escapeHtml(paper.desc)}</div>
+            <h2 class="text-lg font-bold" style="color:var(--ee-primary-dark);">${escapeHtml(paper.type)}</h2>
+            <div class="text-xs mt-1" style="color:var(--ee-text-gray);">${escapeHtml(paper.desc)}</div>
           </div>
-          <div class="bg-slate-900 rounded-xl overflow-hidden">
-            <div class="aspect-video w-full">
-              <iframe src="${embedUrl}" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" class="w-full h-full"></iframe>
+          <div class="ee-video-card" style="cursor:default;">
+            <div class="ee-video-thumb" style="background:#000;">
+              <iframe src="${embedUrl}" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"></iframe>
             </div>
           </div>
           <div class="flex gap-2 flex-wrap">
-            <a href="${pageUrl}" target="_blank" rel="noopener" class="inline-flex items-center gap-1 px-4 py-2 rounded-lg bg-blue-600 text-white text-sm hover:bg-blue-700">
-              <span>🔗</span> 前往B站观看（备用链接）
-            </a>
-            <a href="${paper.pdfUrl}" target="_blank" rel="noopener" class="inline-flex items-center gap-1 px-4 py-2 rounded-lg bg-rose-600 text-white text-sm hover:bg-rose-700">
-              <span>📥</span> 下载PDF真题
-            </a>
+            <a href="${pageUrl}" target="_blank" rel="noopener" class="ee-btn ee-btn-bili"><i class="fab fa-bilibili"></i> 前往B站观看（备用链接）</a>
+            <a href="${paper.pdfUrl}" target="_blank" rel="noopener" class="ee-btn ee-btn-pdf"><i class="fas fa-download"></i> 下载PDF真题</a>
           </div>
 
           <!-- 学习笔记 -->
-          <div class="bg-white rounded-xl border border-slate-100 p-4">
-            <div class="flex items-center justify-between mb-3">
-              <h3 class="font-bold text-sm">📝 ${getPaperYear(id)}年${paper.category}${paper.time}${paper.type} · 学习笔记</h3>
+          <div class="ee-panel">
+            <div class="flex items-center justify-between mb-3 flex-wrap gap-2">
+              <h3 class="ee-panel-title" style="margin-bottom:0;"><i class="fas fa-pencil-alt"></i> ${getPaperYear(id)}年${paper.category}${paper.time}${paper.type} · 学习笔记</h3>
               <div class="flex gap-2">
                 ${['planned','learning','done'].map(st=>{
-                  const labels={planned:'📋 计划',learning:'📖 学习中',done:'✅ 已学完'};
-                  const colors={planned:'border-slate-300 text-slate-600 hover:bg-slate-50',learning:'border-blue-500 text-blue-600 bg-blue-50',done:'border-emerald-500 text-emerald-600 bg-emerald-50'};
+                  const labels={planned:'<i class="far fa-clipboard"></i> 计划',learning:'<i class="fas fa-book-open"></i> 学习中',done:'<i class="fas fa-check-circle"></i> 已学完'};
+                  const cls={planned:'ee-st-planned',learning:'ee-st-learning',done:'ee-st-done'};
                   const cur=status===st;
-                  return `<button onclick="setStatus('paper:${paper.id}','${st}')" class="text-xs px-2.5 py-1 rounded-lg border ${colors[st]} ${cur?'font-bold':''}">${labels[st]}</button>`;
+                  return `<button onclick="setStatus('paper:${paper.id}','${st}')" class="ee-status-btn ${cls[st]} ${cur?'cur':''}">${labels[st]}</button>`;
                 }).join('')}
               </div>
             </div>
-            <textarea id="noteArea" oninput="onNoteInput('paper:${paper.id}')" rows="16" placeholder="边听视频边记笔记：&#10;1. 记录解题思路和关键公式&#10;2. 标注易错点和规范依据&#10;3. 总结同类题的通用解法&#10;自动保存到本地浏览器。" class="w-full text-sm p-3 rounded-lg border border-slate-200 focus:border-blue-400 outline-none resize-y">${escapeHtml(notes)}</textarea>
-            <div class="text-[10px] text-slate-400 mt-1 flex justify-between">
+            <textarea id="noteArea" oninput="onNoteInput('paper:${paper.id}')" rows="16" placeholder="边听视频边记笔记：&#10;1. 记录解题思路和关键公式&#10;2. 标注易错点和规范依据&#10;3. 总结同类题的通用解法&#10;自动保存到本地浏览器。" class="ee-note-area">${escapeHtml(notes)}</textarea>
+            <div class="text-[10px] mt-1 flex justify-between" style="color:var(--ee-text-light);">
               <span id="noteStatus-paper:${paper.id}"></span>
               <span>${notes.length} 字</span>
             </div>
@@ -1301,66 +1407,66 @@ function openPaperDetail(id){
         </div>
         <div class="lg:col-span-1 space-y-4">
           <!-- 同年份试卷导航 -->
-          <div class="bg-white rounded-xl border border-slate-100 p-4 sticky top-20">
-            <h3 class="font-bold text-sm mb-3">📑 ${getPaperYear(id)}年同卷导航</h3>
+          <div class="ee-panel sticky top-20">
+            <h3 class="ee-panel-title"><i class="fas fa-list"></i> ${getPaperYear(id)}年同卷导航</h3>
             <div class="space-y-1.5 max-h-48 overflow-y-auto scroll-thin">
               ${getYearPapers(id).map(p=>`
-                <div onclick="openPaperDetail('${p.id}')" class="cursor-pointer px-2.5 py-1.5 rounded-lg text-xs ${p.id===id?'bg-amber-50 border border-amber-200 text-amber-800 font-medium':'bg-slate-50 text-slate-600 hover:bg-slate-100 border border-transparent'}">
+                <div onclick="openPaperDetail('${p.id}')" class="cursor-pointer px-2.5 py-1.5 rounded-lg text-xs ${p.id===id?'font-medium':'hover:bg-slate-100'}" style="${p.id===id?'background:#fef9e7;border:1px solid #f39c12;color:#7e5109;':'background:#f4f6f7;color:var(--ee-text-gray);border:1px solid transparent;'}">
                   <div class="flex items-center gap-1.5">
-                    <span class="text-[10px] px-1 rounded ${p.category==='供配电'?'bg-blue-100 text-blue-700':'bg-indigo-100 text-indigo-700'}">${p.category}</span>
+                    <span class="text-[10px] px-1 rounded" style="${p.category==='供配电'?'background:#dbeafe;color:#1e40af;':'background:#ede7f6;color:#4527a0;'}">${p.category}</span>
                     <span>${p.time}</span>
-                    <span class="text-slate-400">${p.type}</span>
+                    <span style="color:var(--ee-text-light);">${p.type}</span>
                   </div>
                 </div>
               `).join('')}
             </div>
           </div>
           <!-- 报考查询 -->
-          <div class="bg-white rounded-xl border border-slate-100 p-4 sticky top-32">
-            <h3 class="font-bold text-sm mb-3">📋 报考查询</h3>
+          <div class="ee-panel sticky top-32">
+            <h3 class="ee-panel-title"><i class="fas fa-clipboard-list"></i> 报考查询</h3>
             <div class="space-y-2.5 text-sm">
-              <a href="http://www.cpta.com.cn" target="_blank" rel="noopener" class="flex items-center gap-2 p-2.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 transition-colors">
-                <span class="text-lg">🌐</span>
+              <a href="http://www.cpta.com.cn" target="_blank" rel="noopener" class="flex items-center gap-2 p-2.5 rounded-lg transition-colors" style="background:#eaf2f8;color:var(--ee-primary);">
+                <span class="text-lg"><i class="fas fa-globe"></i></span>
                 <div>
                   <div class="font-medium">中国人事考试网</div>
-                  <div class="text-xs text-blue-500">报名入口 / 成绩查询</div>
+                  <div class="text-xs" style="color:var(--ee-primary-light);">报名入口 / 成绩查询</div>
                 </div>
               </a>
-              <a href="https://www.mohurd.gov.cn" target="_blank" rel="noopener" class="flex items-center gap-2 p-2.5 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-700 transition-colors">
-                <span class="text-lg">🏛️</span>
+              <a href="https://www.mohurd.gov.cn" target="_blank" rel="noopener" class="flex items-center gap-2 p-2.5 rounded-lg transition-colors" style="background:#f4f6f7;color:var(--ee-text-dark);">
+                <span class="text-lg"><i class="fas fa-landmark"></i></span>
                 <div>
                   <div class="font-medium">住建部执业资格中心</div>
-                  <div class="text-xs text-slate-500">考试政策 / 注册管理</div>
+                  <div class="text-xs" style="color:var(--ee-text-gray);">考试政策 / 注册管理</div>
                 </div>
               </a>
-              <div class="p-2.5 rounded-lg bg-amber-50 text-amber-800">
-                <div class="font-medium text-xs mb-1">⏰ 2025年考试时间</div>
+              <div class="p-2.5 rounded-lg" style="background:#fef9e7;color:#7e5109;">
+                <div class="font-medium text-xs mb-1"><i class="far fa-clock"></i> 2025年考试时间</div>
                 <div class="text-xs">预计 10月中旬（以官方通知为准）</div>
               </div>
             </div>
           </div>
           <!-- 考试指南 -->
-          <div class="bg-white rounded-xl border border-slate-100 p-4 sticky top-[28rem]">
-            <h3 class="font-bold text-sm mb-3">📖 考试指南</h3>
-            <div class="space-y-2 text-xs text-slate-600">
+          <div class="ee-panel sticky top-[28rem]">
+            <h3 class="ee-panel-title"><i class="fas fa-book"></i> 考试指南</h3>
+            <div class="space-y-2 text-xs" style="color:var(--ee-text-gray);">
               <div class="flex items-start gap-2">
-                <span class="text-amber-500 mt-0.5">•</span>
+                <span class="mt-0.5" style="color:var(--ee-accent-orange);"><i class="fas fa-circle" style="font-size:5px;"></i></span>
                 <span><b>考试分制：</b>上下午各3小时，满分200分，合格线约120分</span>
               </div>
               <div class="flex items-start gap-2">
-                <span class="text-amber-500 mt-0.5">•</span>
+                <span class="mt-0.5" style="color:var(--ee-accent-orange);"><i class="fas fa-circle" style="font-size:5px;"></i></span>
                 <span><b>专业知识：</b>单选题40道，考规范条文和基础概念</span>
               </div>
               <div class="flex items-start gap-2">
-                <span class="text-amber-500 mt-0.5">•</span>
+                <span class="mt-0.5" style="color:var(--ee-accent-orange);"><i class="fas fa-circle" style="font-size:5px;"></i></span>
                 <span><b>专业案例：</b>案例题25道选做，需写出计算过程</span>
               </div>
               <div class="flex items-start gap-2">
-                <span class="text-amber-500 mt-0.5">•</span>
+                <span class="mt-0.5" style="color:var(--ee-accent-orange);"><i class="fas fa-circle" style="font-size:5px;"></i></span>
                 <span><b>作答技巧：</b>案例题先选熟悉的章节，控制每题时间</span>
               </div>
               <div class="pt-2 border-t border-slate-100 mt-2">
-                <div class="text-xs text-slate-400">📌 建议携带：规范手册、计算器、手表</div>
+                <div class="text-xs" style="color:var(--ee-text-light);"><i class="fas fa-thumbtack"></i> 建议携带：规范手册、计算器、手表</div>
               </div>
             </div>
           </div>
@@ -1383,44 +1489,51 @@ function renderManuals(){
   const app=document.getElementById('app');
   app.innerHTML=`
     <div class="fade-in">
-      <h2 class="text-xl font-bold mb-4">考试手册</h2>
+      <div class="ee-page-header">
+        <h2><i class="fas fa-book-open"></i> 考试手册</h2>
+        <p>权威培训机构资料 + 核心规范标准汇编</p>
+      </div>
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
         <div>
-          <h3 class="font-bold mb-3 text-sm">🏫 权威培训机构</h3>
+          <h3 class="ee-section-title"><i class="fas fa-school"></i> 权威培训机构</h3>
           <div class="space-y-2">
             ${manualsData.map(m=>`
-              <div class="bg-white rounded-xl border border-slate-100 p-4 flex items-center gap-3">
-                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-slate-700 to-slate-900 flex items-center justify-center text-white font-bold text-lg flex-shrink-0">${m.logo}</div>
-                <div class="flex-1 min-w-0">
-                  <div class="flex items-center gap-2">
-                    <span class="font-bold text-slate-800">${escapeHtml(m.name)}</span>
-                    <span class="text-[10px] px-1.5 py-0.5 bg-blue-50 text-blue-600 rounded">${escapeHtml(m.platform)}</span>
-                  </div>
-                  <p class="text-xs text-slate-500 mt-0.5 line-clamp-1">${escapeHtml(m.desc)}</p>
-                  <div class="flex items-center gap-2 mt-1">
-                    <span class="text-[10px] px-1.5 py-0.5 bg-slate-100 text-slate-600 rounded">${escapeHtml(m.tag)}</span>
-                    <a href="${escapeHtml(m.url)}" target="_blank" rel="noopener" class="text-[10px] text-blue-600 hover:underline">访问 →</a>
+              <div class="ee-subject-card" style="margin-bottom:0;">
+                <div class="flex items-center gap-3">
+                  <div class="w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-lg flex-shrink-0" style="background:linear-gradient(135deg,var(--ee-primary-light),var(--ee-primary));">${m.logo}</div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-2">
+                      <span class="font-bold" style="color:var(--ee-text-dark);">${escapeHtml(m.name)}</span>
+                      <span class="text-[10px] px-1.5 py-0.5 rounded" style="background:#eaf2f8;color:var(--ee-primary);">${escapeHtml(m.platform)}</span>
+                    </div>
+                    <p class="text-xs mt-0.5 line-clamp-1" style="color:var(--ee-text-gray);">${escapeHtml(m.desc)}</p>
+                    <div class="flex items-center gap-2 mt-1">
+                      <span class="text-[10px] px-1.5 py-0.5 bg-slate-100 text-slate-600 rounded">${escapeHtml(m.tag)}</span>
+                      <a href="${escapeHtml(m.url)}" target="_blank" rel="noopener" class="text-[10px] hover:underline" style="color:var(--ee-primary-light);"><i class="fas fa-external-link-alt"></i> 访问</a>
+                    </div>
                   </div>
                 </div>
               </div>`).join('')}
           </div>
         </div>
         <div>
-          <h3 class="font-bold mb-3 text-sm">📋 核心规范标准</h3>
+          <h3 class="ee-section-title"><i class="fas fa-clipboard-list"></i> 核心规范标准</h3>
           <div class="space-y-2">
             ${standardManuals.map(s=>`
-              <div class="bg-white rounded-xl border border-slate-100 p-3 flex items-center justify-between">
-                <div>
-                  <div class="font-mono text-sm text-blue-700 font-bold">${escapeHtml(s.name)}</div>
-                  <p class="text-xs text-slate-500 mt-0.5">${escapeHtml(s.title)}</p>
+              <div class="ee-subject-card ee-border-green" style="margin-bottom:0;">
+                <div class="flex items-center justify-between gap-2">
+                  <div class="min-w-0">
+                    <div class="font-mono text-sm font-bold" style="color:var(--ee-primary);">${escapeHtml(s.name)}</div>
+                    <p class="text-xs mt-0.5 line-clamp-1" style="color:var(--ee-text-gray);">${escapeHtml(s.title)}</p>
+                  </div>
+                  <span class="text-[10px] px-2 py-0.5 rounded whitespace-nowrap" style="background:#d4efdf;color:#1e8449;">${escapeHtml(s.category)}</span>
                 </div>
-                <span class="text-[10px] px-2 py-0.5 bg-emerald-50 text-emerald-600 rounded whitespace-nowrap">${escapeHtml(s.category)}</span>
               </div>`).join('')}
           </div>
         </div>
       </div>
-      <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 text-xs text-amber-800">
-        💡 <strong>备考建议：</strong>以上规范为注册电气工程师专业考试必考内容，建议在官方渠道购买正版规范。考试时可携带纸质规范手册进入考场。
+      <div class="ee-tip-box">
+        <i class="fas fa-lightbulb"></i> <strong>备考建议：</strong>以上规范为注册电气工程师专业考试必考内容，建议在官方渠道购买正版规范。考试时可携带纸质规范手册进入考场。
       </div>
     </div>`;
 }
@@ -1432,17 +1545,20 @@ function renderNotes(){
   let filtered=searchKw?entries.filter(([k,v])=>v.toLowerCase().includes(searchKw)||k.toLowerCase().includes(searchKw)):entries;
   app.innerHTML=`
     <div class="fade-in">
-      <h2 class="text-xl font-bold mb-4">我的学习笔记 <span class="text-sm text-slate-400 font-normal">（${filtered.length} 条）</span></h2>
-      ${filtered.length===0?`<div class="text-center py-16 text-slate-400">还没有笔记，去章节知识或直播课程中边学边记笔记吧</div>`:
+      <div class="ee-page-header">
+        <h2><i class="fas fa-pencil-alt"></i> 我的学习笔记 <span class="text-sm font-normal" style="color:var(--ee-text-light);">（${filtered.length} 条）</span></h2>
+        <p>本地存储 · 随学随记 · 自动保存</p>
+      </div>
+      ${filtered.length===0?`<div class="ee-panel" style="padding:48px;text-align:center;color:var(--ee-text-light);"><i class="far fa-edit" style="font-size:32px;color:var(--ee-primary-light);margin-bottom:12px;"></i><div>还没有笔记，去章节知识或直播课程中边学边记笔记吧</div></div>`:
         `<div class="space-y-2">${filtered.map(([k,v])=>{
-          const label=k.startsWith('chapter:')?'📚 章节':k.startsWith('live:')?'🎬 课程':k.startsWith('paper:')?'📚 真题':'📝';
+          const label=k.startsWith('chapter:')?'<i class="fas fa-book"></i> 章节':k.startsWith('live:')?'<i class="fas fa-video"></i> 课程':k.startsWith('paper:')?'<i class="fas fa-file-alt"></i> 真题':'<i class="fas fa-pencil-alt"></i> 笔记';
           const title=k.replace('chapter:','').replace('live:','').replace('paper:','');
-          return `<div class="bg-white rounded-xl border border-slate-100 p-4 cursor-pointer hover:border-blue-200" onclick="jumpToNote('${k}')">
+          return `<div class="ee-note-card" onclick="jumpToNote('${k}')">
             <div class="flex items-center gap-2 mb-1">
-              <span class="text-xs">${label}</span>
-              <h3 class="font-medium text-sm">${escapeHtml(title)}</h3>
+              <span class="text-xs" style="color:var(--ee-accent-orange);">${label}</span>
+              <h3 class="font-medium text-sm" style="color:var(--ee-primary-dark);">${escapeHtml(title)}</h3>
             </div>
-            <p class="text-xs text-slate-500 line-clamp-3">${escapeHtml(v.slice(0,200))}</p>
+            <p class="text-xs line-clamp-3" style="color:var(--ee-text-gray);">${escapeHtml(v.slice(0,200))}</p>
           </div>`;
         }).join('')}</div>`}
     </div>`;
