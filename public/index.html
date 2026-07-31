@@ -203,6 +203,49 @@
   .ee-auth-hint{font-size:11px;color:var(--ee-text-light);text-align:center;margin-top:12px;}
   .ee-pwd-modal-title{font-size:18px;color:var(--ee-primary-dark);margin-bottom:18px;display:flex;align-items:center;gap:8px;}
   .ee-pwd-modal-title i{color:var(--ee-accent-orange);}
+  /* ===== 考友分享 ===== */
+  .ee-share-toolbar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:18px;}
+  .ee-share-count{font-size:14px;color:var(--ee-text-gray);display:flex;align-items:center;gap:6px;}
+  .ee-share-count i{color:var(--ee-accent-orange);}
+  .ee-btn-publish{background:var(--ee-primary);color:#fff;border:none;padding:8px 18px;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;transition:var(--ee-transition);}
+  .ee-btn-publish:hover{background:var(--ee-primary-dark);}
+  .ee-share-form{background:#fff;border-radius:var(--ee-radius);padding:22px;box-shadow:var(--ee-shadow);margin-bottom:20px;display:none;}
+  .ee-share-form.show{display:block;}
+  .ee-share-form h3{font-size:16px;color:var(--ee-primary-dark);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+  .ee-share-form h3 i{color:var(--ee-accent-orange);}
+  .ee-share-form input,.ee-share-form textarea{width:100%;padding:9px 12px;border:1px solid var(--ee-border);border-radius:6px;font-size:14px;outline:none;transition:var(--ee-transition);box-sizing:border-box;font-family:inherit;}
+  .ee-share-form input:focus,.ee-share-form textarea:focus{border-color:var(--ee-primary-light);box-shadow:0 0 0 3px rgba(46,134,193,0.12);}
+  .ee-share-form textarea{min-height:100px;resize:vertical;}
+  .ee-share-form .ee-form-row{margin-bottom:12px;}
+  .ee-share-form label{display:block;font-size:13px;color:var(--ee-text-dark);margin-bottom:4px;font-weight:600;}
+  .ee-share-form .ee-form-actions{display:flex;gap:10px;justify-content:flex-end;}
+  .ee-share-form .ee-btn-cancel{background:#eee;color:var(--ee-text-gray);border:none;padding:8px 18px;border-radius:6px;cursor:pointer;font-size:14px;}
+  .ee-share-form .ee-btn-cancel:hover{background:#ddd;}
+  .ee-share-form .ee-btn-submit{background:var(--ee-primary);color:#fff;border:none;padding:8px 18px;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;transition:var(--ee-transition);}
+  .ee-share-form .ee-btn-submit:hover{background:var(--ee-primary-dark);}
+  .ee-share-section-title{font-size:16px;color:var(--ee-primary-dark);margin-bottom:14px;margin-top:24px;display:flex;align-items:center;gap:8px;font-weight:700;}
+  .ee-share-section-title i{color:var(--ee-accent-orange);}
+  .ee-share-section-title .ee-badge{font-size:11px;background:var(--ee-accent-orange);color:#fff;padding:2px 8px;border-radius:10px;font-weight:600;}
+  .ee-share-card{background:#fff;border-radius:var(--ee-radius);padding:16px 18px;box-shadow:var(--ee-shadow);margin-bottom:12px;border-left:4px solid var(--ee-primary-light);transition:var(--ee-transition);}
+  .ee-share-card:hover{box-shadow:var(--ee-shadow-hover);}
+  .ee-share-card.featured{border-left-color:var(--ee-accent-orange);background:linear-gradient(135deg,#fffbf0,#fff);}
+  .ee-share-card .ee-share-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+  .ee-share-card .ee-share-author{font-size:14px;font-weight:600;color:var(--ee-primary-dark);display:flex;align-items:center;gap:6px;}
+  .ee-share-card .ee-share-author i{color:var(--ee-primary-light);}
+  .ee-share-card.featured .ee-share-author i{color:var(--ee-accent-orange);}
+  .ee-share-card .ee-share-time{font-size:11px;color:var(--ee-text-light);}
+  .ee-share-card .ee-share-title{font-size:15px;font-weight:700;color:var(--ee-text-dark);margin-bottom:6px;}
+  .ee-share-card .ee-share-content{font-size:13px;color:var(--ee-text-gray);line-height:1.7;white-space:pre-wrap;}
+  .ee-share-card .ee-share-actions{margin-top:10px;display:flex;gap:8px;}
+  .ee-share-card .ee-btn-del{background:none;border:1px solid #e74c3c;color:#e74c3c;padding:4px 10px;border-radius:4px;font-size:12px;cursor:pointer;transition:var(--ee-transition);}
+  .ee-share-card .ee-btn-del:hover{background:#e74c3c;color:#fff;}
+  .ee-share-empty{text-align:center;padding:40px;color:var(--ee-text-light);}
+  .ee-share-empty i{font-size:36px;color:var(--ee-primary-light);margin-bottom:12px;}
+  .ee-login-prompt{background:#fff;border-radius:var(--ee-radius);padding:32px;box-shadow:var(--ee-shadow);text-align:center;}
+  .ee-login-prompt i{font-size:32px;color:var(--ee-primary-light);margin-bottom:12px;}
+  .ee-login-prompt p{color:var(--ee-text-gray);margin-bottom:14px;}
+  .ee-login-prompt button{background:var(--ee-primary);color:#fff;border:none;padding:8px 24px;border-radius:6px;font-size:14px;cursor:pointer;font-weight:600;}
+  .ee-login-prompt button:hover{background:var(--ee-primary-dark);}
 </style>
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen">
@@ -226,6 +269,7 @@
     <button onclick="go('papers')" class="ee-nav-tab" data-tab="papers"><i class="fas fa-file-alt"></i> 历年真题</button>
     <button onclick="go('manuals')" class="ee-nav-tab" data-tab="manuals"><i class="fas fa-book-open"></i> 考试手册</button>
     <button onclick="go('notes')" class="ee-nav-tab" data-tab="notes"><i class="fas fa-pencil-alt"></i> 学习笔记</button>
+    <button onclick="go('share')" class="ee-nav-tab" data-tab="share"><i class="fas fa-users"></i> 考友分享</button>
   </nav>
 </header>
 
@@ -948,6 +992,7 @@ function go(view){
   else if(view==='papers') renderPastPapers();
   else if(view==='manuals') renderManuals();
   else if(view==='notes') renderNotes();
+  else if(view==='share') renderShare();
 }
 function onSearch(v){searchKw=v.trim().toLowerCase(); go(currentView);}
 
@@ -1006,6 +1051,12 @@ function renderHome(){
           <h3>我的笔记</h3>
           <div class="ee-card-sub">本地存储 · 随学随记</div>
           <p>边看边记，自动保存到本地浏览器</p>
+        </div>
+        <div onclick="go('share')" class="ee-section-card" style="border-top-color:#8e44ad;">
+          <div class="ee-card-icon" style="background:linear-gradient(135deg,#8e44ad,#6c3483);"><i class="fas fa-users"></i></div>
+          <h3>考友分享</h3>
+          <div class="ee-card-sub">精选经验 · 备考心得</div>
+          <p>考友通关经验分享，发布你的备考心得，互相学习</p>
         </div>
       </div>
     </div>`;
@@ -1623,6 +1674,107 @@ function setStatus(key,status){
   if(currentView==='chapters') renderChapterDetail();
   else if(currentView==='live'){if(currentLiveId) openLiveDetail(currentLiveId); else renderLive();}
   else if(currentView==='papers'){if(currentPaperId) openPaperDetail(currentPaperId); else renderPastPapers();}
+}
+
+// ============ 考友分享 ============
+var SHARES_KEY='ee-shares';
+var FEATURED_SHARES=[
+  {id:'f1',author:'张工学霸',title:'供配电一次通关经验分享',content:'我是2024年通过的供配电专业考试，分享一下我的备考经验：\n\n1. 复习时间：建议至少提前6个月开始准备，每天保证3-4小时学习时间。\n\n2. 资料选择：以《注册电气工程师执业资格考试专业考试复习教程》为主线，配合张工教育的精讲班视频。\n\n3. 重点章节：安全（必考大题）、供配电系统（负荷计算+短路计算）、低压配电（导体选择+开关选择）、防雷接地（历年必考）。\n\n4. 做题策略：先做近5年真题摸清出题规律，再回去针对性复习薄弱环节。考试时先做有把握的题，不会的先跳过。\n\n5. 规范熟悉：考试时可以带规范，一定要提前在规范上做好标注和索引，节省翻找时间。\n\n祝大家都能一次通过！',createdAt:'2024-12-15T10:30:00',featured:true},
+  {id:'f2',author:'发输变电小王',title:'发输变电专业考试通关心得',content:'背景：工科电气专业毕业8年，从事电力设计工作，2024年通过发输变电专业考试。\n\n1. 工作经验帮助很大，很多知识点在实际项目中有接触，理解起来比较快。\n\n2. 复习方法：先看一遍精讲班视频建立整体框架，然后按章节做习题巩固，最后做历年真题模拟考试环境。\n\n3. 发输变电重点：主变压器选择、电气主接线、导体和电器选择、高压配电装置、过电压保护及绝缘配合、接地这些是必考大题方向。\n\n4. 考试技巧：下午案例题一定要仔细审题，很多陷阱在题目条件中，比如海拔修正、温度修正等。\n\n5. 时间管理：上午知识题控制好节奏，下午案例题每题大约15-20分钟，做不出来的果断放弃。',createdAt:'2024-11-20T14:15:00',featured:true},
+  {id:'f3',author:'二次过考老李',title:'二战上岸的经验教训',content:'第一次考试差2分没过，复盘原因主要是：\n\n1. 没有充分做真题，只做了3年真题就上考场了。\n2. 对规范不够熟悉，考场上翻规范太慢。\n3. 计算题速度不够，最后一道大题没来得及做。\n\n第二年调整策略：\n1. 把近10年真题全部做了一遍，每道题都理解出题意图。\n2. 提前2个月开始整理规范索引，在每本规范上贴了标签。\n3. 每周做一次模拟考试，严格限时4小时。\n4. 重点攻克计算题，总结了各类计算模板。\n\n最终以高出合格线8分的成绩通过。教训就是：真题一定要多做，规范一定要熟！',createdAt:'2025-01-05T09:00:00',featured:true},
+  {id:'f4',author:'珞研学员小陈',title:'零基础跨考供配电经验',content:'本人非电气专业，跨考供配电，备考9个月一次通过。分享给同样跨专业的考友：\n\n1. 基础薄弱的，强烈建议报班跟学。我报了珞研的全科班，跟着老师的节奏走比自己看书效率高很多。\n\n2. 前期（1-3月）：先过一遍基础概念，不要急着做题，先把供配电系统整体搞明白。\n\n3. 中期（4-6月）：看精讲班视频+做章节习题，每个章节学完就做对应练习。\n\n4. 后期（7-9月）：集中做真题+模拟考，每周至少做一套完整试卷。\n\n5. 跨专业最大的困难是规范不熟悉，建议把常用的30多本规范按考试频率排序，优先熟悉高频规范。\n\n6. 心态调整：跨专业确实会更辛苦，但只要坚持下来，通过的概率还是很大的。加油！',createdAt:'2025-02-10T16:45:00',featured:true}
+];
+function getShares(){
+  try{var raw=localStorage.getItem(SHARES_KEY);return raw?JSON.parse(raw):[];}catch(e){return[];}
+}
+function saveShares(shares){try{localStorage.setItem(SHARES_KEY,JSON.stringify(shares));}catch(e){}}
+function addShare(username,title,content){
+  var shares=getShares();
+  var share={id:'s'+Date.now(),author:username,title:title,content:content,createdAt:new Date().toISOString(),featured:false};
+  shares.unshift(share);
+  saveShares(shares);
+  return share;
+}
+function deleteShare(id){
+  var shares=getShares();
+  shares=shares.filter(function(s){return s.id!==id;});
+  saveShares(shares);
+}
+function renderShare(){
+  var app=document.getElementById('app');
+  var user=window.EEAuth?window.EEAuth.getCurrentUser():null;
+  var userShares=getShares().filter(function(s){return s.author===user;});
+  var allUserShares=getShares();
+  app.innerHTML=`
+    <div class="fade-in">
+      <div class="ee-page-header">
+        <h2><i class="fas fa-users"></i> 考友经验分享 <span class="text-sm font-normal" style="color:var(--ee-text-light);">（精选 ${FEATURED_SHARES.length} + 考友 ${allUserShares.length}）</span></h2>
+        <p>学习经验 · 备考心得 · 通关秘诀</p>
+      </div>
+      <div class="ee-share-toolbar">
+        <div class="ee-share-count"><i class="fas fa-lightbulb"></i> 共 ${FEATURED_SHARES.length+allUserShares.length} 条分享</div>
+        ${user?'<button class="ee-btn-publish" onclick="toggleShareForm()"><i class="fas fa-plus"></i> 发布分享</button>':'<button class="ee-btn-publish" onclick="window.EEAuth?window.EEAuth.openAuthModal():void(0)"><i class="fas fa-sign-in-alt"></i> 登录后发布</button>'}
+      </div>
+      <div class="ee-share-form" id="shareForm">
+        <h3><i class="fas fa-pen-fancy"></i> 发布我的分享</h3>
+        <div class="ee-form-row">
+          <label>标题（5-50字）</label>
+          <input type="text" id="shareTitle" placeholder="请输入分享标题" maxlength="50">
+        </div>
+        <div class="ee-form-row">
+          <label>内容（10-1000字）</label>
+          <textarea id="shareContent" placeholder="分享你的备考经验、学习心得、通关秘诀…" maxlength="1000"></textarea>
+        </div>
+        <div class="ee-form-actions">
+          <button class="ee-btn-cancel" onclick="toggleShareForm()">取消</button>
+          <button class="ee-btn-submit" onclick="submitShare()">发布</button>
+        </div>
+        <p id="shareMsg" class="ee-auth-message"></p>
+      </div>
+      <div class="ee-share-section-title"><i class="fas fa-star"></i> 精选分享 <span class="ee-badge">推荐</span></div>
+      ${FEATURED_SHARES.map(function(s){return renderShareCard(s,true);}).join('')}
+      ${userShares.length>0?`
+        <div class="ee-share-section-title"><i class="fas fa-user"></i> 我的分享 <span class="ee-badge">${userShares.length}</span></div>
+        ${userShares.map(function(s){return renderShareCard(s,false,true);}).join('')}
+      `:''}
+      ${allUserShares.filter(function(s){return s.author!==user;}).length>0?`
+        <div class="ee-share-section-title"><i class="fas fa-comments"></i> 考友分享 <span class="ee-badge">${allUserShares.filter(function(s){return s.author!==user;}).length}</span></div>
+        ${allUserShares.filter(function(s){return s.author!==user;}).map(function(s){return renderShareCard(s,false,false);}).join('')}
+      `:''}
+    </div>`;
+}
+function renderShareCard(s,isFeatured,isMine){
+  var dateStr=s.createdAt?new Date(s.createdAt).toLocaleDateString('zh-CN',{year:'numeric',month:'long',day:'numeric'}):'';
+  return `<div class="ee-share-card ${isFeatured?'featured':''}">
+    <div class="ee-share-header">
+      <div class="ee-share-author"><i class="fas ${isFeatured?'fa-award':'fa-user-circle'}"></i> ${escapeHtml(s.author)}</div>
+      <span class="ee-share-time">${dateStr}</span>
+    </div>
+    <div class="ee-share-title">${escapeHtml(s.title)}</div>
+    <div class="ee-share-content">${escapeHtml(s.content)}</div>
+    ${isMine?`<div class="ee-share-actions"><button class="ee-btn-del" onclick="confirmDeleteShare('${s.id}')"><i class="fas fa-trash-alt"></i> 删除</button></div>`:''}
+  </div>`;
+}
+function toggleShareForm(){
+  var form=document.getElementById('shareForm');
+  if(form)form.classList.toggle('show');
+}
+function submitShare(){
+  var user=window.EEAuth?window.EEAuth.getCurrentUser():null;
+  if(!user){toast('请先登录','error');return;}
+  var titleEl=document.getElementById('shareTitle');
+  var contentEl=document.getElementById('shareContent');
+  var msgEl=document.getElementById('shareMsg');
+  var title=(titleEl.value||'').trim();
+  var content=(contentEl.value||'').trim();
+  if(title.length<5||title.length>50){msgEl.textContent='标题需要5-50个字符';msgEl.className='ee-auth-message error';return;}
+  if(content.length<10||content.length>1000){msgEl.textContent='内容需要10-1000个字符';msgEl.className='ee-auth-message error';return;}
+  addShare(user,title,content);
+  toast('分享发布成功！','success');
+  renderShare();
+}
+function confirmDeleteShare(id){
+  if(confirm('确定要删除这条分享吗？')){deleteShare(id);renderShare();}
 }
 
 // ============ 启动 ============
